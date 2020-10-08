@@ -1,5 +1,5 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  id: "coolio",
+  testPathIgnorePatterns: ["/node_modules/", "/config/"],
 };

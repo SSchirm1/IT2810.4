@@ -21,7 +21,7 @@ class ByController {
   }
 
   private getAllByer = async (request: Request, res: Response) => {
-    const byer = this.byService.getAllByer();
+    const byer = await this.byService.getAllByer();
     res.json(byer);
   };
 
