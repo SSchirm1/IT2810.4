@@ -1,9 +1,9 @@
 module.exports = {
   type: "postgres",
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USER,
-  password: process.env.DB_PW,
+  host: "it2810-72.idi.ntnu.no",
+  port: "5432",
+  username: "postgres",
+  password: "postgres",
   database: "test",
   entities: ["src/entity/*.{js,ts}"],
   migrations: ["src/migration/*.{js,ts}"],
