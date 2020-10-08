@@ -1,0 +1,8 @@
+host: it2810-72.idi.ntnu.no
+user: postgres
+pw: postgres
+port: 5432
+should be accessible from outside
+https://www.tutorialspoint.com/typeorm/typeorm_migrations.htm
+Generate migrations: npx ts-node ./node_modules/typeorm/cli.js migration:generate -n {name}
+Run migrations: npx ts-node ./node_modules/typeorm/cli.js migration:run {name}
