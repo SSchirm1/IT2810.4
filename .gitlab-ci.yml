@@ -1,0 +1,19 @@
+cache:
+  paths:
+    - /node_modules/
+
+stages:
+  - test
+
+unit_test:
+  image: node
+  stage: test
+  variables:
+    NODE_ENV: test
+  before_script:
+    # Install npm
+    - cd /builds/it2810-h20/team-72/prosjekt-3/api
+    - npm install
+  script:
+    - npm test
+    - npx prettier .c .
