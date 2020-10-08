@@ -1,11 +1,13 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { By } from "../entity/By";
+import ByService from "../services/by";
 
 class ByController {
   public path = "/byer";
   public router = Router();
   private byRepository = getRepository(By);
+  private byService = new ByService();
 
   constructor() {
     this.initializeRoutes();
@@ -19,7 +21,7 @@ class ByController {
   }
 
   private getAllByer = async (request: Request, res: Response) => {
-    const byer = await getRepository(By).find({ relations: ["studentbyer"] });
+    const byer = this.byService.getAllByer();
     res.json(byer);
   };
 

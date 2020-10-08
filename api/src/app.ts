@@ -2,6 +2,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { createConnection } from "typeorm";
 import Controller from "./interfaces/controller";
+
 var cors = require("cors");
 
 class App {
