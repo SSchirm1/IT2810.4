@@ -11,8 +11,9 @@ unit_test:
   variables:
     NODE_ENV: test
   before_script:
-    # Install yarn
-    - npm
+    # Install npm
+    - cd /api
+    - npm install
   script:
     - npm test
     - npx prettier .c .
