@@ -12,6 +12,7 @@ unit_test:
     NODE_ENV: test
   before_script:
     # Install npm
+    - cd /builds//builds/it2810-h20/team-72/prosjekt-3/api
     - npm install
   script:
     - npm test
