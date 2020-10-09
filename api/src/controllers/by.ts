@@ -7,7 +7,7 @@ class ByController {
   public path = "/byer";
   public router = Router();
   private byRepository = getRepository(By);
-  private byService = new ByService();
+  public byService = new ByService();
 
   constructor() {
     this.initializeRoutes();

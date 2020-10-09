@@ -10,7 +10,7 @@ class App {
 
   constructor(controllers: Controller[]) {
     this.app = express();
-
+    console.log("Ok");
     this.connectToTheDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);

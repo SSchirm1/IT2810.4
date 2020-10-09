@@ -34,7 +34,9 @@
   "devDependencies": {
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.14",
+    "@types/supertest": "^2.0.10",
     "jest": "^26.5.2",
+    "supertest": "^5.0.0",
     "ts-jest": "^26.4.1",
     "ts-node-dev": "^1.0.0-pre.44"
   }
