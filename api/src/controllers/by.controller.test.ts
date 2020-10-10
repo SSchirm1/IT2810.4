@@ -6,7 +6,7 @@ import {
   tearDownDatabase,
 } from "typeorm-seeding";
 import * as request from "supertest";
-import ByController from "../controllers/By";
+import ByController from "./By";
 import App from "../app";
 import CreateByerWithReviews from "../seeds/createByerWithReviews";
 
