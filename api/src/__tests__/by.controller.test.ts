@@ -6,16 +6,15 @@ import {
   runSeeder,
   tearDownDatabase,
 } from "typeorm-seeding";
-import CreateByer from "../seeds/byer";
-import ByService from "./by";
+import CreateByer from "../seeds/createByerWithReviews";
 import * as request from "supertest";
-import ByController from "../controllers/by";
+import ByController from "../controllers/By";
 import App from "../app";
 import { doesNotMatch } from "assert";
+import CreateByerWithReviews from "../seeds/createByerWithReviews";
 
 describe("ByController", () => {
   let connection: Connection | void;
-  let byService: ByService;
   let byController: ByController;
   let app: App;
 
@@ -25,7 +24,7 @@ describe("ByController", () => {
       app = new App([byController]);
     });
     await useSeeding();
-    await runSeeder(CreateByer);
+    await runSeeder(CreateByerWithReviews);
     done();
   });
 
@@ -36,9 +35,11 @@ describe("ByController", () => {
   });
 
   test("Should exist 2 byer", async () => {
-    await byController.byService
-      .getAllByer()
-      .then((data) => expect(data.length).toBe(2));
+    await request(app.getServer())
+      .get("/api/byer")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => expect(response.body.length).toBe(2));
   });
 
   test("GET /api/byer", async () => {

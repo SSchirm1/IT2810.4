@@ -21,7 +21,7 @@ export class ReviewSubscriber implements EntitySubscriberInterface<Review> {
    * Called after review insertion.
    */
   async afterInsert(event: InsertEvent<Review>) {
-    console.log(`AFTER POST INSERTED: `, event.entity);
+    //console.log(`AFTER POST INSERTED: `, event.entity);
 
     const studentby = await getRepository(Studentby).findOne(
       event.entity.studentby.id,
