@@ -1,16 +1,13 @@
-import { Connection, createConnection, getConnection } from "typeorm";
+import { Connection, getConnection } from "typeorm";
 import {
   useRefreshDatabase,
   useSeeding,
-  factory,
   runSeeder,
   tearDownDatabase,
 } from "typeorm-seeding";
-import CreateByer from "../seeds/createByerWithReviews";
 import * as request from "supertest";
 import ByController from "../controllers/By";
 import App from "../app";
-import { doesNotMatch } from "assert";
 import CreateByerWithReviews from "../seeds/createByerWithReviews";
 
 describe("ByController", () => {
