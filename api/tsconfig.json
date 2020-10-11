@@ -3,7 +3,7 @@
     "lib": ["es5", "es6", "dom"],
     "target": "es6",
     "module": "es6",
-    "moduleResolution": "commonjs",
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
