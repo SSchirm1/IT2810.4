@@ -1,0 +1,20 @@
+module.exports = {
+  type: "postgres",
+  host: "it2810-72.idi.ntnu.no",
+  port: "5432",
+  username: "postgres",
+  password: "postgres",
+  database: "test",
+  entities: ["src/entity/*.{js,ts}"],
+  migrations: ["src/migration/*.{js,ts}"],
+  seeds: ["src/seeds/*.{js,ts}"],
+  subscribers: ["src/subscribers/*.{js,ts}"],
+  factories: ["src/factories/*.{js,ts}"],
+  cli: {
+    entitiesDir: "src/entity",
+    migrationsDir: "src/migration",
+    subscribersDir: "src/subscriber",
+  },
+  logging: false,
+  synchronize: false,
+};
