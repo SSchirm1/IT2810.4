@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { By } from "../entity/By";
+import { By } from "../entity/by.entity";
 
 class ByController {
   public path = "/byer";
@@ -31,17 +31,25 @@ class ByController {
   };
 
   private getByByName = async (req: Request, res: Response) => {
+    const name: string =
+      req.params.name.charAt(0).toUpperCase() + req.params.name.slice(1);
+
     const results = await this.byRepository.findOne({
-      where: { path: req.params.name.toLowerCase() },
+      where: { navn: name },
       relations: ["studentbyer"],
     });
     return res.send(results);
   };
 
   private createBy = async (req: Request, res: Response) => {
-    const by = this.byRepository.create(req.body);
-    const results = await this.byRepository.save(by);
-    return res.send(results);
+    try {
+      const by = this.byRepository.create(req.body);
+      const results = await this.byRepository.save(by);
+      res.send(results);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send(e);
+    }
   };
 }
 

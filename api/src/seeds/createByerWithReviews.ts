@@ -1,12 +1,12 @@
 import { Factory, Seeder } from "typeorm-seeding";
-import { Review } from "../entity/Review";
-import { By } from "../entity/By";
-import { Studentby } from "../entity/Studentby";
+import { Review } from "../entity/review.entity";
+import { By } from "../entity/by.entity";
+import { Studentby } from "../entity/studentby.entity";
 
 export default class CreateByerWithReviews implements Seeder {
   public async run(factory: Factory): Promise<void> {
-    const oslo = await factory(By)().create({ navn: "Oslo " });
-    const trondheim = await factory(By)().create({ navn: "Trondheim " });
+    const oslo = await factory(By)().create({ navn: "Oslo" });
+    const trondheim = await factory(By)().create({ navn: "Trondheim" });
 
     const studentbyerOslo = await factory(Studentby)()
       .map(async (studentby) => {

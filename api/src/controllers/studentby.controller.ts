@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import { getRepository, FindManyOptions } from "typeorm";
-import { Studentby } from "../entity/Studentby";
-import { Review } from "../entity/Review";
-import { By } from "../entity/By";
+import { Studentby } from "../entity/studentby.entity";
+import { Review } from "../entity/review.entity";
+import { By } from "../entity/by.entity";
 
 class StudentbyController {
   public path = "/studentbyer";
@@ -28,15 +28,21 @@ class StudentbyController {
   }
 
   private getAllStudentbyer = async (req: Request, res: Response) => {
-    const studentbyer = await this.studentbyRepository.find({
-      relations: ["by"],
-    });
-    res.json(studentbyer);
+    if (req.query.skip && req.query.take) {
+      const options: FindManyOptions = {
+        relations: ["by"],
+        take: Number(req.query.take),
+        skip: Number(req.query.skip),
+      };
+      const [studentbyer, count] = await this.studentbyRepository.findAndCount(
+        options
+      );
+      return res.json({ studentbyer, count });
+    }
+    const [studentbyer, count] = await this.studentbyRepository.findAndCount();
+    return res.json({ studentbyer, count });
   };
 
-  // Maybe this is where we return average rating, number of ratings etc...
-  // At the first fetch, get this + 5 reviews. Only send one request the first time?
-  // But maybe its not worth the trouble, its only 1 extra http request
   private getStudentbyById = async (req: Request, res: Response) => {
     const results = await this.studentbyRepository.findOne(req.params.id, {
       relations: ["by"],
@@ -45,8 +51,10 @@ class StudentbyController {
   };
 
   private getStudentbyByName = async (req: Request, res: Response) => {
+    const name: string =
+      req.params.name.charAt(0).toUpperCase() + req.params.name.slice(1);
     const studentby = await this.studentbyRepository.findOne({
-      where: { path: req.params.name },
+      where: { navn: name },
       relations: ["by"],
     });
     return res.json(studentby);
@@ -66,8 +74,10 @@ class StudentbyController {
         take: Number(req.query.take),
         skip: Number(req.query.skip),
       };
-      const reviews = await this.reviewRepository.find(options);
-      return res.json(reviews);
+      const [reviews, count] = await this.reviewRepository.findAndCount(
+        options
+      );
+      return res.json({ reviews, count });
     }
     return res.json(studentby.reviews);
   };
@@ -75,7 +85,7 @@ class StudentbyController {
   private createReview = async (req: Request, res: Response) => {
     try {
       const studentby = await this.studentbyRepository.findOne(req.params.id);
-      const review = await this.reviewRepository.create(req.body);
+      const review = this.reviewRepository.create(req.body);
       const new_review = { ...review, studentby };
       const results = await this.reviewRepository.save(new_review);
       res.json(results);

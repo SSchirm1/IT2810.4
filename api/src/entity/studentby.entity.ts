@@ -5,8 +5,8 @@ import {
   Entity,
   OneToMany,
 } from "typeorm";
-import { By } from "./By";
-import { Review } from "./Review";
+import { By } from "./by.entity";
+import { Review } from "./review.entity";
 
 @Entity()
 export class Studentby {

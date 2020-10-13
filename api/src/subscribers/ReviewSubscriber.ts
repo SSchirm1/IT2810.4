@@ -5,8 +5,8 @@ import {
   getRepository,
   getConnection,
 } from "typeorm";
-import { Review } from "../entity/Review";
-import { Studentby } from "../entity/Studentby";
+import { Review } from "../entity/review.entity";
+import { Studentby } from "../entity/studentby.entity";
 
 @EventSubscriber()
 export class ReviewSubscriber implements EntitySubscriberInterface<Review> {
