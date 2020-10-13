@@ -1,7 +1,7 @@
 import App from "./app";
-import ByController from "./controllers/By";
-import ReviewController from "./controllers/Review";
-import StudentbyController from "./controllers/Studentby";
+import ByController from "./controllers/by.controller";
+import ReviewController from "./controllers/review.controller";
+import StudentbyController from "./controllers/studentby.controller";
 import { createConnection } from "typeorm";
 
 createConnection().then(async () => {

@@ -5,7 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
 } from "typeorm";
-import { Studentby } from "./Studentby";
+import { Studentby } from "./studentby.entity";
 
 export enum BoligType {
   PARBOLIG = "parbolig",

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Review } from "../entity/Review";
+import { Review } from "../entity/review.entity";
 
 class ReviewController {
   public path = "/reviews";
@@ -17,7 +17,7 @@ class ReviewController {
   }
 
   private getAllReviews = async (req: Request, res: Response) => {
-    const reviews = await this.reviewRepository.find({ relations: ["bolig"] });
+    const reviews = await this.reviewRepository.find();
     res.json(reviews);
   };
 
