@@ -5,9 +5,10 @@ interface Sort {
     vurderingTotal: Order | null;
 }
 
-export const ORDER_MAP: Record<string, Sort> =  {
+export const ORDER_MAP: Record<string, Sort | undefined> =  {
     "alphabetical":  { navn: "ASC", vurderingTotal: null },
     "inverseAlphabetical":  { navn: "DESC", vurderingTotal: null },
     "ratingHighToLow" : { vurderingTotal: "DESC", navn: null },
-    "ratingLowToHigh" : { vurderingTotal: "ASC", navn: null }
+    "ratingLowToHigh" : { vurderingTotal: "ASC", navn: null },
+    "": undefined,
 };
