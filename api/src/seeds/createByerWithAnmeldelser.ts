@@ -3,7 +3,7 @@ import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { Studentby } from "../entity/studentby.entity";
 
-export default class CreateByerWithReviews implements Seeder {
+export default class CreateByerWithAnmeldelser implements Seeder {
   public async run(factory: Factory): Promise<void> {
     const oslo = await factory(By)().create({ navn: "Oslo" });
     const trondheim = await factory(By)().create({ navn: "Trondheim" });
@@ -12,7 +12,7 @@ export default class CreateByerWithReviews implements Seeder {
 
       const studentbyer = await factory(Studentby)()
       .map(async (studentby) => {
-        studentby.by = oslo;
+        studentby.by = by;
         return studentby;
       })
       .createMany(5);
