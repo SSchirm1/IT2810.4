@@ -8,7 +8,7 @@ import {
 import * as request from "supertest";
 import ByController from "../controllers/by.controller";
 import App from "../app";
-import CreateByerWithReviews from "../seeds/createByerWithReviews";
+import CreateByerWithReviews from "../seeds/createByerWithAnmeldelser";
 import { By } from "../entity/by.entity";
 import StudentbyController from "../controllers/studentby.controller";
 import ReviewController from "../controllers/anmeldelse.controller";

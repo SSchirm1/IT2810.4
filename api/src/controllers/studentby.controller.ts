@@ -1,8 +1,9 @@
 import { Router, Request, Response } from "express";
-import { getRepository, FindManyOptions } from "typeorm";
+import { getRepository, FindManyOptions, Like } from "typeorm";
 import { Studentby } from "../entity/studentby.entity";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
+import { ORDER_MAP } from "./constants";
 
 class StudentbyController {
   public path = "/studentbyer";
@@ -28,15 +29,16 @@ class StudentbyController {
   }
 
   private getAllStudentbyer = async (req: Request, res: Response) => {
-    if (req.query.skip && req.query.take) {
-      const options: FindManyOptions = {
+
+    if (req.query.skip && req.query.take && req.query.querystring && req.query.sort) {
+      const options: FindManyOptions<Studentby> = {
         relations: ["by"],
+        where: { navn: Like(`%${String(req.query.querystring)}%`)},
         take: Number(req.query.take),
         skip: Number(req.query.skip),
+        order: ORDER_MAP[String(req.query.sort)],
       };
-      const [studentbyer, count] = await this.studentbyRepository.findAndCount(
-        options
-      );
+      const [studentbyer, count] = await this.studentbyRepository.findAndCount(options);
       return res.json({ studentbyer, count });
     }
     const [studentbyer, count] = await this.studentbyRepository.findAndCount();
