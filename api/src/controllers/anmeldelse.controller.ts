@@ -1,11 +1,11 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Review } from "../entity/review.entity";
+import { Anmeldelse } from "../entity/anmeldelse.entity";
 
-class ReviewController {
-  public path = "/reviews";
+class AnmeldelseeController {
+  public path = "/anmeldelser";
   public router = Router();
-  private reviewRepository = getRepository(Review);
+  private anmeldelseRepository = getRepository(Anmeldelse);
 
   constructor() {
     this.initializeRoutes();
@@ -17,14 +17,14 @@ class ReviewController {
   }
 
   private getAllReviews = async (req: Request, res: Response) => {
-    const reviews = await this.reviewRepository.find();
+    const reviews = await this.anmeldelseRepository.find();
     res.json(reviews);
   };
 
   private getReviewById = async (req: Request, res: Response) => {
-    const results = await this.reviewRepository.findOne(req.params.id);
+    const results = await this.anmeldelseRepository.findOne(req.params.id);
     res.send(results);
   };
 }
 
-export default ReviewController;
+export default AnmeldelseeController;

@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { By } from "./by.entity";
-import { Review } from "./review.entity";
+import { Anmeldelse } from "./anmeldelse.entity";
 
 @Entity()
 export class Studentby {
@@ -37,12 +37,9 @@ export class Studentby {
   @Column({ type: "decimal", nullable: true })
   vurderingTilstand: number;
 
-  @Column({ nullable: true })
-  path: string;
-
   @ManyToOne((type) => By, (by) => by.studentbyer)
   by: By;
 
-  @OneToMany((type) => Review, (review) => review.studentby)
-  reviews: Review[];
+  @OneToMany((type) => Anmeldelse, (anmeldelse) => anmeldelse.studentby)
+  anmeldelser: Anmeldelse[];
 }

@@ -1,14 +1,14 @@
 import { Router, Request, Response } from "express";
 import { getRepository, FindManyOptions } from "typeorm";
 import { Studentby } from "../entity/studentby.entity";
-import { Review } from "../entity/review.entity";
+import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 
 class StudentbyController {
   public path = "/studentbyer";
   public router = Router();
   private studentbyRepository = getRepository(Studentby);
-  private reviewRepository = getRepository(Review);
+  private anmeldelseRepository = getRepository(Anmeldelse);
   private byRepository = getRepository(By);
 
   constructor() {
@@ -20,10 +20,10 @@ class StudentbyController {
     this.router.get(`${this.path}/:id([0-9])+`, this.getStudentbyById);
     this.router.get(`${this.path}/:name([A-Za-z]+)`, this.getStudentbyByName);
     this.router.get(
-      `${this.path}/:id([0-9])+/reviews`,
+      `${this.path}/:id([0-9])+/anmeldelser`,
       this.getStudentbyReviews
     );
-    this.router.post(`${this.path}/:id([0-9])+/reviews`, this.createReview);
+    this.router.post(`${this.path}/:id([0-9])+/anmeldelser`, this.createReview);
     this.router.post(this.path, this.createStudentby);
   }
 
@@ -62,7 +62,7 @@ class StudentbyController {
 
   private getStudentbyReviews = async (req: Request, res: Response) => {
     const studentby = await this.studentbyRepository.findOne(req.params.id, {
-      relations: ["reviews"],
+      relations: ["anmeldelser"],
     });
 
     if (req.query.skip && req.query.take) {
@@ -74,20 +74,20 @@ class StudentbyController {
         take: Number(req.query.take),
         skip: Number(req.query.skip),
       };
-      const [reviews, count] = await this.reviewRepository.findAndCount(
+      const [reviews, count] = await this.anmeldelseRepository.findAndCount(
         options
       );
       return res.json({ reviews, count });
     }
-    return res.json(studentby.reviews);
+    return res.json(studentby.anmeldelser);
   };
 
   private createReview = async (req: Request, res: Response) => {
     try {
       const studentby = await this.studentbyRepository.findOne(req.params.id);
-      const review = this.reviewRepository.create(req.body);
+      const review = this.anmeldelseRepository.create(req.body);
       const new_review = { ...review, studentby };
-      const results = await this.reviewRepository.save(new_review);
+      const results = await this.anmeldelseRepository.save(new_review);
       res.json(results);
     } catch (e) {
       console.log(e);

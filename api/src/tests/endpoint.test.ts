@@ -11,9 +11,9 @@ import App from "../app";
 import CreateByerWithReviews from "../seeds/createByerWithReviews";
 import { By } from "../entity/by.entity";
 import StudentbyController from "../controllers/studentby.controller";
-import ReviewController from "../controllers/review.controller";
+import ReviewController from "../controllers/anmeldelse.controller";
 import { Studentby } from "../entity/studentby.entity";
-import { BoligType, Review } from "../entity/review.entity";
+import { BoligType, Anmeldelse } from "../entity/anmeldelse.entity";
 
 describe("Endpoint tests", () => {
   let byController: ByController;
@@ -122,7 +122,6 @@ describe("Endpoint tests", () => {
 
     test("GET /api/studentbyer/:name([A-Za-z]+)", async () => {
       const test = await getRepository(Studentby).findOne({ where: { id: 1 } });
-      console.log("name: ", test.navn);
       await request(app.getServer())
         .get(`/api/studentbyer/${test.navn}/`)
         .set("Accept", "application/json")
@@ -148,7 +147,6 @@ describe("Endpoint tests", () => {
           vurderingFellesAreal: 3,
           vurderingTilstand: 3,
           vurderingPris: 3,
-          path: "random",
           by: 2,
         })
         .set("Accept", "application/json")
@@ -163,14 +161,13 @@ describe("Endpoint tests", () => {
         });
     });
 
-    test("POST /api/studentbyer/:id([0-9])+/reviews)", async () => {
+    test("POST /api/studentbyer/:id([0-9])+/anmeldelser)", async () => {
       await request(app.getServer())
-        .post("/api/studentbyer/1/reviews")
+        .post("/api/studentbyer/1/anmeldelser")
         .send({
-          tittel: "Lerkendal",
-          kommentar: "random",
-          aar: 2020,
-          antall: 2,
+          tekst: "random",
+          aarStart: 2020,
+          aarSlutt: 2021,
           boligType: BoligType.ENEBOLIG,
           vurderingTotal: 3,
           vurderingLokasjon: 3,
@@ -183,20 +180,18 @@ describe("Endpoint tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => {
-          const review: Review = response.body;
+          const anmeldelse: Anmeldelse = response.body;
           expect({
-            tittel: review.tittel,
-            kommentar: review.kommentar,
+            tekst: anmeldelse.tekst,
           }).toStrictEqual({
-            tittel: "Lerkendal",
-            kommentar: "random",
+            tekst: "random",
           });
         });
     });
 
-    test("GET /api/studentbyer/:id([0-9])+/reviews)", async () => {
+    test("GET /api/studentbyer/:id([0-9])+/anmeldelser)", async () => {
       await request(app.getServer())
-        .get("/api/studentbyer/1/reviews")
+        .get("/api/studentbyer/1/anmeldelser")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
@@ -204,7 +199,7 @@ describe("Endpoint tests", () => {
           expect(response.body.length).toBe(6);
         });
       await request(app.getServer())
-        .get("/api/studentbyer/1/reviews?skip=2&take=2")
+        .get("/api/studentbyer/1/anmeldelser?skip=2&take=2")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
@@ -216,23 +211,23 @@ describe("Endpoint tests", () => {
   });
 
   describe("ReviewController", () => {
-    test("GET /api/reviews", async () => {
+    test("GET /api/anmeldelser", async () => {
       await request(app.getServer())
-        .get("/api/reviews")
+        .get("/api/anmeldelser")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => expect(response.body.length).toBe(51));
     });
 
-    test("GET /api/reviews/:id([0-9])", async () => {
+    test("GET /api/anmeldelser/:id([0-9])", async () => {
       await request(app.getServer())
-        .get("/api/reviews/1")
+        .get("/api/anmeldelser/1")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .then((response) => {
-          const review: Review = response.body;
-          expect(review.id).toBe(1);
+          const anmeldelse: Anmeldelse = response.body;
+          expect(anmeldelse.id).toBe(1);
         });
     });
   });
