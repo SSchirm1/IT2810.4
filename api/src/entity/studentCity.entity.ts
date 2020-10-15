@@ -5,41 +5,41 @@ import {
   Entity,
   OneToMany,
 } from "typeorm";
-import { By } from "./by.entity";
-import { Anmeldelse } from "./anmeldelse.entity";
+import { City } from "./city.entity";
+import { Review } from "./anmeldelse.entity";
 
 @Entity()
-export class Studentby {
+export class Studentcity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ nullable: true })
-  navn: string;
+  name: string;
 
   @Column({ nullable: true })
-  utleier: string;
+  landlord: string;
 
   @Column({ nullable: true })
-  bilde: string;
+  image: string;
 
   @Column({ type: "decimal", nullable: true })
-  vurderingTotal: number;
+  scoreTotal: number;
 
   @Column({ type: "decimal", nullable: true })
-  vurderingPris: number;
+  scorePrice: number;
 
   @Column({ type: "decimal", nullable: true })
-  vurderingLokasjon: number;
+  scoreLocation: number;
 
   @Column({ type: "decimal", nullable: true })
-  vurderingFellesAreal: number;
+  scoreCommonArea: number;
 
   @Column({ type: "decimal", nullable: true })
-  vurderingTilstand: number;
+  scoreCondition: number;
 
-  @ManyToOne((type) => By, (by) => by.studentbyer)
-  by: By;
+  @ManyToOne((type) => City, (city: City) => city.studentcities)
+  city: City;
 
-  @OneToMany((type) => Anmeldelse, (anmeldelse) => anmeldelse.studentby)
-  anmeldelser: Anmeldelse[];
+  @OneToMany((type) => Review, (review: Review) => review.studentcity)
+  reviews: Review[];
 }

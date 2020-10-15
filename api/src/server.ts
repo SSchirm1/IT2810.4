@@ -1,13 +1,13 @@
 import App from "./app";
 import ByController from "./controllers/by.controller";
-import ReviewController from "./controllers/review.controller";
+import AnmeldelseController from "./controllers/anmeldelse.controller";
 import StudentbyController from "./controllers/studentby.controller";
 import { createConnection } from "typeorm";
 
 createConnection().then(async () => {
   const app = new App([
     new ByController(),
-    new ReviewController(),
+    new AnmeldelseController(),
     new StudentbyController(),
   ]);
 

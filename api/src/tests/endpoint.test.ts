@@ -11,9 +11,9 @@ import App from "../app";
 import CreateByerWithReviews from "../seeds/createByerWithReviews";
 import { By } from "../entity/by.entity";
 import StudentbyController from "../controllers/studentby.controller";
-import ReviewController from "../controllers/review.controller";
+import ReviewController from "../controllers/anmeldelse.controller";
 import { Studentby } from "../entity/studentby.entity";
-import { BoligType, Review } from "../entity/review.entity";
+import { BoligType, Anmeldelse } from "../entity/anmeldelse.entity";
 
 describe("Endpoint tests", () => {
   let byController: ByController;
@@ -122,7 +122,6 @@ describe("Endpoint tests", () => {
 
     test("GET /api/studentbyer/:name([A-Za-z]+)", async () => {
       const test = await getRepository(Studentby).findOne({ where: { id: 1 } });
-      console.log("name: ", test.navn);
       await request(app.getServer())
         .get(`/api/studentbyer/${test.navn}/`)
         .set("Accept", "application/json")
@@ -148,7 +147,6 @@ describe("Endpoint tests", () => {
           vurderingFellesAreal: 3,
           vurderingTilstand: 3,
           vurderingPris: 3,
-          path: "random",
           by: 2,
         })
         .set("Accept", "application/json")
@@ -167,10 +165,9 @@ describe("Endpoint tests", () => {
       await request(app.getServer())
         .post("/api/studentbyer/1/reviews")
         .send({
-          tittel: "Lerkendal",
-          kommentar: "random",
-          aar: 2020,
-          antall: 2,
+          tekst: "random",
+          aarStart: 2020,
+          aarSlutt: 2021,
           boligType: BoligType.ENEBOLIG,
           vurderingTotal: 3,
           vurderingLokasjon: 3,
@@ -183,13 +180,11 @@ describe("Endpoint tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => {
-          const review: Review = response.body;
+          const anmeldelse: Anmeldelse = response.body;
           expect({
-            tittel: review.tittel,
-            kommentar: review.kommentar,
+            tekst: anmeldelse.tekst,
           }).toStrictEqual({
-            tittel: "Lerkendal",
-            kommentar: "random",
+            tekst: "random",
           });
         });
     });
@@ -231,8 +226,8 @@ describe("Endpoint tests", () => {
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .then((response) => {
-          const review: Review = response.body;
-          expect(review.id).toBe(1);
+          const anmeldelse: Anmeldelse = response.body;
+          expect(anmeldelse.id).toBe(1);
         });
     });
   });

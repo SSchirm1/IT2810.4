@@ -15,21 +15,18 @@ export enum BoligType {
 }
 
 @Entity()
-export class Review {
+export class Anmeldelse {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  tittel: string;
-
   @Column({ type: "varchar", length: 1000, nullable: true })
-  kommentar: string;
+  tekst: string;
 
   @Column({ nullable: true })
-  aar: number;
+  aarStart: number;
 
   @Column({ nullable: true })
-  antall: number;
+  aarSlutt: number;
 
   @Column({ nullable: true })
   vurderingPris: number;
@@ -47,8 +44,8 @@ export class Review {
   boligtype: BoligType;
 
   @CreateDateColumn()
-  postedAt: string;
+  datoPostet: string;
 
-  @ManyToOne((type) => Studentby, (studentby) => studentby.reviews)
+  @ManyToOne((type) => Studentby, (studentby) => studentby.anmeldelser)
   studentby: Studentby;
 }

@@ -1,5 +1,5 @@
 import { Factory, Seeder } from "typeorm-seeding";
-import { Review } from "../entity/review.entity";
+import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { Studentby } from "../entity/studentby.entity";
 
@@ -8,36 +8,25 @@ export default class CreateByerWithReviews implements Seeder {
     const oslo = await factory(By)().create({ navn: "Oslo" });
     const trondheim = await factory(By)().create({ navn: "Trondheim" });
 
-    const studentbyerOslo = await factory(Studentby)()
+    for (const by of [oslo, trondheim]) {
+
+      const studentbyer = await factory(Studentby)()
       .map(async (studentby) => {
         studentby.by = oslo;
         return studentby;
       })
       .createMany(5);
 
-    const studentbyerTrondheim = await factory(Studentby)()
-      .map(async (studentby) => {
-        studentby.by = trondheim;
-        return studentby;
-      })
-      .createMany(5);
 
-    for (const studentby of studentbyerOslo) {
-      await factory(Review)()
-        .map(async (review) => {
-          review.studentby = studentby;
-          return review;
-        })
-        .createMany(5);
+      for (const studentby of studentbyer) {
+        await factory(Anmeldelse)()
+          .map(async (anmeldelse) => {
+            anmeldelse.studentby = studentby;
+            return anmeldelse;
+          })
+          .createMany(5);
+      }
     }
 
-    for (const studentby of studentbyerTrondheim) {
-      await factory(Review)()
-        .map(async (review) => {
-          review.studentby = studentby;
-          return review;
-        })
-        .createMany(5);
-    }
   }
 }
