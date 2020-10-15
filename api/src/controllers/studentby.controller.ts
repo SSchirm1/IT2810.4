@@ -29,14 +29,16 @@ class StudentbyController {
   }
 
   private getAllStudentbyer = async (req: Request, res: Response) => {
+    const querystring = req.query.querystring ? String(req.query.querystring) : "";
+    const sort = req.query.sort ? String(req.query.sort) : "";
 
-    if (req.query.skip && req.query.take && req.query.querystring && req.query.sort) {
+    if (req.query.skip && req.query.take) {
       const options: FindManyOptions<Studentby> = {
         relations: ["by"],
-        where: { navn: Like(`%${String(req.query.querystring)}%`)},
+        where: { navn: Like(`%${querystring}%`)},
         take: Number(req.query.take),
         skip: Number(req.query.skip),
-        order: ORDER_MAP[String(req.query.sort)],
+        order: ORDER_MAP[sort],
       };
       const [studentbyer, count] = await this.studentbyRepository.findAndCount(options);
       return res.json({ studentbyer, count });
