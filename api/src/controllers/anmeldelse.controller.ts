@@ -3,7 +3,7 @@ import { getRepository } from "typeorm";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 
 class AnmeldelseeController {
-  public path = "/reviews";
+  public path = "/anmeldelser";
   public router = Router();
   private anmeldelseRepository = getRepository(Anmeldelse);
 

@@ -20,10 +20,10 @@ class StudentbyController {
     this.router.get(`${this.path}/:id([0-9])+`, this.getStudentbyById);
     this.router.get(`${this.path}/:name([A-Za-z]+)`, this.getStudentbyByName);
     this.router.get(
-      `${this.path}/:id([0-9])+/reviews`,
+      `${this.path}/:id([0-9])+/anmeldelser`,
       this.getStudentbyReviews
     );
-    this.router.post(`${this.path}/:id([0-9])+/reviews`, this.createReview);
+    this.router.post(`${this.path}/:id([0-9])+/anmeldelser`, this.createReview);
     this.router.post(this.path, this.createStudentby);
   }
 
@@ -62,7 +62,7 @@ class StudentbyController {
 
   private getStudentbyReviews = async (req: Request, res: Response) => {
     const studentby = await this.studentbyRepository.findOne(req.params.id, {
-      relations: ["reviews"],
+      relations: ["anmeldelser"],
     });
 
     if (req.query.skip && req.query.take) {

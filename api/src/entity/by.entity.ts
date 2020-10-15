@@ -12,9 +12,6 @@ export class By {
   @Column({ nullable: true })
   bilde: string;
 
-  @Column({ nullable: true })
-  path: string;
-
   @OneToMany((type) => Studentby, (studentby) => studentby.by)
   studentbyer: Studentby[];
 }

@@ -161,9 +161,9 @@ describe("Endpoint tests", () => {
         });
     });
 
-    test("POST /api/studentbyer/:id([0-9])+/reviews)", async () => {
+    test("POST /api/studentbyer/:id([0-9])+/anmeldelser)", async () => {
       await request(app.getServer())
-        .post("/api/studentbyer/1/reviews")
+        .post("/api/studentbyer/1/anmeldelser")
         .send({
           tekst: "random",
           aarStart: 2020,
@@ -189,9 +189,9 @@ describe("Endpoint tests", () => {
         });
     });
 
-    test("GET /api/studentbyer/:id([0-9])+/reviews)", async () => {
+    test("GET /api/studentbyer/:id([0-9])+/anmeldelser)", async () => {
       await request(app.getServer())
-        .get("/api/studentbyer/1/reviews")
+        .get("/api/studentbyer/1/anmeldelser")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
@@ -199,7 +199,7 @@ describe("Endpoint tests", () => {
           expect(response.body.length).toBe(6);
         });
       await request(app.getServer())
-        .get("/api/studentbyer/1/reviews?skip=2&take=2")
+        .get("/api/studentbyer/1/anmeldelser?skip=2&take=2")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
@@ -211,18 +211,18 @@ describe("Endpoint tests", () => {
   });
 
   describe("ReviewController", () => {
-    test("GET /api/reviews", async () => {
+    test("GET /api/anmeldelser", async () => {
       await request(app.getServer())
-        .get("/api/reviews")
+        .get("/api/anmeldelser")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => expect(response.body.length).toBe(51));
     });
 
-    test("GET /api/reviews/:id([0-9])", async () => {
+    test("GET /api/anmeldelser/:id([0-9])", async () => {
       await request(app.getServer())
-        .get("/api/reviews/1")
+        .get("/api/anmeldelser/1")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .then((response) => {
