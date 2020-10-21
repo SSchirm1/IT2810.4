@@ -1,6 +1,7 @@
 cache:
   paths:
-    - /node_modules/
+    - /api/node_modules/
+    - /frontend/node_modules/
 
 
 stages:
@@ -19,6 +20,8 @@ install:
     # show all installed versions of Cypress binary
     - $(npm bin)/cypress cache list
     - $(npm bin)/cypress verify
+    - cd /builds/it2810-h20/team-72/prosjekt-3/api
+    - npm install
 
 
 unit_test:
@@ -26,15 +29,11 @@ unit_test:
   stage: test
   variables:
     NODE_ENV: test
-  before_script:
-    # Install npm
-    - cd /builds/it2810-h20/team-72/prosjekt-3/api
-    - npm install
   script:
     - npm test
 
 cypress-e2e-chrome:
-  image: cypress/browsers:chrome80
+  image: cypress/browsers:chrome87
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
