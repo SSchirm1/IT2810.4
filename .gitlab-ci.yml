@@ -20,7 +20,7 @@ install:
     # show all installed versions of Cypress binary
     - $(npm bin)/cypress cache list
     - $(npm bin)/cypress verify
-
+    - npm install
 
 api-endpoints:
   image: node:14.3.0
