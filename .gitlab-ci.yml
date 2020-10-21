@@ -1,19 +1,37 @@
-cache:
-  paths:
-    - /node_modules/
-
-
 stages:
   - test
 
-unit_test:
+api-endpoints-test:
   image: node:14.3.0
   stage: test
   variables:
     NODE_ENV: test
   before_script:
-    # Install npm
     - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm install
   script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
+
+frontend-e2e-test:
+  image: cypress/base:14
+  script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
+    - npm ci
+    # check Cypress binary path and cached versions
+    # useful to make sure we are not carrying around old versions
+    - npx cypress cache path
+    - npx cypress cache list
+    - npm run cypress:verify
+    # start the server, wait for it to respond, then run Cypress tests
+    - NODE_ENV=test npm test
+  artifacts:
+    when: always
+    paths:
+      # save both cypress artifacts and coverage results
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+    reports:
+      junit:
+        - results/TEST-*.xml
+    expire_in: 10 days
