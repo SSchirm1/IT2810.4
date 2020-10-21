@@ -36,3 +36,28 @@ frontend-cypress-e2e-chrome:
       junit:
         - results/TEST-*.xml
 
+frontend_test:
+  image: cypress/base:14.3.0
+  script:
+    - npm ci
+    # check Cypress binary path and cached versions
+    # useful to make sure we are not carrying around old versions
+    - npx cypress cache path
+    - npx cypress cache list
+    - npm run cypress:verify
+    # start the server, wait for it to respond, then run Cypress tests
+    - NODE_ENV=test npm test
+    # print coverage summary so that GitLab CI can parse the coverage number
+    # from a string like "Statements   : 100% ( 135/135 )"
+    - npx nyc report --reporter=text-summary
+  artifacts:
+    when: always
+    paths:
+      # save both cypress artifacts and coverage results
+      - coverage
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+    reports:
+      junit:
+        - results/TEST-*.xml
+    expire_in: 10 days
