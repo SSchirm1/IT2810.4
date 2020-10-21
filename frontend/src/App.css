@@ -1,0 +1,8 @@
+
+.body {
+  background-color: #FCFAFA;
+  background-image: url('./components/wallpaper.jpg');
+  min-height: 89vh;
+  display: flex;
+
+}
