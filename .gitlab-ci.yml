@@ -20,7 +20,7 @@ api-endpoints:
     - npm test
 
 frontend-cypress-e2e-chrome:
-  image: cypress/included:3.2.0
+  image: cypress/included:5.4.0
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
