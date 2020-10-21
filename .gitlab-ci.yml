@@ -24,16 +24,17 @@ install:
     - npm install
 
 
-unit_test:
+api-endpoints:
   image: node:14.3.0
   stage: test
   variables:
     NODE_ENV: test
   script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
 
-cypress-e2e-chrome:
-  image: cypress/browsers:chrome87
+frotnend-cypress-e2e-chrome:
+  image: cypress/browsers:chrome78
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
