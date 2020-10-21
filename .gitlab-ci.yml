@@ -34,7 +34,7 @@ api-endpoints:
     - npm test
 
 frotnend-cypress-e2e-chrome:
-  image: cypress/browsers:chrome78
+  image: cypress/browsers:chrome69
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
