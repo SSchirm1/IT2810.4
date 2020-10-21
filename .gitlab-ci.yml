@@ -1,13 +1,7 @@
-cache:
-  paths:
-    - /api/node_modules/
-    - /frontend/node_modules/
-
-
 stages:
   - test
 
-api-endpoints:
+api-endpoints-test:
   image: node:14.3.0
   stage: test
   variables:
@@ -19,26 +13,10 @@ api-endpoints:
     - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
 
-frontend-cypress-e2e-chrome:
-  image: cypress/included:5.4.0
-  stage: test
-  script:
-    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
-    - npm install
-    - $(npm bin)/cypress run --browser chrome
-  artifacts:
-    expire_in: 1 week
-    when: always
-    paths:
-    - cypress/screenshots
-    - cypress/videos
-    reports:
-      junit:
-        - results/TEST-*.xml
-
-frontend_test:
+frontend-e2e-test:
   image: cypress/base:14
   script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
     - npm ci
     # check Cypress binary path and cached versions
     # useful to make sure we are not carrying around old versions
@@ -46,7 +24,8 @@ frontend_test:
     - npx cypress cache list
     - npm run cypress:verify
     # start the server, wait for it to respond, then run Cypress tests
-    - NODE_ENV=test npm test
+    - $(npm bin)/cypress run --browser chrome
+
     # print coverage summary so that GitLab CI can parse the coverage number
     # from a string like "Statements   : 100% ( 135/135 )"
     - npx nyc report --reporter=text-summary
