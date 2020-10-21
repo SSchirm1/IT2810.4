@@ -4,7 +4,22 @@ cache:
 
 
 stages:
+  - build
   - test
+
+install:
+  image: cypress/base:10
+  stage: build
+
+  script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
+    - npm ci
+    # show where the Cypress test runner binaries are cached
+    - $(npm bin)/cypress cache path
+    # show all installed versions of Cypress binary
+    - $(npm bin)/cypress cache list
+    - $(npm bin)/cypress verify
+
 
 unit_test:
   image: node:14.3.0
@@ -17,3 +32,20 @@ unit_test:
     - npm install
   script:
     - npm test
+
+cypress-e2e-chrome:
+  image: cypress/browsers:chrome80
+  stage: test
+  script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
+    - $(npm bin)/cypress run --browser chrome
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+    - cypress/screenshots
+    - cypress/videos
+    reports:
+      junit:
+        - results/TEST-*.xml
+
