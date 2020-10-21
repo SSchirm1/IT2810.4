@@ -5,21 +5,7 @@ cache:
 
 
 stages:
-  - build
   - test
-
-install:
-  image: cypress/base:10
-  stage: build
-
-  script:
-    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
-    - npm ci
-    # show where the Cypress test runner binaries are cached
-    - $(npm bin)/cypress cache path
-    # show all installed versions of Cypress binary
-    - $(npm bin)/cypress cache list
-    - $(npm bin)/cypress verify
 
 api-endpoints:
   image: node:14.3.0
