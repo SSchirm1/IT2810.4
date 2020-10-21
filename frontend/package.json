@@ -26,13 +26,13 @@
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
-        "typescript": "^3.7.5",
+        "typescript": "^3.9.7",
         "wait-on": "^5.2.0"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "start & wait-on http://localhost:3000 & cypress:run",
+        "test": "start-server-and-test start http://localhost:3000 cypress:run",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run --browser chrome",
         "cypress:verify": "cypress verify"
@@ -53,6 +53,7 @@
         ]
     },
     "devDependencies": {
-        "cypress": "^5.4.0"
+        "cypress": "^5.4.0",
+        "start-server-and-test": "^1.11.5"
     }
 }
