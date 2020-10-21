@@ -34,7 +34,8 @@ export function citiesReducer(
 }
 
 const INITIAL_STUDENTCITIES_STATE: StudentCitiesState = {
-  studentCities: []
+  studentCities: [],
+  count: 0
 };
 
 export function studentCitiesReducer(
@@ -45,7 +46,8 @@ export function studentCitiesReducer(
     case GET_STUDENTCITIES: {
       return {
         ...state,
-        studentCities: action.studentCities
+        studentCities: action.studentCities,
+        count: action.count
       };
     }
     default:

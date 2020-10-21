@@ -8,7 +8,6 @@ export interface StudentCity {
   vurderingLokasjon: number;
   vurderingFellesAreal: number;
   vurderingTilstand: number;
-  path: string;
   by: City | undefined;
 }
 
@@ -18,13 +17,13 @@ export interface StudentCityState {
 
 export interface StudentCitiesState {
   studentCities: StudentCity[];
+  count: number;
 }
 
 export interface City {
   id: number;
   navn: string;
   bilde: string;
-  path: string;
   studentbyer: StudentCity[] | undefined;
 }
 

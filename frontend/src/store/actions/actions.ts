@@ -9,8 +9,11 @@ import axios from "axios";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { City, StudentCity } from "../interfaces";
+import { gridColumnGap } from "styled-system";
+import Filter from "../../hooks/Filter/interfaces";
 
 const API = "http://it2810-72.idi.ntnu.no:3000/api";
+const OFFSET = 2;
 
 export function GetCities(): ThunkAction<
   Promise<void>,
@@ -30,21 +33,29 @@ export function GetCities(): ThunkAction<
   };
 }
 
-export function GetStudentCities(): ThunkAction<
-  Promise<void>,
-  {},
-  {},
-  apiActionTypes
-> {
+export function GetStudentCities(
+  page: number,
+  filter: Filter
+): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
   console.log("GetStudentCities");
+
   return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios.get(API + "/studentbyer").then(res => {
-      const studentcity: StudentCity[] = res.data;
-      dispatch({
-        type: GET_STUDENTCITIES,
-        studentCities: studentcity
+    axios
+      .get(
+        `${API}/studentbyer?skip=${page * OFFSET}&take=${OFFSET}&sort=${
+          filter.sort
+        }&querystring=${filter.queryString}`
+      )
+      .then(res => {
+        console.log(res.data);
+        const studentCities: StudentCity[] = res.data.studentbyer;
+        const count: number = res.data.count;
+        dispatch({
+          type: GET_STUDENTCITIES,
+          studentCities: studentCities,
+          count: count
+        });
       });
-    });
   };
 }
 

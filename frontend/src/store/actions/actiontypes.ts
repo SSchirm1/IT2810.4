@@ -14,6 +14,7 @@ interface GetStudentCityAction {
 interface GetStudentCitiesAction {
   type: typeof GET_STUDENTCITIES;
   studentCities: StudentCity[];
+  count: number;
 }
 
 export interface GetCitiesAction {

@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Sfwrapper from "./components/Search&filter/sfwrapper";
 import { Box } from "@chakra-ui/core";
-import { useStore } from "react-redux";
+import { useStore, useSelector } from "react-redux";
 import { RootState } from "./store/reducers";
 import {
   GetCities,
@@ -20,6 +20,7 @@ function App() {
     GetStudentCities,
     GetStudentCity
   });
+  const count = useSelector((state: RootState) => state.studentCities.count);
   const onClickCities = () => {
     actions.GetCities();
   };
@@ -27,7 +28,7 @@ function App() {
     actions.GetCity(1);
   };
   const onClickStudentCities = () => {
-    actions.GetStudentCities();
+    //actions.GetStudentCities(1);
   };
   const onClickStudentCity = () => {
     actions.GetStudentCity(1);
