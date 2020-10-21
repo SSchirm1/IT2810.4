@@ -20,7 +20,6 @@ install:
     # show all installed versions of Cypress binary
     - $(npm bin)/cypress cache list
     - $(npm bin)/cypress verify
-    - npm install
 
 api-endpoints:
   image: node:14.3.0
@@ -34,11 +33,12 @@ api-endpoints:
     - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
 
-frotnend-cypress-e2e-chrome:
+frontend-cypress-e2e-chrome:
   image: cypress/browsers:chrome69
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
+    - npm install
     - $(npm bin)/cypress run --browser chrome
   artifacts:
     expire_in: 1 week
