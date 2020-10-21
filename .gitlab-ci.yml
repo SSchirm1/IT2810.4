@@ -37,7 +37,7 @@ frontend-cypress-e2e-chrome:
         - results/TEST-*.xml
 
 frontend_test:
-  image: cypress/base:14.3.0
+  image: cypress/base:14
   script:
     - npm ci
     # check Cypress binary path and cached versions
