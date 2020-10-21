@@ -25,15 +25,10 @@ frontend-e2e-test:
     - npm run cypress:verify
     # start the server, wait for it to respond, then run Cypress tests
     - NODE_ENV=test npm test
-
-    # print coverage summary so that GitLab CI can parse the coverage number
-    # from a string like "Statements   : 100% ( 135/135 )"
-    - npx nyc report --reporter=text-summary
   artifacts:
     when: always
     paths:
       # save both cypress artifacts and coverage results
-      - coverage
       - cypress/videos/**/*.mp4
       - cypress/screenshots/**/*.png
     reports:
