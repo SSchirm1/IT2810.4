@@ -1,15 +1,16 @@
 stages:
   - test
 
+services:
+  - postgres:latest
+variables:
+  POSTGRES_DB: test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+  NODE_ENV: test
+
 api-endpoints-test:
-  services:
-    - postgres:latest
-  variables:
-    POSTGRES_DB: test
-    POSTGRES_USER: runner
-    POSTGRES_PASSWORD: ""
-    POSTGRES_HOST_AUTH_METHOD: trust
-    NODE_ENV: backend_test
   image: node:14.3.0
   stage: test
   before_script:
@@ -20,14 +21,6 @@ api-endpoints-test:
     - npm test
 
 frontend-e2e-test:
-  services:
-    - postgres:latest
-  variables:
-    POSTGRES_DB: test
-    POSTGRES_USER: runner
-    POSTGRES_PASSWORD: ""
-    POSTGRES_HOST_AUTH_METHOD: trust
-    NODE_ENV: frontend_test
   image: cypress/base:14
   before_script:
       - cd /builds/it2810-h20/team-72/prosjekt-3/api
@@ -39,19 +32,14 @@ frontend-e2e-test:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
     - npm ci
     # check Cypress binary path and cached versions
-    # useful to make sure we are not carrying around old versions
     - npx cypress cache path
     - npx cypress cache list
     - npm run cypress:verify
-    # start the server, wait for it to respond, then run Cypress tests
-    - NODE_ENV=frontend_test npm test
+    # Run tests
+    - npm test
   artifacts:
     when: always
     paths:
       - cypress/videos/**/*.mp4
       - cypress/screenshots/**/*.png
-
-    reports:
-      junit:
-        - results/TEST-*.xml
     expire_in: 10 days
