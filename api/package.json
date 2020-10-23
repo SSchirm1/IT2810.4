@@ -24,12 +24,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "pg": "^8.2.1",
+    "pm2": "^4.5.0",
     "postgres": "^1.0.2",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.10.2",
     "typeorm": "^0.2.25",
     "typeorm-seeding": "^1.6.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@types/faker": "^4.1.12",

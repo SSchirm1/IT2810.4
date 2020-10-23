@@ -1,9 +1,9 @@
 module.exports = {
   type: "postgres",
-  host: "it2810-72.idi.ntnu.no",
+  host: "postgres",
   port: "5432",
-  username: "postgres",
-  password: "postgres",
+  username: "runner",
+  password: "",
   database: "test",
   entities: ["src/entity/*.{js,ts}"],
   migrations: ["src/migration/*.{js,ts}"],

@@ -4,7 +4,7 @@ module.exports = {
   port: process.env.DB_PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PW,
-  database: "studentboliger",
+  database: "test",
   entities: ["src/entity/*.{js,ts}"],
   migrations: ["src/migration/*.{js,ts}"],
   seeds: ["src/seeds/*.{js,ts}"],
