@@ -31,16 +31,23 @@ class StudentbyController {
   private getAllStudentbyer = async (req: Request, res: Response) => {
     const querystring = req.query.querystring ? String(req.query.querystring) : "";
     const sort = req.query.sort ? String(req.query.sort) : "";
+    const by = req.query.filter ? Number(req.query.filter) : undefined;
 
     if (req.query.skip && req.query.take) {
       const options: FindManyOptions<Studentby> = {
         relations: ["by"],
-        where: { navn: Like(`%${querystring}%`)},
         take: Number(req.query.take),
         skip: Number(req.query.skip),
         order: ORDER_MAP[sort],
       };
-      const [studentbyer, count] = await this.studentbyRepository.findAndCount(options);
+      let finalOptions: FindManyOptions<Studentby>;
+      if (by) {
+        finalOptions = {...options, where: { navn: Like(`%${querystring}%`), by }};
+      } else {
+        finalOptions = {...options, where: { navn: Like(`%${querystring}%`) }};
+      };
+
+      const [studentbyer, count] = await this.studentbyRepository.findAndCount(finalOptions);
       return res.json({ studentbyer, count });
     }
     const [studentbyer, count] = await this.studentbyRepository.findAndCount();
