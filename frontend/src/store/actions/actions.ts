@@ -12,7 +12,7 @@ import { City, StudentCity } from "../interfaces";
 import { gridColumnGap } from "styled-system";
 import Filter from "../../hooks/Filter/interfaces";
 
-const API = "http://it2810-72.idi.ntnu.no:3000/api";
+const API = "http://localhost:8000/api";
 const OFFSET = 2;
 
 export function GetCities(): ThunkAction<

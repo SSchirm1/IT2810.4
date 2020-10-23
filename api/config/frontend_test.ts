@@ -1,0 +1,20 @@
+module.exports = {
+    type: "postgres",
+    host: "postgres",
+    port: "5432",
+    username: "runner",
+    password: "",
+    database: "test",
+    entities: ["src/entity/*.{js,ts}"],
+    migrations: ["src/migration/*.{js,ts}"],
+    seeds: ["src/seeds/*.{js,ts}"],
+    subscribers: ["src/subscribers/*.{js,ts}"],
+    factories: ["src/factories/*.{js,ts}"],
+    cli: {
+      entitiesDir: "src/entity",
+      migrationsDir: "src/migration",
+      subscribersDir: "src/subscriber",
+    },
+    logging: false,
+    synchronize: false,
+  };
