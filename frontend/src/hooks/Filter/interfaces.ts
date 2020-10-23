@@ -3,7 +3,7 @@ export default interface Filter {
   sort: Sort;
 }
 
-type Sort =
+export type Sort =
   | "alphabetical"
   | "inverseAlphabetical"
   | "ratingHighToLow"
