@@ -9,13 +9,11 @@ import axios from "axios";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { City, StudentCity } from "../interfaces";
-import { gridColumnGap } from "styled-system";
+
 import Filter from "../../hooks/Filter/interfaces";
 
 const API = "http://it2810-72.idi.ntnu.no:3000/api";
-console.log("API: ", process.env.NODE_ENV);
-
-const OFFSET = 2;
+const OFFSET = 4;
 
 export function GetCities(): ThunkAction<
   Promise<void>,
@@ -43,11 +41,15 @@ export function GetStudentCities(
 
   return async (dispatch: Dispatch<apiActionTypes>) => {
     axios
-      .get(
-        `${API}/studentbyer?skip=${page * OFFSET}&take=${OFFSET}&sort=${
-          filter.sort
-        }&querystring=`
-      )
+      .get(`${API}/studentbyer`, {
+        params: {
+          take: OFFSET,
+          skip: page * OFFSET,
+          sort: filter.sort,
+          querystring: filter.queryString,
+          filter: filter.city
+        }
+      })
       .then(res => {
         console.log(res.data);
         const studentCities: StudentCity[] = res.data.studentbyer;
