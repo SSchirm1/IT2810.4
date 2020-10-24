@@ -13,7 +13,7 @@ describe("Checks if studentbyer are loaded", () => {
     cy.server();
     cy.route(
       "GET",
-      `${API}studentbyer?skip=0&take=2&sort=inverseAlphabetical&querystring=`
+      `${API}studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
     ).as("getStudentbyer1");
     //cy.get("button")
     //  .contains("1")
@@ -26,12 +26,12 @@ describe("Checks if studentbyer are loaded", () => {
       .select("Alfabetisk Å -> A");
     console.log("K: ", k);
 
-    cy.wait("@getStudentbyer1", { timeout: 10000 }).should(response => {
+    cy.wait("@getStudentbyer1", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 10);
     });
 
-    cy.getReact("StudentCityCard").should("have.length", 4);
+    cy.getReact("StudentCityCard").should("have.length", 2);
 
     // Checks that new button appears
     //cy.get("button").contains("3");
