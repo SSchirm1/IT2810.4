@@ -46,7 +46,8 @@ export function GetStudentCities(
           take: OFFSET,
           skip: page * OFFSET,
           sort: filter.sort,
-          querystring: filter.queryString
+          querystring: filter.queryString,
+          filter: filter.city
         }
       })
       .then(res => {

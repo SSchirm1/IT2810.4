@@ -4,7 +4,11 @@ import { GetStudentCities } from "../../store/actions/actions";
 import { useActions } from "../useActions";
 
 const useFilter = () => {
-  const [filter, setFilter] = useState<Filter>({ queryString: "", sort: "" });
+  const [filter, setFilter] = useState<Filter>({
+    queryString: "",
+    sort: "",
+    city: ""
+  });
   const [page, setPage] = useState(0);
   const actions = useActions({ GetStudentCities });
 

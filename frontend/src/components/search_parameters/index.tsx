@@ -26,8 +26,12 @@ export default function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    console.log("Hello");
+    console.log("updateSort");
     setFilter({ ...filter, sort: value });
+  };
+  const updateCity = (value: string) => {
+    console.log("updateCity");
+    setFilter({ ...filter, city: value });
   };
 
   return (
@@ -40,10 +44,10 @@ export default function Search_parameters() {
       rounded="lg"
       bg={colorMode === "light" ? "" : "gray.700"}
     >
-      <Select>
+      <Select onChange={event => updateCity(event.currentTarget.value)}>
         <option value="">Alle byer</option>
         {cities.map(city => {
-          return <option value={city.navn}>{city.navn}</option>;
+          return <option value={city.id}>{city.navn}</option>;
         })}
       </Select>
       <Select onChange={event => updateSort(event.currentTarget.value as Sort)}>
