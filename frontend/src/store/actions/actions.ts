@@ -12,7 +12,9 @@ import { City, StudentCity } from "../interfaces";
 import { gridColumnGap } from "styled-system";
 import Filter from "../../hooks/Filter/interfaces";
 
-const API = "http://localhost:8000/api";
+const API = "http://it2810-72.idi.ntnu.no:3000/api";
+console.log("API: ", process.env.NODE_ENV);
+
 const OFFSET = 2;
 
 export function GetCities(): ThunkAction<
@@ -44,7 +46,7 @@ export function GetStudentCities(
       .get(
         `${API}/studentbyer?skip=${page * OFFSET}&take=${OFFSET}&sort=${
           filter.sort
-        }&querystring=${filter.queryString}`
+        }&querystring=`
       )
       .then(res => {
         console.log(res.data);

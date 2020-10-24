@@ -25,7 +25,6 @@ export default function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    console.log("Hello");
     setFilter({ ...filter, sort: value });
   };
 
@@ -46,10 +45,10 @@ export default function Search_parameters() {
         })}
       </Select>
       <Select onChange={event => updateSort(event.currentTarget.value as Sort)}>
-        <option value="alphabetical">Alfabetisk A -> Å</option>
-        <option value="inverseAlphabetical">Alfabetisk Å -> A</option>
-        <option value="ratingHighToLow">Total vurdering høy -> lav</option>
-        <option value="ratingLowToHigh">Total vurdering lav -> høy</option>
+        <option value="alphabetical">{"Alfabetisk A -> Å"}</option>
+        <option value="inverseAlphabetical">{"Alfabetisk Å -> A"}</option>
+        <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
+        <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
     </Box>
   );
