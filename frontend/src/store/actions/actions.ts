@@ -46,7 +46,7 @@ export function GetStudentCities(
       .get(
         `${API}/studentbyer?skip=${page * OFFSET}&take=${OFFSET}&sort=${
           filter.sort
-        }&querystring=${filter.queryString}`
+        }&querystring=`
       )
       .then(res => {
         console.log(res.data);
