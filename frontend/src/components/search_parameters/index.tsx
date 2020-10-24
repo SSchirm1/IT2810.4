@@ -21,6 +21,7 @@ export default function Search_parameters() {
 
   useEffect(() => {
     //TODO: kanskje denne burde blitt gjort et annet sted?
+    updateSort("alphabetical");
     actions.GetCities();
   }, []);
 
@@ -46,10 +47,10 @@ export default function Search_parameters() {
         })}
       </Select>
       <Select onChange={event => updateSort(event.currentTarget.value as Sort)}>
-        <option value="alphabetical">Alfabetisk A -> Å</option>
-        <option value="inverseAlphabetical">Alfabetisk Å -> A</option>
-        <option value="ratingHighToLow">Total vurdering høy -> lav</option>
-        <option value="ratingLowToHigh">Total vurdering lav -> høy</option>
+        <option value="alphabetical">{"Alfabetisk A -> Å"}</option>
+        <option value="inverseAlphabetical">{"Alfabetisk Å -> A"}</option>
+        <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
+        <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
     </Box>
   );
