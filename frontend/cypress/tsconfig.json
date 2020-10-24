@@ -1,10 +1,8 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": ["es5", "dom"],
-      "types": ["cypress", "jest"]
-    },
-    "include": [
-      "**/*.ts"
-    ]
-  }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["node", "cypress", "jest", "cypress-react-selector"]
+  },
+  "include": ["**/*.ts", "integration/studentbyer/studentbyer.spec.ts"]
+}

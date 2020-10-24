@@ -26,11 +26,9 @@ export default function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    console.log("updateSort");
     setFilter({ ...filter, sort: value });
   };
   const updateCity = (value: string) => {
-    console.log("updateCity");
     setFilter({ ...filter, city: value });
   };
 
