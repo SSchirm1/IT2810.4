@@ -1,13 +1,12 @@
 import React from "react";
 import {
   Flex,
-  Stack,
   useColorMode,
   IconButton,
   Box,
   Image,
   Heading,
-  Spacer,
+  Spacer
 } from "@chakra-ui/core";
 
 import { BsMoon, BsSun, BsHouse } from 'react-icons/bs';
