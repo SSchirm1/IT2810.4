@@ -11,6 +11,11 @@ export default function Student_cities() {
       studentCities: state.studentCities.studentCities
     };
   });
+  if (studentCities.length > 0) {
+    console.log("hei");
+    console.log(studentCities[0]);
+    console.log(studentCities[0].vurderingTotal);
+  }
 
   return (
     <Box
@@ -20,13 +25,11 @@ export default function Student_cities() {
       p={3}
       boxShadow="md"
       rounded="lg"
-      bg={colorMode === "light" ? "" : "gray.700"}
+      bg={colorMode === "light" ? "gray.100" : "gray.700"}
     >
       {studentCities.map(studentCity => {
-        return <Box key={studentCity.navn}>{studentCity.navn}</Box>;
+        return <StudentCityCard studentCity={studentCity}></StudentCityCard>;
       })}
-      <StudentCityCard></StudentCityCard>
-      <StudentCityCard></StudentCityCard>
     </Box>
   );
 }

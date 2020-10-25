@@ -3,12 +3,12 @@ export interface StudentCity {
   navn: string;
   utleier: string;
   bilde: string;
-  vurderingTotalt: number;
-  vurderingPris: number;
-  vurderingLokasjon: number;
-  vurderingFellesAreal: number;
-  vurderingTilstand: number;
-  by: City | undefined;
+  vurderingTotal: string;
+  vurderingPris: string;
+  vurderingLokasjon: string;
+  vurderingFellesAreal: string;
+  vurderingTilstand: string;
+  by: City;
 }
 
 export interface StudentCityState {
