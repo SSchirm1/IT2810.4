@@ -12,7 +12,8 @@ import { City, StudentCity } from "../interfaces";
 
 import Filter from "../../hooks/Filter/interfaces";
 
-const API = process.env.REACT_APP_API_SERVER ?? "http://it2810-72.idi.ntnu.no:3000/api";
+export const API =
+  process.env.REACT_APP_API_SERVER ?? "http://it2810-72.idi.ntnu.no:3000/api";
 const OFFSET = 4;
 
 export function GetCities(): ThunkAction<

@@ -8,6 +8,7 @@ export interface StudentCity {
   vurderingLokasjon: string;
   vurderingFellesAreal: string;
   vurderingTilstand: string;
+  anmeldelserCount: number | undefined;
   by: City;
 }
 

@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Badge,
-  useColorMode,
-  Icon,
-  Button,
-  Collapse
-} from "@chakra-ui/core";
+import { Box, Badge, useColorMode, Button, Collapse } from "@chakra-ui/core";
 import StarRating from "./StarRating";
+import Review from "./StudentCityReview";
 import { StudentCity } from "../../store/interfaces";
 
 type Props = {
@@ -21,8 +15,7 @@ export default function StudentCityCard({ studentCity }: Props) {
   const handleToggleDetails = () => setShowDetails(!showDetails);
 
   const [showModal, setShowModal] = React.useState(false);
-  const handleToggleModal = () => setShowModal(!showDetails);
-
+  const handleToggleModal = () => setShowModal(!showModal);
   return (
     <Box
       transition="all 200ms linear 0s"
@@ -68,6 +61,9 @@ export default function StudentCityCard({ studentCity }: Props) {
               name={"Tilstand: "}
               rating={studentCity.vurderingTilstand}
             />
+            <Box as="span" color="gray.500" fontSize="sm">
+              {`Vurderingene viser gjenomsnitt av ${studentCity.anmeldelserCount} anmeldelser`}
+            </Box>
           </Collapse>
           <Button
             colorScheme="teal"
@@ -89,6 +85,11 @@ export default function StudentCityCard({ studentCity }: Props) {
           </Button>
         </Box>
       </a>
+      <Review
+        studentCity={studentCity}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ChakraProvider,
   Flex,
@@ -10,7 +10,9 @@ import Header from "./components/Header";
 function App() {
   return (
     <ChakraProvider>
-      <ColorModeProvider options={{initialColorMode: "dark", useSystemColorMode: true}}>
+      <ColorModeProvider
+        options={{ initialColorMode: "dark", useSystemColorMode: true }}
+      >
         <Flex direction="column" align="center" justify="center">
           <CSSReset />
           <Header />

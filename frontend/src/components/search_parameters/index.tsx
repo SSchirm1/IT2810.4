@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  useColorMode,
-  Select,
-  Input,
-  InputLeftAddon
-} from "@chakra-ui/core";
+import { Box, useColorMode, Select, Input } from "@chakra-ui/core";
 import { GetCities, GetStudentCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";

@@ -11,11 +11,6 @@ export default function Student_cities() {
       studentCities: state.studentCities.studentCities
     };
   });
-  if (studentCities.length > 0) {
-    console.log("hei");
-    console.log(studentCities[0]);
-    console.log(studentCities[0].vurderingTotal);
-  }
 
   return (
     <Box
@@ -28,7 +23,7 @@ export default function Student_cities() {
       bg={colorMode === "light" ? "gray.100" : "gray.700"}
     >
       {studentCities.map(studentCity => {
-        return <StudentCityCard studentCity={studentCity}></StudentCityCard>;
+        return <StudentCityCard studentCity={studentCity} />;
       })}
     </Box>
   );
