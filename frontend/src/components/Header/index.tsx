@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./home.svg";
 import {
   Flex,
   Stack,
@@ -11,11 +10,11 @@ import {
   Spacer,
 } from "@chakra-ui/core";
 
-import { BsMoon, BsSun } from 'react-icons/bs';
+import { BsMoon, BsSun, BsHouse } from 'react-icons/bs';
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const bgColor = { light: "gray.300", dark: "gray.600" };
+  const bgColor = { light: "gray.400", dark: "gray.700" };
   const textColor = { light: "black", dark: "gray.100" };
   return (
     <Flex
@@ -29,7 +28,7 @@ export default function Header() {
       p={2}
     >
           <Box>
-            <Image h="4vh" src={logo} alt="house" />
+            <BsHouse size="4vh" />
           </Box>
           <Spacer />
           <Heading position="sticky">Studentbyer</Heading>
