@@ -1,4 +1,4 @@
-const API = Cypress.env('api_server')
+const API = Cypress.env('API_SERVER')
 console.log("API: ", API)
 
 describe("Checks if studentbyer are loaded", () => {
@@ -6,12 +6,11 @@ describe("Checks if studentbyer are loaded", () => {
     cy.visit("http://localhost:3000");
     cy.waitForReact();
   });
-  console.log("API: ", API);
   it("Clicks on button for adding more studentbyer and checks that these are loaded", () => {
     cy.server();
     cy.route(
       "GET",
-      `${API}studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
+      `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
     ).as("getStudentbyer1");
     //cy.get("button")
     //  .contains("1")
