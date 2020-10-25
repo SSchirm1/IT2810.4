@@ -1,23 +1,28 @@
 import React from "react";
-import { Box, Image, Badge, PseudoBox } from "@chakra-ui/core";
-import { StyledCard } from "./style";
+import { Box, Badge, PseudoBox, useColorMode, Icon } from "@chakra-ui/core";
 
 type Props = {
   name: string;
-  img: string;
+  landlord: string;
+  totalRating: string;
+  city: string;
 };
 
-export default function StudentCityCard() {
+export default function StudentCityCard({
+  name,
+  landlord,
+  totalRating,
+  city
+}: Props) {
   const property = {
-    imageUrl: "Senior 1080p",
-    imageAlt: "Rear view of modern home with pool",
-    beds: 3,
-    baths: 2,
-    title: "StudentbyNavn",
-    formattedPrice: "$1,900.00",
-    reviewCount: 34,
-    rating: 4
+    title: name,
+    landlord: landlord,
+    rating: totalRating,
+    city: city
   };
+  const { colorMode } = useColorMode();
+  console.log(totalRating);
+  const rating_number: number = +totalRating;
 
   return (
     <PseudoBox
@@ -26,52 +31,41 @@ export default function StudentCityCard() {
         boxShadow: "lg",
         transform: "translate(0px, -2px)"
       }}
+      margin="10px"
       rounded="lg"
       boxShadow="md"
+      bg={colorMode === "light" ? "white" : "gray.600"}
     >
       <a>
-        <Image
-          src={property.imageUrl}
-          alt={property.imageAlt}
-          h={["150px", "300px"]}
-          w="100%"
-        />
         <Box p="6">
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="teal">
-              New
+              {city}
             </Badge>
-            <Box
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              ml="2"
-            >
-              {property.beds} beds &bull; {property.baths} baths
-            </Box>
           </Box>
           <Box
             mt="1"
             fontWeight="semibold"
-            as="h4"
+            as="h1"
             lineHeight="tight"
             isTruncated
           >
             {property.title}
           </Box>
-
-          <Box>
-            {property.formattedPrice}
-            <Box as="span" color="gray.600" fontSize="sm">
-              / wk
-            </Box>
-          </Box>
           <Box d="flex" mt="2" alignItems="center">
-            <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              {property.reviewCount} reviews
-            </Box>
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <Icon
+                  name="star"
+                  key={i}
+                  color={i < rating_number ? "teal.500" : "gray.300"}
+                />
+              ))}
+          </Box>
+
+          <Box as="span" color="gray.500" fontSize="sm">
+            {"utleier:"} {property.landlord}
           </Box>
         </Box>
       </a>

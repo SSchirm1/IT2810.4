@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { Box, useColorMode, Select } from "@chakra-ui/core";
+import {
+  Box,
+  useColorMode,
+  Select,
+  Input,
+  InputLeftAddon
+} from "@chakra-ui/core";
 import { GetCities, GetStudentCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
@@ -18,6 +24,7 @@ export default function Search_parameters() {
     };
   });
   const actions = useActions({ GetCities, GetStudentCities });
+  const [value, setValue] = React.useState("");
 
   useEffect(() => {
     //TODO: kanskje denne burde blitt gjort et annet sted?
@@ -32,6 +39,14 @@ export default function Search_parameters() {
     setFilter({ ...filter, city: value });
   };
 
+  const handleSearch = (value: string) => {
+    setFilter({
+      ...filter,
+      queryString: value
+    });
+    setValue(value);
+  };
+
   return (
     <Box
       width="full"
@@ -42,7 +57,16 @@ export default function Search_parameters() {
       rounded="lg"
       bg={colorMode === "light" ? "" : "gray.700"}
     >
-      <Select onChange={event => updateCity(event.currentTarget.value)}>
+      <Input
+        value={value}
+        onChange={(event: any) => handleSearch(event.target.value)}
+        placeholder="søk etter studentby"
+        marginBottom="5px"
+      />
+      <Select
+        onChange={event => updateCity(event.currentTarget.value)}
+        marginBottom="5px"
+      >
         <option value="">Alle byer</option>
         {cities.map(city => {
           return <option value={city.id}>{city.navn}</option>;
