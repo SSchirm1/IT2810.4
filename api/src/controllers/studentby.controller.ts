@@ -1,5 +1,5 @@
-import { Router, Request, Response } from "express";
-import { getRepository, FindManyOptions, Like } from "typeorm";
+import { Router, Request, Response, query } from "express";
+import { getRepository, FindManyOptions, Like, Raw } from "typeorm";
 import { Studentby } from "../entity/studentby.entity";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
@@ -32,22 +32,23 @@ class StudentbyController {
   private getAllStudentbyer = async (req: Request, res: Response) => {
     const querystring = req.query.querystring ? String(req.query.querystring) : "";
     const sort = req.query.sort ? String(req.query.sort) : "";
-    const by = req.query.filter ? Number(req.query.filter) : undefined;
-
+    const byfilter = req.query.filter ? Number(req.query.filter) : undefined;
     if (req.query.skip && req.query.take) {
       const options: FindManyOptions<Studentby> = {
         relations: ["by", "anmeldelser"],
         take: Number(req.query.take),
         skip: Number(req.query.skip),
-        order: ORDER_MAP[sort]
       };
       let finalOptions: FindManyOptions<Studentby>;
-      if (by) {
-        finalOptions = {...options, where: { navn: Like(`%${querystring}%`), by }};
+      if (byfilter) {
+        finalOptions = {...options, where: { navn: Raw(alias => `${alias} ILIKE '%${querystring}%'`), by: byfilter }};
       } else {
-        finalOptions = {...options, where: { navn: Like(`%${querystring}%`) }};
+        finalOptions = {...options, where: { navn: Raw(alias => `${alias} ILIKE '%${querystring}%'`)}};
       };
 
+      if (sort) {
+        finalOptions = {...finalOptions, order: ORDER_MAP[sort]};
+      };
       const [studentbyer, count] = await this.studentbyRepository.findAndCount(finalOptions);
       const studentbyerWithCount = studentbyer.map((studentby) => {
         const anmeldelserCount = studentby.anmeldelser.length;
