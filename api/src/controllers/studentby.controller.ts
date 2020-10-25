@@ -4,6 +4,7 @@ import { Studentby } from "../entity/studentby.entity";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { ORDER_MAP } from "./constants";
+import * as _ from 'lodash';
 
 class StudentbyController {
   public path = "/studentbyer";
@@ -35,10 +36,10 @@ class StudentbyController {
 
     if (req.query.skip && req.query.take) {
       const options: FindManyOptions<Studentby> = {
-        relations: ["by"],
+        relations: ["by", "anmeldelser"],
         take: Number(req.query.take),
         skip: Number(req.query.skip),
-        order: ORDER_MAP[sort],
+        order: ORDER_MAP[sort]
       };
       let finalOptions: FindManyOptions<Studentby>;
       if (by) {
@@ -48,7 +49,14 @@ class StudentbyController {
       };
 
       const [studentbyer, count] = await this.studentbyRepository.findAndCount(finalOptions);
-      return res.json({ studentbyer, count });
+      const studentbyerWithCount = studentbyer.map((studentby) => {
+        const anmeldelserCount = studentby.anmeldelser.length;
+        const studentbyWithCount = { ...studentby, anmeldelserCount };
+        const studentbyWithoutAnmeldelser = _.omit(studentbyWithCount, "anmeldelser");
+        return studentbyWithoutAnmeldelser;
+      })
+
+      return res.json({ studentbyerWithCount, count });
     }
     const [studentbyer, count] = await this.studentbyRepository.findAndCount();
     return res.json({ studentbyer, count });
