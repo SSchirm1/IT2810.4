@@ -1,5 +1,6 @@
-const API = Cypress.env('API_SERVER') ?? "http://it2810-72.idi.ntnu.no/api";
-console.log("API: ", API)
+const API =
+  Cypress.env("API_SERVER") ?? "http://it2810-72.idi.ntnu.no:3000/api";
+console.log("API: ", API);
 
 describe("Checks if studentbyer are loaded", () => {
   beforeEach(() => {
@@ -26,8 +27,8 @@ describe("Checks if studentbyer are loaded", () => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 10);
     });
-
-    cy.getReact("StudentCityCard").should("have.length", 4);
+    console.log("c: ", cy.getReact("StudentCityCard"));
+    cy.getReact("StudentCityCard").should("have.length", 8);
 
     // Checks that new button appears
     //cy.get("button").contains("3");
