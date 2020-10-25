@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 
-class AnmeldelseeController {
+class AnmeldelseController {
   public path = "/anmeldelser";
   public router = Router();
   private anmeldelseRepository = getRepository(Anmeldelse);
@@ -27,4 +27,4 @@ class AnmeldelseeController {
   };
 }
 
-export default AnmeldelseeController;
+export default AnmeldelseController;
