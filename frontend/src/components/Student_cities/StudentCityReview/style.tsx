@@ -1,4 +1,3 @@
-import { Icon } from "@chakra-ui/core";
 import styled from "@emotion/styled";
 import { StarIcon } from "@chakra-ui/icons";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, GridItem, Icon, useColorMode } from "@chakra-ui/core";
+import { Grid, GridItem, useColorMode } from "@chakra-ui/core";
 import { StarIcon } from "@chakra-ui/icons";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export default function StarRating({ name, rating }: Props) {
   const ratingNumber = Math.round(+rating * 100) / 100;
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
 
   return (

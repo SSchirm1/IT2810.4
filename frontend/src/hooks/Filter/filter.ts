@@ -13,7 +13,7 @@ const useFilter = () => {
   const actions = useActions({ GetStudentCities });
 
   useEffect(() => {
-    actions.GetStudentCities(page, filter);
+    filter.sort && actions.GetStudentCities(page, filter);
   }, [page, filter]);
 
   return {

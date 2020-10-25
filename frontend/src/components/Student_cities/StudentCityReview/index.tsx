@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
-import { setFlagsFromString } from "v8";
 import axios from "axios";
 import { API } from "../../../store/actions/actions";
 

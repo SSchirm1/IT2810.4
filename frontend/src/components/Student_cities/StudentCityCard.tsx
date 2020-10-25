@@ -1,20 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Badge,
-  useColorMode,
-  Icon,
-  Button,
-  Collapse,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  ModalFooter,
-  ModalBody
-} from "@chakra-ui/core";
+import { Box, Badge, useColorMode, Button, Collapse } from "@chakra-ui/core";
 import StarRating from "./StarRating";
 import Review from "./StudentCityReview";
 import { StudentCity } from "../../store/interfaces";

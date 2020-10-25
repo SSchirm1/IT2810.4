@@ -2,16 +2,15 @@ import React from "react";
 import logo from "./home.svg";
 import {
   Flex,
-  Stack,
   useColorMode,
   IconButton,
   Box,
   Image,
   Heading,
-  Spacer,
+  Spacer
 } from "@chakra-ui/core";
 
-import { BsMoon, BsSun } from 'react-icons/bs';
+import { BsMoon, BsSun } from "react-icons/bs";
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -28,23 +27,23 @@ export default function Header() {
       boxShadow="md"
       p={2}
     >
-          <Box>
-            <Image h="4vh" src={logo} alt="house" />
-          </Box>
-          <Spacer />
-          <Heading position="sticky">Studentbyer</Heading>
-          <Spacer />
-        <Box justifySelf="right">
-          <IconButton
-            rounded="full"
-            onClick={toggleColorMode}
-            icon={colorMode === "light" ? <BsSun /> : <BsMoon />}
-            aria-label="none"
-            justifySelf="right"
-          >
-            Change Color Mode
-          </IconButton>
-        </Box>
+      <Box>
+        <Image h="4vh" src={logo} alt="house" />
+      </Box>
+      <Spacer />
+      <Heading position="sticky">Studentbyer</Heading>
+      <Spacer />
+      <Box justifySelf="right">
+        <IconButton
+          rounded="full"
+          onClick={toggleColorMode}
+          icon={colorMode === "light" ? <BsSun /> : <BsMoon />}
+          aria-label="none"
+          justifySelf="right"
+        >
+          Change Color Mode
+        </IconButton>
+      </Box>
     </Flex>
   );
 }
