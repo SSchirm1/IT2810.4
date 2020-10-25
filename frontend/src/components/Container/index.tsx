@@ -7,9 +7,11 @@ const Container = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = { light: "gray.300", dark: "gray.600" };
 
-  return <Box width="full" maxWidth="1280px" mx="auto" px={6} bg={bgColor[colorMode]}>
+  return <Box width="100vw" mx="auto" px={6} bg={bgColor[colorMode]}>
+    <Box width="full" mx="auto" maxWidth="1280px">
       <Search_parameters />
       <Student_cities />
+    </Box>
     </Box>;
 };
 
