@@ -14,7 +14,7 @@ export default function StarRating({ name, rating }: Props) {
 
 
   return (
-    <Grid templateColumns="repeat(8, 1fr)" color={textColor[colorMode]}>
+    <Grid templateColumns={["repeat(8, 1fr)", "repeat(5, 1fr)"]} color={textColor[colorMode]}>
       <GridItem colSpan={[5, 3]}>{name}</GridItem>
       <GridItem ml="3" colSpan={[5, 4]}>
         {Array(5)
