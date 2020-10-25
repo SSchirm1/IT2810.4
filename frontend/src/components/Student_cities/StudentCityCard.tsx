@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   Badge,
-  PseudoBox,
   useColorMode,
   Icon,
   Button,
@@ -25,7 +24,7 @@ export default function StudentCityCard({ studentCity }: Props) {
   const handleToggleModal = () => setShowModal(!showDetails);
 
   return (
-    <PseudoBox
+    <Box
       transition="all 200ms linear 0s"
       margin="10px"
       rounded="lg"
@@ -35,7 +34,7 @@ export default function StudentCityCard({ studentCity }: Props) {
       <a>
         <Box p="6">
           <Box d="flex" alignItems="baseline">
-            <Badge rounded="full" px="2" variantColor="teal">
+            <Badge rounded="full" px="2" colorScheme="teal">
               {studentCity.by.navn}
             </Badge>
           </Box>
@@ -55,7 +54,7 @@ export default function StudentCityCard({ studentCity }: Props) {
             name={"Total vurdering: "}
             rating={studentCity.vurderingTotal}
           />
-          <Collapse mt={2} isOpen={showDetails}>
+          <Collapse in={showDetails}>
             <StarRating
               name={"Fellesareal: "}
               rating={studentCity.vurderingFellesAreal}
@@ -71,7 +70,7 @@ export default function StudentCityCard({ studentCity }: Props) {
             />
           </Collapse>
           <Button
-            variantColor="teal"
+            colorScheme="teal"
             size="xs"
             onClick={handleToggleModal}
             mt="2"
@@ -79,7 +78,7 @@ export default function StudentCityCard({ studentCity }: Props) {
             {"Legg inn vurdering"}
           </Button>
           <Button
-            variantColor="teal"
+            colorScheme="teal"
             size="xs"
             variant="outline"
             onClick={handleToggleDetails}
@@ -90,6 +89,6 @@ export default function StudentCityCard({ studentCity }: Props) {
           </Button>
         </Box>
       </a>
-    </PseudoBox>
+    </Box>
   );
 }
