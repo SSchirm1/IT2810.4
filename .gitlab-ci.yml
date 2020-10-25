@@ -36,6 +36,7 @@ frontend-e2e-test:
     - npx cypress cache list
     - npm run cypress:verify
     # Run tests
+    - export cypress_api_server=http://localhost:8000/api/
     - NODE_ENV=test npm test
   artifacts:
     when: always

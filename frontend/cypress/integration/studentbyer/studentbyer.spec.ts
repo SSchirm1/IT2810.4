@@ -1,7 +1,5 @@
-const API =
-  process.env.NODE_ENV === "test"
-    ? "http://locahost:8000/api/"
-    : "http://it2810-72.idi.ntnu.no:3000/api/";
+const API = Cypress.env('api_server')
+console.log("API: ", API)
 
 describe("Checks if studentbyer are loaded", () => {
   beforeEach(() => {
@@ -24,7 +22,6 @@ describe("Checks if studentbyer are loaded", () => {
       .get("select")
       .eq(1)
       .select("Alfabetisk Å -> A");
-    console.log("K: ", k);
 
     cy.wait("@getStudentbyer1", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
