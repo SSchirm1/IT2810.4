@@ -1,19 +1,16 @@
-const API =
-  process.env.NODE_ENV === "test"
-    ? "http://locahost:8000/api/"
-    : "http://it2810-72.idi.ntnu.no:3000/api/";
+const API = Cypress.env('API_SERVER') ?? "http://it2810-72.idi.ntnu.no/api";
+console.log("API: ", API)
 
 describe("Checks if studentbyer are loaded", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
     cy.waitForReact();
   });
-
   it("Clicks on button for adding more studentbyer and checks that these are loaded", () => {
     cy.server();
     cy.route(
       "GET",
-      `${API}studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
+      `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
     ).as("getStudentbyer1");
     //cy.get("button")
     //  .contains("1")
@@ -24,7 +21,6 @@ describe("Checks if studentbyer are loaded", () => {
       .get("select")
       .eq(1)
       .select("Alfabetisk Å -> A");
-    console.log("K: ", k);
 
     cy.wait("@getStudentbyer1", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);

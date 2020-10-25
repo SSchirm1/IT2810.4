@@ -36,6 +36,8 @@ frontend-e2e-test:
     - npx cypress cache list
     - npm run cypress:verify
     # Run tests
+    - export CYPRESS_API_SERVER="http://localhost:8000/api"
+    - export REACT_APP_API_SERVER="http://localhost:8000/api"
     - npm test
   artifacts:
     when: always
