@@ -28,14 +28,7 @@ export default function Student_cities() {
       bg={colorMode === "light" ? "gray.100" : "gray.700"}
     >
       {studentCities.map(studentCity => {
-        return (
-          <StudentCityCard
-            name={studentCity.navn}
-            landlord={studentCity.utleier}
-            totalRating={studentCity.vurderingTotal}
-            city={studentCity.by.navn}
-          ></StudentCityCard>
-        );
+        return <StudentCityCard studentCity={studentCity}></StudentCityCard>;
       })}
     </Box>
   );
