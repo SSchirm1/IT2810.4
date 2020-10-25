@@ -8,7 +8,7 @@ describe("Checks if studentbyer are loaded", () => {
     cy.visit("http://localhost:3000");
     cy.waitForReact();
   });
-
+  console.log("API: ", API);
   it("Clicks on button for adding more studentbyer and checks that these are loaded", () => {
     cy.server();
     cy.route(
