@@ -6,9 +6,18 @@ import {
   useColorMode,
   Icon,
   Button,
-  Collapse
+  Collapse,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalHeader,
+  ModalFooter,
+  ModalBody
 } from "@chakra-ui/core";
 import StarRating from "./StarRating";
+import Review from "./StudentCityReview";
 import { StudentCity } from "../../store/interfaces";
 
 type Props = {
@@ -22,8 +31,7 @@ export default function StudentCityCard({ studentCity }: Props) {
   const handleToggleDetails = () => setShowDetails(!showDetails);
 
   const [showModal, setShowModal] = React.useState(false);
-  const handleToggleModal = () => setShowModal(!showDetails);
-
+  const handleToggleModal = () => setShowModal(!showModal);
   return (
     <PseudoBox
       transition="all 200ms linear 0s"
@@ -90,6 +98,11 @@ export default function StudentCityCard({ studentCity }: Props) {
           </Button>
         </Box>
       </a>
+      <Review
+        studentCity={studentCity}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </PseudoBox>
   );
 }

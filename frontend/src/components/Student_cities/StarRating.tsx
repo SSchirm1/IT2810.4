@@ -18,7 +18,7 @@ export default function StarRating({ name, rating }: Props) {
             <Icon
               name="star"
               key={i}
-              color={i + 0.5 < rating_number ? "teal.500" : "gray.300"}
+              color={i + 0.5 < rating_number ? "teal.500" : "gray.400"}
             />
           ))}
       </Box>
