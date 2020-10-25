@@ -13,6 +13,8 @@ import {
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
 import { setFlagsFromString } from "v8";
+import axios from "axios";
+import { API } from "../../../store/actions/actions";
 
 type Props = {
   studentCity: StudentCity;
@@ -32,6 +34,14 @@ export default function StudentCityCard({
   const [surroundingsRating, setSurroundingsRating] = useState(0);
 
   const handleSend = () => {
+    console.log(priceRating);
+    axios.post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
+      vurderingLokasjon: locationRating,
+      vurderingFellesAreal: commonAreaRating,
+      vurderingTilstand: surroundingsRating,
+      vurderingPris: priceRating,
+      studentby: studentCity.id
+    });
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
