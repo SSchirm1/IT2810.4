@@ -77,6 +77,9 @@ export default function StudentCityCard({ studentCity }: Props) {
               name={"Tilstand: "}
               rating={studentCity.vurderingTilstand}
             />
+            <Box as="span" color="gray.500" fontSize="sm">
+              {`Vurderingene viser gjenomsnitt av ${studentCity.anmeldelserCount} anmeldelser`}
+            </Box>
           </Collapse>
           <Button
             variantColor="teal"
