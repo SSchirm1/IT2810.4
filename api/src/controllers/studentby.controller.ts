@@ -19,13 +19,13 @@ class StudentbyController {
 
   private initializeRoutes() {
     this.router.get(this.path, this.getAllStudentbyer);
-    this.router.get(`${this.path}/:id([0-9])+`, this.getStudentbyById);
+    this.router.get(`${this.path}/:id([0-9]+)`, this.getStudentbyById);
     this.router.get(`${this.path}/:name([A-Za-z]+)`, this.getStudentbyByName);
     this.router.get(
-      `${this.path}/:id([0-9])+/anmeldelser`,
+      `${this.path}/:id([0-9]+)/anmeldelser`,
       this.getStudentbyReviews
     );
-    this.router.post(`${this.path}/:id([0-9])+/anmeldelser`, this.createReview);
+    this.router.post(`${this.path}/:id([0-9]+)/anmeldelser`, this.createReview);
     this.router.post(this.path, this.createStudentby);
   }
 

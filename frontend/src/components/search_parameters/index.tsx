@@ -49,9 +49,12 @@ export default function Search_parameters() {
       p={3}
       boxShadow="md"
       rounded="lg"
-      bg={colorMode === "light" ? "" : "gray.700"}
+      bg={colorMode === "light" ? "white" : "gray.700"}
+      color={colorMode === "light" ? "black" : "gray.100"}
     >
       <Input
+      _placeholder={{color: "gray.500"}}
+        variant="outline"
         value={value}
         onChange={(event: any) => handleSearch(event.target.value)}
         placeholder="søk etter studentby"
