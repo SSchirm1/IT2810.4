@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Icon, useColorMode } from "@chakra-ui/core";
+import { Box, Grid, GridItem, Icon, useColorMode } from "@chakra-ui/core";
 import { StarIcon } from "@chakra-ui/icons";
 
 type Props = {
@@ -14,9 +14,9 @@ export default function StarRating({ name, rating }: Props) {
 
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6} color={textColor[colorMode]}>
-      {name}
-      <Box ml="3">
+    <Grid templateColumns="repeat(8, 1fr)" color={textColor[colorMode]}>
+      <GridItem colSpan={[5, 3]}>{name}</GridItem>
+      <GridItem ml="3" colSpan={[5, 4]}>
         {Array(5)
           .fill("")
           .map((_, i) => (
@@ -26,10 +26,10 @@ export default function StarRating({ name, rating }: Props) {
             color={i + 0.5 < ratingNumber ? "teal.500" : "gray.300"}
             />
             ))}
-      </Box>
-      <Box color="gray.500" ml="3">
+      </GridItem>
+      <GridItem colSpan={1} color="gray.500" ml="3">
         {"(" + ratingNumber + ")"}
-      </Box>
+      </GridItem>
             </Grid>
   );
 }
