@@ -1,4 +1,4 @@
-const API = Cypress.env('API_SERVER')
+const API = Cypress.env('API_SERVER') ?? "http://it2810-72.idi.ntnu.no/api";
 console.log("API: ", API)
 
 describe("Checks if studentbyer are loaded", () => {
