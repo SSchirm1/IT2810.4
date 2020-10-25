@@ -57,7 +57,7 @@ class StudentbyController {
         return studentbyWithoutAnmeldelser;
       })
 
-      return res.json({ studentbyerWithCount, count });
+      return res.json({ studentbyer: studentbyerWithCount, count });
     }
     const [studentbyer, count] = await this.studentbyRepository.findAndCount();
     return res.json({ studentbyer, count });
