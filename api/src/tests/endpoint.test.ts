@@ -13,7 +13,7 @@ import { By } from "../entity/by.entity";
 import StudentbyController from "../controllers/studentby.controller";
 import ReviewController from "../controllers/anmeldelse.controller";
 import { Studentby } from "../entity/studentby.entity";
-import { BoligType, Anmeldelse } from "../entity/anmeldelse.entity";
+import { Anmeldelse } from "../entity/anmeldelse.entity";
 
 describe("Endpoint tests", () => {
   let byController: ByController;
@@ -141,7 +141,6 @@ describe("Endpoint tests", () => {
         .send({
           navn: "Lerkendal",
           utleier: "random",
-          bilde: "random",
           vurderingTotal: 3,
           vurderingLokasjon: 3,
           vurderingFellesAreal: 3,
@@ -165,11 +164,6 @@ describe("Endpoint tests", () => {
       await request(app.getServer())
         .post("/api/studentbyer/1/anmeldelser")
         .send({
-          tekst: "random",
-          aarStart: 2020,
-          aarSlutt: 2021,
-          boligType: BoligType.ENEBOLIG,
-          vurderingTotal: 3,
           vurderingLokasjon: 3,
           vurderingFellesAreal: 3,
           vurderingTilstand: 3,
@@ -182,9 +176,9 @@ describe("Endpoint tests", () => {
         .then((response) => {
           const anmeldelse: Anmeldelse = response.body;
           expect({
-            tekst: anmeldelse.tekst,
+            vurderingPris: anmeldelse.vurderingPris,
           }).toStrictEqual({
-            tekst: "random",
+            vurderingPris: 3,
           });
         });
     });

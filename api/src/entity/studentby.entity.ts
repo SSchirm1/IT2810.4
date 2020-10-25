@@ -19,9 +19,6 @@ export class Studentby {
   @Column({ nullable: true })
   utleier: string;
 
-  @Column({ nullable: true })
-  bilde: string;
-
   @Column({ type: "decimal", nullable: true })
   vurderingTotal: number;
 

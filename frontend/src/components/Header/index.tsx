@@ -6,8 +6,12 @@ import {
   useColorMode,
   IconButton,
   Box,
-  Image
+  Image,
+  Heading,
+  Spacer,
 } from "@chakra-ui/core";
+
+import { BsMoon, BsSun } from 'react-icons/bs';
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -17,38 +21,30 @@ export default function Header() {
     <Flex
       w="100vw"
       bg={bgColor[colorMode]}
-      align="center"
       color={textColor[colorMode]}
-      justify="center"
       fontSize={["md", "lg", "xl", "xl"]}
       h="7vh"
+      align="center"
       boxShadow="md"
       p={2}
     >
-      <Flex w={["100vw", "100vw", "80vw", "80vw"]} justify="space-around">
-        <Stack
-          spacing={8}
-          color={textColor[colorMode]}
-          justify="center"
-          align="center"
-          isInline
-        >
           <Box>
             <Image h="4vh" src={logo} alt="house" />
           </Box>
-          <Box position="sticky">Studentbyer</Box>
-        </Stack>
-        <Box>
+          <Spacer />
+          <Heading position="sticky">Studentbyer</Heading>
+          <Spacer />
+        <Box justifySelf="right">
           <IconButton
             rounded="full"
             onClick={toggleColorMode}
-            icon={colorMode === "light" ? "moon" : "sun"}
+            icon={colorMode === "light" ? <BsSun /> : <BsMoon />}
             aria-label="none"
+            justifySelf="right"
           >
             Change Color Mode
           </IconButton>
         </Box>
-      </Flex>
     </Flex>
   );
 }
