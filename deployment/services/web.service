@@ -1,0 +1,28 @@
+[Unit]
+Description=Web
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/prosjekt-3/frontend
+ExecStart=/usr/bin/npm start
+
+User=nobody
+Group=nogroup
+
+# Environment variables:
+Environment=NODE_ENV=production
+
+# Allow many incoming connections
+LimitNOFILE=infinity
+
+# Allow core dumps for debugging
+LimitCORE=infinity
+
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
