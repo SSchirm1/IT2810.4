@@ -34,6 +34,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "start-server-and-test start http://localhost:3000 cypress:run",
+        "production": "PORT=8000 react-scripts start",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run",
         "cypress:verify": "cypress verify"
