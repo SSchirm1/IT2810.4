@@ -28,7 +28,9 @@ export class AnmeldelseSubscriber implements EntitySubscriberInterface<Anmeldels
       event.entity.studentby.id,
       { relations: ["anmeldelser"] }
     );
+
     const size = studentby.anmeldelser.length + 1;
+
 
     studentby.vurderingPris = calculateAverage(studentby.vurderingPris, event.entity.vurderingPris, size);
     studentby.vurderingLokasjon = calculateAverage(studentby.vurderingLokasjon, event.entity.vurderingLokasjon, size);
