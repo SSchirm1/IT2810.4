@@ -5,13 +5,14 @@ After=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=/prosjekt-3/frontend
-ExecStart=/usr/bin/npm run production
+ExecStart=/usr/bin/npx start web -- start
 
 User=nobody
 Group=nogroup
 
 # Environment variables:
 Environment=NODE_ENV=production
+Environment=PORT=8000
 
 # Allow many incoming connections
 LimitNOFILE=infinity
