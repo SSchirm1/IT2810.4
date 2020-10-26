@@ -30,6 +30,7 @@ export default function StudentCityCard({ studentCity }: Props) {
       rounded="lg"
       boxShadow="md"
       bg={colorMode === "light" ? "white" : "gray.600"}
+      color={colorMode === "light" ? "black" : "white"}
     >
       <a>
         <Box p="6">
