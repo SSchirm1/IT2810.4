@@ -9,7 +9,7 @@ const Container = () => {
 
   return (
     <Box width="100vw" mx="auto" px={6} bg={bgColor[colorMode]}>
-      <Box width="full" mx="auto" maxWidth="1280px">
+      <Box width="full" mx="auto" maxWidth="1280px" minHeight="100vh">
         <Search_parameters />
         <Student_cities />
       </Box>
