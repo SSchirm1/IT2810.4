@@ -66,7 +66,7 @@ export default function Search_parameters() {
       >
         <option value="">Alle byer</option>
         {cities.map(city => {
-          return <option value={city.id}>{city.navn}</option>;
+          return <option key={city.id} value={city.id}>{city.navn}</option>;
         })}
       </Select>
       <Select onChange={event => updateSort(event.currentTarget.value as Sort)}>
