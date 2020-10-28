@@ -2,7 +2,7 @@ import React from "react";
 import { Box, useColorMode, IconButton, Text, Button } from "@chakra-ui/core";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
-import { GetCities, GetStudentCities } from "../../store/actions/actions";
+import { GetCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
 import { useSelector } from "react-redux";
@@ -27,7 +27,7 @@ type Props = {
 };
 
 const Pagination = ({ setCurrentPage, currentPage }: Props) => {
-  const actions = useActions({ GetCities, GetStudentCities });
+  const actions = useActions({ GetCities });
   const { count } = useSelector((state: RootState) => {
     return {
       count: state.studentCities.count

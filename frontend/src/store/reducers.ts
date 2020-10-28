@@ -17,7 +17,6 @@ import {
 
 import store from "../store/store";
 
-import { GetStudentCities } from "./actions/actions";
 import Filter from "./actions/interfaces";
 import { useActions } from "../hooks/useActions";
 

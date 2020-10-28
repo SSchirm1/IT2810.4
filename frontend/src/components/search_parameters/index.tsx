@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, useColorMode, Select, Input } from "@chakra-ui/core";
-import { GetCities, GetStudentCities } from "../../store/actions/actions";
+import { GetCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
 import { useSelector, connect } from "react-redux";
@@ -19,12 +19,12 @@ function Search_parameters() {
       cities: state.cities.cities
     };
   });
-  const actions = useActions({ GetCities, GetStudentCities, setFilter });
+  const actions = useActions({ GetCities, setFilter });
   const filter = useSelector((state: RootState) => state.filter.filter);
   const [value, setValue] = React.useState("");
   const setCurrentPage = (pageNum: number) => {
     actions.setFilter({ ...filter, page: pageNum });
-    actions.GetStudentCities({ ...filter, page: pageNum });
+    //actions.GetStudentCities({ ...filter, page: pageNum });
   };
 
   useEffect(() => {
@@ -36,11 +36,11 @@ function Search_parameters() {
   const updateSort = (value: Sort) => {
     console.log("filter 3: ", value);
     actions.setFilter({ ...filter, sort: value, page: 0 });
-    actions.GetStudentCities({ ...filter, sort: value, page: 0 });
+    //actions.GetStudentCities({ ...filter, sort: value, page: 0 });
   };
   const updateCity = (value: string) => {
     actions.setFilter({ ...filter, city: value, page: 0 });
-    actions.GetStudentCities({ ...filter, city: value, page: 0 });
+    //actions.GetStudentCities({ ...filter, city: value, page: 0 });
   };
 
   const handleSearch = (value: string) => {
@@ -49,7 +49,7 @@ function Search_parameters() {
       queryString: value,
       page: 0
     });
-    actions.GetStudentCities({ ...filter, queryString: value, page: 0 });
+    //actions.GetStudentCities({ ...filter, queryString: value, page: 0 });
 
     setValue(value);
   };

@@ -37,35 +37,6 @@ export function GetCities(): ThunkAction<
   };
 }
 
-export function GetStudentCities(
-  filter: Filter
-): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
-  console.log("GetStudentCities");
-
-  return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios
-      .get(`${API}/studentbyer`, {
-        params: {
-          take: OFFSET,
-          skip: filter.page * OFFSET,
-          sort: filter.sort,
-          querystring: filter.queryString,
-          filter: filter.city
-        }
-      })
-      .then(res => {
-        console.log(res.data);
-        const studentCities: StudentCity[] = res.data.studentbyer;
-        const count: number = res.data.count;
-        dispatch({
-          type: GET_STUDENTCITIES,
-          studentCities: studentCities,
-          count: count
-        });
-      });
-  };
-}
-
 export function GetStudentCity(
   id: number
 ): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
