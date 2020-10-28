@@ -28,8 +28,6 @@ type Props = {
 };
 
 const Pagination = ({ setCurrentPage, currentPage }: Props) => {
-  const { colorMode } = useColorMode();
-  const { setFilter, filter } = useFilter();
   const actions = useActions({ GetCities, GetStudentCities });
   const { count } = useSelector((state: RootState) => {
     return {

@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 import useFilter from "../../hooks/Filter/filter";
 import { Sort } from "../../hooks/Filter/interfaces";
 import Pagination from "../Pagination";
+import { OFFSET } from "../../store/actions/actions";
+import Student_cities from "../Student_cities";
 
 export default function Search_parameters() {
   const { colorMode } = useColorMode();
   const { setFilter, filter } = useFilter();
-  const { cities } = useSelector((state: RootState) => {
+  const { cities, count } = useSelector((state: RootState) => {
     return {
       count: state.studentCities.count,
       studentCities: state.studentCities.studentCities,
@@ -89,7 +91,11 @@ export default function Search_parameters() {
         <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
         <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
-      <Pagination setCurrentPage={setCurrentPage} currentPage={filter.page} />
+      {count > OFFSET ? (
+        <Pagination setCurrentPage={setCurrentPage} currentPage={filter.page} />
+      ) : (
+        ""
+      )}
     </Box>
   );
 }
