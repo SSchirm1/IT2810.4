@@ -7,20 +7,20 @@ const useFilter = () => {
   const [filter, setFilter] = useState<Filter>({
     queryString: "",
     sort: "",
-    city: ""
+    city: "",
+    page: 0
   });
-  const [page, setPage] = useState(0);
   const actions = useActions({ GetStudentCities });
 
   useEffect(() => {
-    filter.sort && actions.GetStudentCities(page, filter);
-  }, [page, filter]);
+    console.log("update");
+    console.log(filter.page);
+    filter.sort && actions.GetStudentCities(filter);
+  }, [filter]);
 
   return {
     filter,
-    setFilter,
-    page,
-    setPage
+    setFilter
   };
 };
 

@@ -6,6 +6,7 @@ import { RootState } from "../../store/reducers";
 import { useSelector } from "react-redux";
 import useFilter from "../../hooks/Filter/filter";
 import { Sort } from "../../hooks/Filter/interfaces";
+import Pagination from "../Pagination";
 
 export default function Search_parameters() {
   const { colorMode } = useColorMode();
@@ -19,6 +20,9 @@ export default function Search_parameters() {
   });
   const actions = useActions({ GetCities, GetStudentCities });
   const [value, setValue] = React.useState("");
+  const setCurrentPage = (pageNum: number) => {
+    setFilter({ ...filter, page: pageNum });
+  };
 
   useEffect(() => {
     //TODO: kanskje denne burde blitt gjort et annet sted?
@@ -27,16 +31,17 @@ export default function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    setFilter({ ...filter, sort: value });
+    setFilter({ ...filter, sort: value, page: 0 });
   };
   const updateCity = (value: string) => {
-    setFilter({ ...filter, city: value });
+    setFilter({ ...filter, city: value, page: 0 });
   };
 
   const handleSearch = (value: string) => {
     setFilter({
       ...filter,
-      queryString: value
+      queryString: value,
+      page: 0
     });
     setValue(value);
   };
@@ -84,6 +89,7 @@ export default function Search_parameters() {
         <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
         <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
+      <Pagination setCurrentPage={setCurrentPage} currentPage={filter.page} />
     </Box>
   );
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import Search_parameters from "../search_parameters";
 import Student_cities from "../Student_cities";
-import { Box, color, useColorMode } from "@chakra-ui/core";
+import { Box, useColorMode } from "@chakra-ui/core";
+import Pagination from "../Pagination";
 
 const Container = () => {
   const { colorMode } = useColorMode();
