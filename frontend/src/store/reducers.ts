@@ -3,15 +3,23 @@ import {
   GET_CITIES,
   GET_STUDENTCITIES,
   GET_STUDENTCITY,
-  GET_CITY
+  GET_CITY,
+  SetFilterAction
 } from "./actions/actiontypes";
 import { apiActionTypes } from "./actions/actiontypes";
 import {
   CitiesState,
   StudentCitiesState,
   StudentCityState,
-  CityState
+  CityState,
+  FilterState
 } from "./interfaces";
+
+import store from "../store/store";
+
+import { GetStudentCities } from "./actions/actions";
+import Filter from "./actions/interfaces";
+import { useActions } from "../hooks/useActions";
 
 const INITIAL_CITIES_STATE: CitiesState = {
   cities: []
@@ -95,11 +103,23 @@ export function cityReducer(
   }
 }
 
+const INITIAL_FILTER_STATE: FilterState = {
+  filter: { sort: "alphabetical", queryString: "", page: 0, city: "" }
+};
+
+export function filterReducer(
+  state = INITIAL_FILTER_STATE,
+  action: SetFilterAction
+): FilterState {
+  return { filter: { ...state.filter, ...action.filter } };
+}
+
 const rootReducer = combineReducers({
   city: cityReducer, //TODO: add taskreducer and name is task for future use.
   cities: citiesReducer,
   studentCity: studentCityReducer,
-  studentCities: studentCitiesReducer
+  studentCities: studentCitiesReducer,
+  filter: filterReducer
 });
 export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>;

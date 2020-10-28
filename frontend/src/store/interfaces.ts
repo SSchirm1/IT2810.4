@@ -1,3 +1,5 @@
+import Filter from "./actions/interfaces";
+
 export interface StudentCity {
   id: number;
   navn: string;
@@ -34,4 +36,8 @@ export interface CityState {
 
 export interface CitiesState {
   cities: City[];
+}
+
+export interface FilterState {
+  filter: Filter;
 }

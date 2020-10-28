@@ -3,14 +3,17 @@ import {
   GET_CITY,
   GET_STUDENTCITIES,
   GET_STUDENTCITY,
-  apiActionTypes
+  apiActionTypes,
+  SetFilterAction
 } from "./actiontypes";
 import axios from "axios";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { City, StudentCity } from "../interfaces";
 
-import Filter from "../../hooks/Filter/interfaces";
+import Filter from "./interfaces";
+import { useActions } from "../../hooks/useActions";
+import store from "../store";
 
 export const OFFSET = 4;
 export const API =
@@ -92,5 +95,12 @@ export function GetCity(
         city: city
       });
     });
+  };
+}
+
+export function setFilter(filter: Filter): SetFilterAction {
+  return {
+    type: "SET_FILTER",
+    filter
   };
 }

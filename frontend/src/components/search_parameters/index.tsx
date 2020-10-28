@@ -3,16 +3,15 @@ import { Box, useColorMode, Select, Input } from "@chakra-ui/core";
 import { GetCities, GetStudentCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
-import { useSelector } from "react-redux";
-import useFilter from "../../hooks/Filter/filter";
-import { Sort } from "../../hooks/Filter/interfaces";
+import { useSelector, connect } from "react-redux";
+import { Sort } from "../../store/actions/interfaces";
 import Pagination from "../Pagination";
 import { OFFSET } from "../../store/actions/actions";
 import Student_cities from "../Student_cities";
+import { setFilter } from "../../store/actions/actions";
 
-export default function Search_parameters() {
+function Search_parameters() {
   const { colorMode } = useColorMode();
-  const { setFilter, filter } = useFilter();
   const { cities, count } = useSelector((state: RootState) => {
     return {
       count: state.studentCities.count,
@@ -20,10 +19,12 @@ export default function Search_parameters() {
       cities: state.cities.cities
     };
   });
-  const actions = useActions({ GetCities, GetStudentCities });
+  const actions = useActions({ GetCities, GetStudentCities, setFilter });
+  const filter = useSelector((state: RootState) => state.filter.filter);
   const [value, setValue] = React.useState("");
   const setCurrentPage = (pageNum: number) => {
-    setFilter({ ...filter, page: pageNum });
+    actions.setFilter({ ...filter, page: pageNum });
+    actions.GetStudentCities({ ...filter, page: pageNum });
   };
 
   useEffect(() => {
@@ -33,18 +34,23 @@ export default function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    setFilter({ ...filter, sort: value, page: 0 });
+    console.log("filter 3: ", value);
+    actions.setFilter({ ...filter, sort: value, page: 0 });
+    actions.GetStudentCities({ ...filter, sort: value, page: 0 });
   };
   const updateCity = (value: string) => {
-    setFilter({ ...filter, city: value, page: 0 });
+    actions.setFilter({ ...filter, city: value, page: 0 });
+    actions.GetStudentCities({ ...filter, city: value, page: 0 });
   };
 
   const handleSearch = (value: string) => {
-    setFilter({
+    actions.setFilter({
       ...filter,
       queryString: value,
       page: 0
     });
+    actions.GetStudentCities({ ...filter, queryString: value, page: 0 });
+
     setValue(value);
   };
 
@@ -91,7 +97,7 @@ export default function Search_parameters() {
         <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
         <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
-      {count > OFFSET ? (
+      {count > OFFSET && filter ? (
         <Pagination setCurrentPage={setCurrentPage} currentPage={filter.page} />
       ) : (
         ""
@@ -99,3 +105,4 @@ export default function Search_parameters() {
     </Box>
   );
 }
+export default Search_parameters;

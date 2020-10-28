@@ -6,7 +6,6 @@ import { GetCities, GetStudentCities } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
 import { useSelector } from "react-redux";
-import useFilter from "../../hooks/Filter/filter";
 import { OFFSET } from "../../store/actions/actions";
 
 export const range = (...args: number[]) =>
