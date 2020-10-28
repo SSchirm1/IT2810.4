@@ -50,6 +50,7 @@ const Pagination = ({ setCurrentPage, currentPage }: Props) => {
         hover
         onClick={() => setCurrentPage(currentPage - 1)}
         padding={[0, 1]}
+        isRound
       />
       {pages.map(pageNum => (
         <Button
@@ -75,6 +76,7 @@ const Pagination = ({ setCurrentPage, currentPage }: Props) => {
         color="gray.400"
         onClick={() => setCurrentPage(currentPage + 1)}
         padding={[0, 1]}
+        isRound
       />
     </Box>
   );
