@@ -28,7 +28,7 @@ describe("Checks if studentbyer are loaded", () => {
       expect(response.responseBody).to.have.property("count", 10);
     });
     console.log("c: ", cy.getReact("StudentCityCard"));
-    cy.getReact("StudentCityCard").should("have.length", 8);
+    cy.getReact("StudentCityCard").should("have.length", 4);
 
     // Checks that new button appears
     //cy.get("button").contains("3");

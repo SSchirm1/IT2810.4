@@ -49,27 +49,36 @@ export default function Search_parameters() {
       p={3}
       boxShadow="md"
       rounded="lg"
-      bg={colorMode === "light" ? "white" : "gray.700"}
-      color={colorMode === "light" ? "black" : "gray.100"}
+      bg={colorMode === "light" ? "gray.100" : "gray.700"}
+      color={colorMode === "light" ? "gray.900" : "gray.100"}
     >
       <Input
-      _placeholder={{color: "gray.500"}}
+        _placeholder={{ color: "gray.500" }}
         variant="outline"
         value={value}
         onChange={(event: any) => handleSearch(event.target.value)}
         placeholder="søk etter studentby"
         marginBottom="5px"
+        bg={colorMode === "light" ? "white" : "gray.700"}
       />
       <Select
         onChange={event => updateCity(event.currentTarget.value)}
         marginBottom="5px"
+        bg={colorMode === "light" ? "white" : "gray.700"}
       >
         <option value="">Alle byer</option>
         {cities.map(city => {
-          return <option key={city.id} value={city.id}>{city.navn}</option>;
+          return (
+            <option key={city.id} value={city.id}>
+              {city.navn}
+            </option>
+          );
         })}
       </Select>
-      <Select onChange={event => updateSort(event.currentTarget.value as Sort)}>
+      <Select
+        onChange={event => updateSort(event.currentTarget.value as Sort)}
+        bg={colorMode === "light" ? "white" : "gray.700"}
+      >
         <option value="alphabetical">{"Alfabetisk A -> Å"}</option>
         <option value="inverseAlphabetical">{"Alfabetisk Å -> A"}</option>
         <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
