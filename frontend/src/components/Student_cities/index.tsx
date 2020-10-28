@@ -30,9 +30,9 @@ export default function Student_cities() {
         })
       ) : (
         <Flex justify="center">
-          <Heading color={colorMode === "light" ? "gray.700" : "gray.100"}>
-            No results
-          </Heading>
+          <Box color={colorMode === "light" ? "gray.700" : "gray.100"}>
+            Ingen studentbyer samsvarer med søket
+          </Box>
         </Flex>
       )}
     </Box>
