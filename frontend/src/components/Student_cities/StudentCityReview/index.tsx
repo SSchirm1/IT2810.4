@@ -8,7 +8,8 @@ import {
   ModalCloseButton,
   ModalHeader,
   ModalFooter,
-  ModalBody
+  ModalBody,
+  useColorMode
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
@@ -31,6 +32,8 @@ export default function StudentCityCard({
   const [locationRating, setLocationRating] = useState(0);
   const [commonAreaRating, setCommonAreaRating] = useState(0);
   const [surroundingsRating, setSurroundingsRating] = useState(0);
+  const { colorMode } = useColorMode();
+  const textColor = { light: "black", dark: "gray.100" };
 
   const handleSend = () => {
     console.log(priceRating);
@@ -60,10 +63,12 @@ export default function StudentCityCard({
     <Modal isOpen={showModal} onClose={() => setShowModal(!showModal)}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Ny vurdering av {studentCity.navn}</ModalHeader>
+        <ModalHeader color={textColor[colorMode]}>
+          Ny vurdering av {studentCity.navn}
+        </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <label>Pris (verdi for pengene): </label>
+        <ModalBody color={textColor[colorMode]}>
+          <label>Pris (verdi for pengene):</label>
           <StarReview value={priceRating} setValue={setPriceRating} />
           <label>Lokasjon (sentrumsnært? nært universitet?):</label>
           <StarReview value={locationRating} setValue={setLocationRating} />
@@ -84,7 +89,7 @@ export default function StudentCityCard({
           >
             Close
           </Button>
-          <Button variantColor="teal" onClick={handleSend}>
+          <Button colorScheme="teal" onClick={handleSend}>
             Send
           </Button>
         </ModalFooter>

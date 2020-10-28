@@ -1,4 +1,4 @@
-import { Box, useColorMode } from "@chakra-ui/core";
+import { Box, useColorMode, Heading, Flex } from "@chakra-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
@@ -22,9 +22,19 @@ export default function Student_cities() {
       rounded="lg"
       bg={colorMode === "light" ? "gray.100" : "gray.700"}
     >
-      {studentCities.map(studentCity => {
-        return <StudentCityCard key={studentCity.id} studentCity={studentCity} />;
-      })}
+      {studentCities.length ? (
+        studentCities.map(studentCity => {
+          return (
+            <StudentCityCard key={studentCity.id} studentCity={studentCity} />
+          );
+        })
+      ) : (
+        <Flex justify="center">
+          <Box color={colorMode === "light" ? "gray.700" : "gray.100"}>
+            Ingen studentbyer samsvarer med søket
+          </Box>
+        </Flex>
+      )}
     </Box>
   );
 }

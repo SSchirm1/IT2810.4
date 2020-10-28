@@ -30,7 +30,7 @@ describe("Checks if studentbyer are loaded", () => {
       expect(response.responseBody).to.have.property("count", 10);
     });
     console.log("c: ", cy.getReact("StudentCityCard"));
-    cy.getReact("StudentCityCard").should("have.length", 8);
+    cy.getReact("StudentCityCard").should("have.length", 4);
 
     //test that checks that choosing a city results in the right API-call, and checks that the response contains 5 studentCities
     cy.route(
