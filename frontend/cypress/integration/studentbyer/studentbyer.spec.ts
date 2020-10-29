@@ -69,10 +69,5 @@ describe("Checks if studentbyer are loaded", () => {
       expect(response.responseBody).to.have.property("count", 0);
       //TODO: teste at det står 'Ingen resultater'
     });
-
-    // Checks that new button appears
-    //cy.get("button").contains("3");
-    // Checks that new button appears
-    //cy.get("button").contains("4");
   });
 });
