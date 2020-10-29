@@ -25,7 +25,6 @@ export function* listenToFilterChanges() {
         filter: filter.city
       }
     });
-    console.log("data: ", data);
     yield put(successStudentCities(data.studentbyer, data.count));
   } catch (error) {
     yield put(failureStudentCities());
