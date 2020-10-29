@@ -34,7 +34,7 @@ export default function StarRating({ name, rating }: Props) {
           ))}
       </GridItem>
       <GridItem colSpan={1} color="gray.500" ml="3">
-        {"(" + ratingNumber + ")"}
+        {"(" + ratingNumber.toFixed(2) + ")"}
       </GridItem>
     </Grid>
   );

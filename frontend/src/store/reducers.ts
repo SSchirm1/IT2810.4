@@ -1,31 +1,55 @@
 import { combineReducers } from "redux";
 import {
-  GET_CITIES,
-  GET_STUDENTCITIES,
-  GET_STUDENTCITY,
-  GET_CITY
+  CitiesAction,
+  StudentCitiesAction,
+  FAILURE_CITIES,
+  FETCH_CITIES,
+  PENDING_CITIES,
+  SetFilterAction,
+  SET_FILTER,
+  SUCCESS_CITIES,
+  SUCCESS_STUDENT_CITIES,
+  FAILURE_STUDENT_CITIES,
+  PENDING_STUDENT_CITIES
 } from "./actions/actiontypes";
-import { apiActionTypes } from "./actions/actiontypes";
 import {
-  CitiesState,
-  StudentCitiesState,
-  StudentCityState,
-  CityState
+  CitiesState, FilterState, StudentCitiesState, StudentCity
 } from "./interfaces";
 
 const INITIAL_CITIES_STATE: CitiesState = {
-  cities: []
+  cities: { phase: "NOT_ASKED" },
+};
+
+const INITIAL_FILTER_STATE: FilterState = {
+  filter: { sort: "alphabetical", queryString: "", page: 0, city: "" }
+};
+
+const INITIAL_STUDENT_CITIES_STATE: StudentCitiesState = {
+  studentCities: { phase: "NOT_ASKED" },
 };
 
 export function citiesReducer(
   state = INITIAL_CITIES_STATE,
-  action: apiActionTypes
+  action: CitiesAction
 ): CitiesState {
   switch (action.type) {
-    case GET_CITIES: {
+    case SUCCESS_CITIES: {
+      console.log("Success: ", action)
       return {
         ...state,
-        cities: action.cities
+        cities: { phase: "SUCCESS", data: action.cities, count: null }
+      };
+    }
+    case FAILURE_CITIES: {
+      return {
+        ...state,
+        cities: { phase: "FAILURE", error: null }
+      };
+    }
+    case PENDING_CITIES: {
+      return {
+        ...state,
+        cities: { phase: "PENDING", count: null}
       };
     }
     default:
@@ -33,61 +57,47 @@ export function citiesReducer(
   }
 }
 
-const INITIAL_STUDENTCITIES_STATE: StudentCitiesState = {
-  studentCities: [],
-  count: 0
-};
 
 export function studentCitiesReducer(
-  state = INITIAL_STUDENTCITIES_STATE,
-  action: apiActionTypes
+  state = INITIAL_STUDENT_CITIES_STATE,
+  action: StudentCitiesAction
 ): StudentCitiesState {
   switch (action.type) {
-    case GET_STUDENTCITIES: {
+    case SUCCESS_STUDENT_CITIES: {
+      console.log("Success: ", action.studentCities)
       return {
         ...state,
-        studentCities: action.studentCities,
-        count: action.count
+        studentCities: { phase: "SUCCESS", data: action.studentCities, count: action.count }
+      };
+    }
+    case FAILURE_STUDENT_CITIES: {
+      return {
+        ...state,
+        studentCities: { phase: "FAILURE", error: null }
+      };
+    }
+    case PENDING_STUDENT_CITIES: {
+      return {
+        ...state,
+        studentCities: { phase: "PENDING", count: null  }
       };
     }
     default:
+      console.log("action: ", action)
       return state;
   }
 }
 
-const INITIAL_STUDENTCITY_STATE: StudentCityState = {
-  studentCity: undefined
-};
 
-export function studentCityReducer(
-  state = INITIAL_STUDENTCITY_STATE,
-  action: apiActionTypes
-): StudentCityState {
+export function filterReducer(
+  state = INITIAL_FILTER_STATE,
+  action: SetFilterAction
+): FilterState {
   switch (action.type) {
-    case GET_STUDENTCITY: {
+    case SET_FILTER: {
       return {
         ...state,
-        studentCity: action.studentCity
-      };
-    }
-    default:
-      return state;
-  }
-}
-
-const INITIAL_CITY_STATE: CityState = {
-  city: undefined
-};
-
-export function cityReducer(
-  state = INITIAL_CITY_STATE,
-  action: apiActionTypes
-): CityState {
-  switch (action.type) {
-    case GET_CITY: {
-      return {
-        ...state,
-        city: action.city
+        filter: { ...state.filter, ...action.filter }
       };
     }
     default:
@@ -96,10 +106,9 @@ export function cityReducer(
 }
 
 const rootReducer = combineReducers({
-  city: cityReducer, //TODO: add taskreducer and name is task for future use.
   cities: citiesReducer,
-  studentCity: studentCityReducer,
-  studentCities: studentCitiesReducer
+  studentCities: studentCitiesReducer,
+  filter: filterReducer
 });
 export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>;

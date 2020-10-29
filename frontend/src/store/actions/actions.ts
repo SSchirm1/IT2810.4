@@ -1,97 +1,74 @@
-import {
-  GET_CITIES,
-  GET_CITY,
-  GET_STUDENTCITIES,
-  GET_STUDENTCITY,
-  apiActionTypes
-} from "./actiontypes";
-import axios from "axios";
-import { ThunkAction } from "redux-thunk";
-import { Dispatch } from "redux";
 import { City, StudentCity } from "../interfaces";
+import {
+  CitiesAction,
+  FAILURE_CITIES,
+  FAILURE_STUDENT_CITIES,
+  FETCH_CITIES,
+  FETCH_STUDENT_CITIES,
+  PENDING_CITIES,
+  PENDING_STUDENT_CITIES,
+  SetFilterAction,
+  SET_FILTER,
+  SUCCESS_CITIES,
+  SUCCESS_STUDENT_CITIES,
+  StudentCitiesAction
+} from "./actiontypes";
 
-import Filter from "../../hooks/Filter/interfaces";
+import Filter from "./interfaces";
 
-export const API =
-  process.env.REACT_APP_API_SERVER ?? "http://it2810-72.idi.ntnu.no:3000/api";
-const OFFSET = 4;
+// Inspired by: https://medium.com/unpacking-trunk-club/using-redux-and-redux-saga-to-handle-api-calls-18964d234660
 
-export function GetCities(): ThunkAction<
-  Promise<void>,
-  {},
-  {},
-  apiActionTypes
-> {
-  console.log("GetCities");
-  return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios.get(API + "/byer").then(res => {
-      const cities: City[] = res.data;
-      dispatch({
-        type: GET_CITIES,
-        cities: cities
-      });
-    });
+export function setFilter(filter: Filter): SetFilterAction {
+  return {
+    type: SET_FILTER,
+    filter
   };
 }
 
-export function GetStudentCities(
-  page: number,
-  filter: Filter
-): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
-  console.log("GetStudentCities");
-
-  return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios
-      .get(`${API}/studentbyer`, {
-        params: {
-          take: OFFSET,
-          skip: page * OFFSET,
-          sort: filter.sort,
-          querystring: filter.queryString,
-          filter: filter.city
-        }
-      })
-      .then(res => {
-        console.log(res.data);
-        const studentCities: StudentCity[] = res.data.studentbyer;
-        const count: number = res.data.count;
-        dispatch({
-          type: GET_STUDENTCITIES,
-          studentCities: studentCities,
-          count: count
-        });
-      });
+export function fetchCities(): CitiesAction {
+  return {
+    type: FETCH_CITIES
+  };
+}
+export function pendingCities(): CitiesAction {
+  return {
+    type: PENDING_CITIES
+  };
+}
+export function successCities(data: City[]): CitiesAction {
+  console.log("data success: ", data);
+  return {
+    type: SUCCESS_CITIES,
+    cities: data
+  };
+}
+export function failureCities(): CitiesAction {
+  return {
+    type: FAILURE_CITIES
   };
 }
 
-export function GetStudentCity(
-  id: number
-): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
-  console.log("GetStudentCity");
-  return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios.get(API + "/studentbyer/" + id.toString()).then(res => {
-      //TODO: change '1' to input value
-      const studentcity: StudentCity = res.data;
-      dispatch({
-        type: GET_STUDENTCITY,
-        studentCity: studentcity
-      });
-    });
+
+export function fetchStudentCities(): StudentCitiesAction {
+  return {
+    type: FETCH_STUDENT_CITIES
   };
 }
-
-export function GetCity(
-  id: number
-): ThunkAction<Promise<void>, {}, {}, apiActionTypes> {
-  console.log("GetCity");
-  return async (dispatch: Dispatch<apiActionTypes>) => {
-    axios.get(API + "/byer/" + id.toString()).then(res => {
-      //TODO: change '1' to input value
-      const city: City = res.data;
-      dispatch({
-        type: GET_CITY,
-        city: city
-      });
-    });
+export function pendingStudentCities(): StudentCitiesAction {
+  return {
+    type: PENDING_STUDENT_CITIES
+  };
+}
+export function successStudentCities(data: StudentCity[], count: number): StudentCitiesAction {
+  console.log("data success: ", data);
+  return {
+    type: SUCCESS_STUDENT_CITIES,
+    studentCities: data,
+    count
+  };
+}
+export function failureStudentCities(): StudentCitiesAction {
+  return {
+    type: FAILURE_STUDENT_CITIES
   };
 }

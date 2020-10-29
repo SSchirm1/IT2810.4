@@ -72,7 +72,7 @@ export default function StudentCityCard({ studentCity }: Props) {
             onClick={handleToggleModal}
             mt="2"
           >
-            {"Legg inn vurdering"}
+            {"Send anmeldelse"}
           </Button>
           <Button
             colorScheme="teal"
