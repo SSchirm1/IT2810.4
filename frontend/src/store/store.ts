@@ -16,6 +16,7 @@ export default createStore(
 function* sagas() {
   yield all([
     takeLatest("SET_FILTER", listenToFilterChanges),
+    takeLatest("FETCH_STUDENT_CITIES", listenToFilterChanges),
     takeLatest("FETCH_CITIES", listenToFetchByer)
   ]);
 }

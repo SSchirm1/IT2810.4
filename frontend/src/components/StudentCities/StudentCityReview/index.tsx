@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Button,
-  useToast,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -9,12 +8,18 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  useColorMode
+  useColorMode,
+  Tooltip,
+  Box
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
 import axios from "axios";
 import { API } from "../../../constants";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useActions } from "../../../hooks/useActions";
+import { fetchStudentCities } from "../../../store/actions/actions";
 
 type Props = {
   studentCity: StudentCity;
@@ -27,13 +32,13 @@ export default function StudentCityCard({
   showModal,
   setShowModal
 }: Props) {
-  const toast = useToast();
   const [priceRating, setPriceRating] = useState(0);
   const [locationRating, setLocationRating] = useState(0);
   const [commonAreaRating, setCommonAreaRating] = useState(0);
   const [surroundingsRating, setSurroundingsRating] = useState(0);
   const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
+  const actions = useActions({ fetchStudentCities });
 
   const handleSend = () => {
     console.log(priceRating);
@@ -49,14 +54,8 @@ export default function StudentCityCard({
     setLocationRating(0);
     setCommonAreaRating(0);
     setSurroundingsRating(0);
-    toast({
-      title: "Vurdering sendt.",
-      description:
-        "Vurderingen din er sendt inn, og vil nå benyttes til å regne ut nye gjennomsnittsvurderinger for studentbyen. Takk for ditt bidrag.",
-      status: "success",
-      duration: 9000,
-      isClosable: true
-    });
+    toast("Vurderingen din er sendt inn, takk for ditt bidrag!");
+    actions.fetchStudentCities();
   };
 
   return (
@@ -68,6 +67,9 @@ export default function StudentCityCard({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody color={textColor[colorMode]}>
+          <Box color="gray.500" mu="5">
+            {"Gi studentbyen 1-5 stjerner på ulike vurderingsområder."}
+          </Box>
           <label>Pris (verdi for pengene):</label>
           <StarReview value={priceRating} setValue={setPriceRating} />
           <label>Lokasjon (sentrumsnært? nært universitet?):</label>
@@ -89,7 +91,16 @@ export default function StudentCityCard({
           >
             Close
           </Button>
-          <Button colorScheme="teal" onClick={handleSend}>
+          <Button
+            colorScheme="teal"
+            onClick={handleSend}
+            disabled={
+              priceRating == 0 ||
+              locationRating == 0 ||
+              commonAreaRating == 0 ||
+              surroundingsRating == 0
+            }
+          >
             Send
           </Button>
         </ModalFooter>

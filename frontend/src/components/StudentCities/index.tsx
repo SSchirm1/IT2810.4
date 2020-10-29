@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
 import StudentCityCard from "./StudentCityCard";
 import Pagination from "../Pagination";
+import { ToastContainer } from "react-toastify";
 
 export default function Student_cities() {
   const { colorMode } = useColorMode();
@@ -78,6 +79,15 @@ export default function Student_cities() {
             </Flex>
           )}
           {currentStudentCities.length ? <Pagination /> : ""}
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            draggable
+          />
         </Box>
       );
   }
