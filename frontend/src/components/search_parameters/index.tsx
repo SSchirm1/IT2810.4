@@ -22,10 +22,6 @@ function Search_parameters() {
   const actions = useActions({ GetCities, setFilter });
   const filter = useSelector((state: RootState) => state.filter.filter);
   const [value, setValue] = React.useState("");
-  const setCurrentPage = (pageNum: number) => {
-    actions.setFilter({ ...filter, page: pageNum });
-    //actions.GetStudentCities({ ...filter, page: pageNum });
-  };
 
   useEffect(() => {
     //TODO: kanskje denne burde blitt gjort et annet sted?
@@ -97,11 +93,6 @@ function Search_parameters() {
         <option value="ratingHighToLow">{"Total vurdering høy -> lav"}</option>
         <option value="ratingLowToHigh">{"Total vurdering lav -> høy"}</option>
       </Select>
-      {count > OFFSET && filter ? (
-        <Pagination setCurrentPage={setCurrentPage} currentPage={filter.page} />
-      ) : (
-        ""
-      )}
     </Box>
   );
 }
