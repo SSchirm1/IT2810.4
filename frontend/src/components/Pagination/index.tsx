@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useColorMode, IconButton, Text, Button } from "@chakra-ui/core";
+import { Box, IconButton, Text, Button } from "@chakra-ui/core";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { RootState } from "../../store/reducers";
 import { useSelector } from "react-redux";
@@ -42,7 +42,7 @@ const Pagination = ({ setCurrentPage, currentPage }: Props) => {
         aria-label="forrige"
         bg="light"
         color="gray.400"
-        disabled={currentPage == 0 ? true : false}
+        disabled={currentPage === from ? true : false}
         hover
         onClick={() => setCurrentPage(currentPage - 1)}
         padding={[0, 1]}
@@ -50,15 +50,15 @@ const Pagination = ({ setCurrentPage, currentPage }: Props) => {
       />
       {pages.map(pageNum => (
         <Button
-          colorScheme={pageNum == currentPage ? "teal" : "light"}
-          variant={pageNum == currentPage ? "solid" : "ghost"}
+          colorScheme="teal"
+          variant={pageNum === currentPage ? "solid" : "ghost"}
           hover
-          disabled={pageNum == currentPage ? true : false}
+          disabled={pageNum === currentPage ? true : false}
           onClick={() => setCurrentPage(pageNum)}
           padding={[0, 1]}
           key={pageNum}
         >
-          <Text weight={pageNum == currentPage ? "bold" : "regular"}>
+          <Text weight={pageNum === currentPage ? "bold" : "regular"}>
             {pageNum + 1}
           </Text>
         </Button>
@@ -68,7 +68,7 @@ const Pagination = ({ setCurrentPage, currentPage }: Props) => {
         aria-label="neste"
         bg="light"
         hover
-        disabled={currentPage == to - 1 ? true : false}
+        disabled={currentPage === to - 1 ? true : false}
         color="gray.400"
         onClick={() => setCurrentPage(currentPage + 1)}
         padding={[0, 1]}

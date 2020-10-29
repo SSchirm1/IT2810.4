@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
 import StudentCityCard from "./StudentCityCard";
+import Pagination from "../Pagination";
 
 export default function Student_cities() {
   const { colorMode } = useColorMode();
@@ -37,6 +38,7 @@ export default function Student_cities() {
           </Box>
         </Flex>
       )}
+      {studentCities.length ? <Pagination /> : ""}
     </Box>
   );
 }
