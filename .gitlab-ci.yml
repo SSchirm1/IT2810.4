@@ -22,6 +22,7 @@ api-endpoints-test:
 
 frontend-e2e-test:
   image: cypress/base:14
+  stage: test
   before_script:
       - cd /builds/it2810-h20/team-72/prosjekt-3/api
       - npm install
@@ -39,9 +40,11 @@ frontend-e2e-test:
     - export CYPRESS_API_SERVER="http://localhost:8000/api"
     - export REACT_APP_API_SERVER="http://localhost:8000/api"
     - npm test
-  artifacts:
-    when: always
-    paths:
-      - cypress/videos/**/*.mp4
-      - cypress/screenshots/**/*.png
-    expire_in: 10 days
+
+frontend-unit-test:
+  image: cypress/base:14
+  stage: test
+  script:
+    - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
+    - npm ci
+    - npm run jest

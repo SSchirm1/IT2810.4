@@ -9,12 +9,14 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  useColorMode
+  useColorMode,
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
 import axios from "axios";
 import { API } from "../../../constants";
+import { useActions } from "../../../hooks/useActions";
+import { fetchStudentCities } from "../../../store/actions/actions";
 
 type Props = {
   studentCity: StudentCity;
@@ -25,7 +27,7 @@ type Props = {
 export default function StudentCityCard({
   studentCity,
   showModal,
-  setShowModal
+  setShowModal,
 }: Props) {
   const toast = useToast();
   const [priceRating, setPriceRating] = useState(0);
@@ -34,7 +36,7 @@ export default function StudentCityCard({
   const [surroundingsRating, setSurroundingsRating] = useState(0);
   const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
-
+  const actions = useActions({ fetchStudentCities });
   const handleSend = () => {
     console.log(priceRating);
     axios.post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
@@ -42,20 +44,21 @@ export default function StudentCityCard({
       vurderingFellesAreal: commonAreaRating,
       vurderingTilstand: surroundingsRating,
       vurderingPris: priceRating,
-      studentby: studentCity.id
+      studentby: studentCity.id,
     });
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
     setCommonAreaRating(0);
     setSurroundingsRating(0);
+    actions.fetchStudentCities();
     toast({
       title: "Vurdering sendt.",
       description:
         "Vurderingen din er sendt inn, og vil nå benyttes til å regne ut nye gjennomsnittsvurderinger for studentbyen. Takk for ditt bidrag.",
       status: "success",
       duration: 9000,
-      isClosable: true
+      isClosable: true,
     });
   };
 
