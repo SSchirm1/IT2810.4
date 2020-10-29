@@ -5,7 +5,6 @@ import { RootState } from "../../store/reducers";
 import { useSelector, connect } from "react-redux";
 import { Sort } from "../../store/actions/interfaces";
 import Pagination from "../Pagination";
-import Student_cities from "../Student_cities";
 import { setFilter, fetchCities } from "../../store/actions/actions";
 import { OFFSET } from "../../constants";
 

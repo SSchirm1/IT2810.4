@@ -9,7 +9,7 @@ export default function Student_cities() {
   const { colorMode } = useColorMode();
   const { studentCities } = useSelector((state: RootState) => {
     return {
-      studentCities: state.studentCities.studentCities,
+      studentCities: state.studentCities.studentCities
     };
   });
 
@@ -62,7 +62,7 @@ export default function Student_cities() {
           bg={colorMode === "light" ? "gray.100" : "gray.700"}
         >
           {currentStudentCities.length ? (
-            currentStudentCities.map((studentCity) => {
+            currentStudentCities.map(studentCity => {
               return (
                 <StudentCityCard
                   key={studentCity.id}
