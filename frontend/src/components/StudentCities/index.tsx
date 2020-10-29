@@ -1,4 +1,4 @@
-import { Box, useColorMode, Heading, Flex, Spinner } from "@chakra-ui/core";
+import { Box, useColorMode, Flex, Spinner } from "@chakra-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
@@ -14,7 +14,7 @@ export default function Student_cities() {
   });
 
   const currentStudentCities =
-    studentCities.phase == "SUCCESS" ? studentCities.data ?? [] : [];
+    studentCities.phase === "SUCCESS" ? studentCities.data ?? [] : [];
 
   switch (studentCities.phase) {
     case "NOT_ASKED":

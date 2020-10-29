@@ -2,18 +2,15 @@ import React, { useEffect } from "react";
 import { Box, useColorMode, Select, Input } from "@chakra-ui/core";
 import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
-import { useSelector, connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Sort } from "../../store/actions/interfaces";
-import Pagination from "../Pagination";
 import { setFilter, fetchCities } from "../../store/actions/actions";
-import { OFFSET } from "../../constants";
 
 function Search_parameters() {
   const { colorMode } = useColorMode();
-  const { cities, studentCities } = useSelector((state: RootState) => {
+  const { cities } = useSelector((state: RootState) => {
     return {
-      studentCities: state.studentCities.studentCities,
-      cities: state.cities.cities,
+      cities: state.cities.cities
     };
   });
 
@@ -28,7 +25,6 @@ function Search_parameters() {
   }, []);
 
   const updateSort = (value: Sort) => {
-    console.log("filter 3: ", value);
     actions.setFilter({ ...filter, sort: value, page: 0 });
     //actions.GetStudentCities({ ...filter, sort: value, page: 0 });
   };
@@ -41,15 +37,13 @@ function Search_parameters() {
     actions.setFilter({
       ...filter,
       queryString: value,
-      page: 0,
+      page: 0
     });
     //actions.GetStudentCities({ ...filter, queryString: value, page: 0 });
 
     setValue(value);
   };
-
-  const count = studentCities.phase == "SUCCESS" ? studentCities.count ?? 0 : 0;
-  const currentCities = cities.phase == "SUCCESS" ? cities.data ?? [] : [];
+  const currentCities = cities.phase === "SUCCESS" ? cities.data ?? [] : [];
 
   return (
     <Box
@@ -72,12 +66,12 @@ function Search_parameters() {
         bg={colorMode === "light" ? "white" : "gray.700"}
       />
       <Select
-        onChange={(event) => updateCity(event.currentTarget.value)}
+        onChange={event => updateCity(event.currentTarget.value)}
         marginBottom="5px"
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
         <option value="">Alle byer</option>
-        {currentCities.map((city) => {
+        {currentCities.map(city => {
           return (
             <option key={city.id} value={city.id}>
               {city.navn}
@@ -86,7 +80,7 @@ function Search_parameters() {
         })}
       </Select>
       <Select
-        onChange={(event) => updateSort(event.currentTarget.value as Sort)}
+        onChange={event => updateSort(event.currentTarget.value as Sort)}
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
         <option value="alphabetical">{"Alfabetisk A -> Å"}</option>

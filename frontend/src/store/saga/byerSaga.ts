@@ -1,20 +1,20 @@
-import { API, OFFSET } from "../../constants";
+import { API } from "../../constants";
 import axios from "axios";
-import { all, call, put, select, takeEvery, takeLatest } from "@redux-saga/core/effects";
-import { RootState } from "../reducers";
-import { pendingCities, successCities, failureCities } from "../actions/actions";
-
+import { call, put } from "@redux-saga/core/effects";
+import {
+  pendingCities,
+  successCities,
+  failureCities
+} from "../actions/actions";
 
 export function* listenToFetchByer() {
+  yield put(pendingCities());
 
-        yield put(pendingCities())
+  try {
+    const { data } = yield call(axios.get, `${API}/byer`);
 
-        try {
-          const { data }= yield call(axios.get, `${API}/byer`)
-          console.log("data: ", data);
-
-          yield put(successCities(data))
-        } catch(error) {
-          yield put(failureCities())
-        }
+    yield put(successCities(data));
+  } catch (error) {
+    yield put(failureCities());
+  }
 }

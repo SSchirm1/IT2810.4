@@ -4,12 +4,11 @@ import {
   useColorMode,
   IconButton,
   Box,
-  Image,
   Heading,
   Spacer
 } from "@chakra-ui/core";
 
-import { BsMoon, BsSun, BsHouse } from "react-icons/bs";
+import { BsMoon, BsSun } from "react-icons/bs";
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();

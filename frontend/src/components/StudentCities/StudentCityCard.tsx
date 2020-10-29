@@ -25,7 +25,7 @@ export default function StudentCityCard({ studentCity }: Props) {
       bg={colorMode === "light" ? "white" : "gray.600"}
       color={colorMode === "light" ? "black" : "white"}
     >
-      <a>
+      <a href="input">
         <Box p="6">
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" colorScheme="teal">
