@@ -38,7 +38,7 @@ export default function Student_cities() {
           </Box>
         </Flex>
       )}
-      {studentCities.length ? <Pagination /> : ""}
+      {currentStudentCities.length ? <Pagination /> : ""}
     </Box>
   );
 }

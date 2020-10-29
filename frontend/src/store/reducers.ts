@@ -79,10 +79,11 @@ export function studentCitiesReducer(
     case PENDING_STUDENT_CITIES: {
       return {
         ...state,
-        studentCities: { phase: "PENDING", count: state?.count ??  }
+        studentCities: { phase: "PENDING", count: null  }
       };
     }
     default:
+      console.log("action: ", action)
       return state;
   }
 }
