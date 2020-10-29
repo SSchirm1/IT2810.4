@@ -35,7 +35,7 @@ const Pagination = () => {
     const count =
       studentCities.phase === "SUCCESS" ? studentCities.count ?? 0 : 0;
     count && setCount(count);
-  }, [count]);
+  }, [studentCities.phase, count]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const actions = useActions({ setFilter });
 

@@ -19,18 +19,15 @@ function Search_parameters() {
   const [value, setValue] = React.useState("");
 
   useEffect(() => {
-    //TODO: kanskje denne burde blitt gjort et annet sted?
     updateSort("alphabetical");
     actions.fetchCities();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateSort = (value: Sort) => {
     actions.setFilter({ ...filter, sort: value, page: 0 });
-    //actions.GetStudentCities({ ...filter, sort: value, page: 0 });
   };
   const updateCity = (value: string) => {
     actions.setFilter({ ...filter, city: value, page: 0 });
-    //actions.GetStudentCities({ ...filter, city: value, page: 0 });
   };
 
   const handleSearch = (value: string) => {
@@ -39,8 +36,6 @@ function Search_parameters() {
       queryString: value,
       page: 0
     });
-    //actions.GetStudentCities({ ...filter, queryString: value, page: 0 });
-
     setValue(value);
   };
   const currentCities = cities.phase === "SUCCESS" ? cities.data ?? [] : [];
