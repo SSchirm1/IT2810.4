@@ -7,21 +7,15 @@ describe("Checks if studentbyer are loaded", () => {
     cy.visit("http://localhost:3000");
     cy.waitForReact();
   });
-  it("Clicks on button for adding more studentbyer and checks that these are loaded", () => {
+  it("Clicks on button for reversing order of student cities, checks that the right API-call is called, checks that it is in total 10 student cities and 4 are displayed frontend", () => {
     cy.server();
-
-    //tests that choosing sort gives right API call, that response contains 10 studentCities and that 4 studentCities are displayed in StudentCityCards
     cy.route(
       "GET",
       `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=`
     ).as("getStudentbyer1");
-    //cy.get("button")
-    //  .contains("1")
-    //  .click();
 
     // wait for GET /api/studentbyer
-    const k = cy
-      .get("select")
+    cy.get("select")
       .eq(1)
       .select("Alfabetisk Å -> A");
 
@@ -29,45 +23,67 @@ describe("Checks if studentbyer are loaded", () => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 10);
     });
-    console.log("c: ", cy.getReact("StudentCityCard"));
-    cy.getReact("StudentCityCard").should("have.length", 4);
+    cy.getReact("StudentCityCard").should("have.length", 8);
+  });
 
-    //test that checks that choosing a city results in the right API-call, and checks that the response contains 5 studentCities
+  it("Clicks on button for showing only studentcities from Oslo and checks that it is in total 5 student cities and 4 are displayed frontend", () => {
+    cy.server();
     cy.route(
       "GET",
-      `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=&filter=1`
+      `${API}/studentbyer?take=4&skip=0&sort=alphabetical&querystring=&filter=1`
     ).as("getStudentbyerBy=Oslo");
-    const l = cy
-      .get("select")
+
+    cy.get("select")
       .eq(0)
       .select("Oslo");
+    // wait for GET /api/studentbyer
     cy.wait("@getStudentbyerBy=Oslo", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 5);
     });
-    //Tests that writing 'a' as input gives API-call with querystring=a, and >0 studentcities are returned
+    cy.getReact("StudentCityCard").should("have.length", 5);
+  });
+
+  it("Clicks pagination-button '3' and checks that the right API-call and 2 student cities is displayed", () => {
+    cy.server();
     cy.route(
       "GET",
-      `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=a&filter=1`
+      `${API}/studentbyer?take=4&skip=8&sort=alphabetical&querystring=&filter=`
+    ).as("getStudentbyerSkip=8");
+    cy.contains("3").click();
+    // wait for GET /api/studentbyer
+    cy.wait("@getStudentbyerSkip=8", { timeout: 5000 }).should(response => {
+      expect(response.status).to.eq(200);
+      expect(response.responseBody).to.have.property("count", 10);
+    });
+    cy.getReact("StudentCityCard").should("have.length", 4);
+  });
+  it("Writes 'a' as input for student city name gives API-call with querystring=a, and >0 studentcities are returned", () => {
+    cy.server();
+    cy.route(
+      "GET",
+      `${API}/studentbyer?take=4&skip=0&sort=alphabetical&querystring=a&filter=`
     ).as("getStudentbyerNavn=a");
-    const n = cy.get("input").type("a");
+    cy.get("input").type("a");
+    // wait for GET /api/studentbyer
     cy.wait("@getStudentbyerNavn=a", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
       expect(response.responseBody)
         .to.have.property("count")
         .greaterThan(0);
     });
-
-    //Tests that writing 123 as input gives API-call with querystring=123, and 0 studentcities are returned
+  });
+  it("Writes '123' as input for student city name gives API-call with querystring=123, and 0 studentcities are returned", () => {
+    cy.server();
     cy.route(
       "GET",
-      `${API}/studentbyer?take=4&skip=0&sort=inverseAlphabetical&querystring=a123&filter=1`
+      `${API}/studentbyer?take=4&skip=0&sort=alphabetical&querystring=123&filter=`
     ).as("getStudentbyerNavn=123");
-    const m = cy.get("input").type("123");
+    cy.get("input").type("123");
     cy.wait("@getStudentbyerNavn=123", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 0);
-      //TODO: teste at det står 'Ingen resultater'
     });
+    cy.contains("Ingen studentbyer samsvarer med søket");
   });
 });
