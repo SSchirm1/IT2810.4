@@ -44,19 +44,24 @@ describe("Checks if studentbyer are loaded", () => {
     cy.getReact("StudentCityCard").should("have.length", 5);
   });
 
-  it("Clicks pagination-button '3' and checks that the right API-call and 2 student cities is displayed", () => {
+  it("Clicks pagination-button 'right-arrow' and checks that the right API-call and 4 student cities is displayed", () => {
     cy.server();
     cy.route(
       "GET",
-      `${API}/studentbyer?take=4&skip=8&sort=alphabetical&querystring=&filter=`
-    ).as("getStudentbyerSkip=8");
-    cy.contains("3").click();
+      `${API}/studentbyer?take=4&skip=4&sort=alphabetical&querystring=&filter=`
+    ).as("getStudentbyerSkip=4");
+    console.log(cy.getReact("button"));
+    cy.wait(2000);
+    cy.get("Button")
+      .last()
+      .click();
+
     // wait for GET /api/studentbyer
-    cy.wait("@getStudentbyerSkip=8", { timeout: 5000 }).should(response => {
+    cy.wait("@getStudentbyerSkip=4", { timeout: 5000 }).should(response => {
       expect(response.status).to.eq(200);
       expect(response.responseBody).to.have.property("count", 10);
     });
-    cy.getReact("StudentCityCard").should("have.length", 4);
+    cy.getReact("StudentCityCard").should("have.length", 8);
   });
   it("Writes 'a' as input for student city name gives API-call with querystring=a, and >0 studentcities are returned", () => {
     cy.server();
