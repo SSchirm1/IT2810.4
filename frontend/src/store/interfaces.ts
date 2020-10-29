@@ -1,5 +1,11 @@
 import Filter from "./actions/interfaces";
 
+type RemoteDataT<D, E> =
+  | { phase: 'NOT_ASKED' }
+  | { phase: 'PENDING', count: number | null }
+  | { phase: 'SUCCESS', data: D, count: number | null }
+  | { phase: 'FAILURE', error: E | null }
+
 export interface StudentCity {
   id: number;
   navn: string;
@@ -14,14 +20,6 @@ export interface StudentCity {
   by: City;
 }
 
-export interface StudentCityState {
-  studentCity: StudentCity | undefined;
-}
-
-export interface StudentCitiesState {
-  studentCities: StudentCity[];
-  count: number;
-}
 
 export interface City {
   id: number;
@@ -30,12 +28,13 @@ export interface City {
   studentbyer: StudentCity[] | undefined;
 }
 
-export interface CityState {
-  city: City | undefined;
-}
 
 export interface CitiesState {
-  cities: City[];
+  cities: RemoteDataT<Array<City>, {}>;
+}
+
+export interface StudentCitiesState {
+  studentCities: RemoteDataT<Array<StudentCity>, {}>;
 }
 
 export interface FilterState {

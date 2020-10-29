@@ -1,40 +1,64 @@
 import { StudentCity, City } from "../interfaces";
 import Filter from "./interfaces";
 
-export const GET_STUDENTCITIES = "GET_STUDENTCITIES";
-export const GET_STUDENTCITY = "GET_STUDENTCITY";
+export const FETCH_CITIES = "FETCH_CITIES";
+export const SUCCESS_CITIES = "SUCCESS_CITIES";
+export const PENDING_CITIES = "PENDING_CITIES";
+export const FAILURE_CITIES = "FAILURE_CITIES";
 
-export const GET_CITIES = "GET_CITIES";
-export const GET_CITY = "GET_CITY";
+export const FETCH_STUDENT_CITIES = "FETCH_STUDENT_CITIES";
+export const SUCCESS_STUDENT_CITIES = "SUCCESS_STUDENT_CITIES";
+export const PENDING_STUDENT_CITIES = "PENDING_STUDENT_CITIES";
+export const FAILURE_STUDENT_CITIES = "FAILURE_STUDENT_CITIES";
+
 export const SET_FILTER = "SET_FILTER";
 
-interface GetStudentCityAction {
-  type: typeof GET_STUDENTCITY;
-  studentCity: StudentCity;
+
+// CITIES:
+export interface FetchCitiesAction {
+  type: typeof FETCH_CITIES;
 }
 
-interface GetStudentCitiesAction {
-  type: typeof GET_STUDENTCITIES;
+export interface PendingCitiesAction {
+  type: typeof PENDING_CITIES;
+}
+
+export interface SuccessCitiesAction {
+  type: typeof SUCCESS_CITIES;
+  cities: City[];
+}
+
+export interface FailureCitiesAction {
+  type: typeof FAILURE_CITIES;
+}
+
+export type CitiesAction = FetchCitiesAction | PendingCitiesAction | SuccessCitiesAction | FailureCitiesAction;
+
+// STUDENTCITIES
+
+export interface FetchStudentCitiesAction {
+  type: typeof FETCH_STUDENT_CITIES;
+}
+
+export interface PendingStudentCitiesAction {
+  type: typeof PENDING_STUDENT_CITIES;
+}
+
+export interface SuccessStudentCitiesAction {
+  type: typeof SUCCESS_STUDENT_CITIES;
   studentCities: StudentCity[];
   count: number;
 }
 
-export interface GetCitiesAction {
-  type: typeof GET_CITIES;
-  cities: City[];
+export interface FailureStudentCitiesAction {
+  type: typeof FAILURE_STUDENT_CITIES  ;
 }
-interface GetCityAction {
-  type: typeof GET_CITY;
-  city: City;
-}
+
+export type StudentCitiesAction = FetchStudentCitiesAction | PendingStudentCitiesAction | SuccessStudentCitiesAction | FailureStudentCitiesAction;
+
 
 export interface SetFilterAction {
   type: typeof SET_FILTER;
   filter: Filter;
 }
 
-export type apiActionTypes =
-  | GetStudentCitiesAction
-  | GetStudentCityAction
-  | GetCitiesAction
-  | GetCityAction;

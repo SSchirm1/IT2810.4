@@ -14,7 +14,7 @@ import {
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
 import axios from "axios";
-import { API } from "../../../store/actions/actions";
+import { API } from "../../../constants";
 
 type Props = {
   studentCity: StudentCity;

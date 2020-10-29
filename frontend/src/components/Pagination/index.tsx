@@ -1,12 +1,9 @@
 import React from "react";
 import { Box, useColorMode, IconButton, Text, Button } from "@chakra-ui/core";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-
-import { GetCities } from "../../store/actions/actions";
-import { useActions } from "../../hooks/useActions";
 import { RootState } from "../../store/reducers";
 import { useSelector } from "react-redux";
-import { OFFSET } from "../../store/actions/actions";
+import { OFFSET } from "../../constants";
 
 export const range = (...args: number[]) =>
   args.length > 1 && args[1] < args[0]
@@ -27,12 +24,12 @@ type Props = {
 };
 
 const Pagination = ({ setCurrentPage, currentPage }: Props) => {
-  const actions = useActions({ GetCities });
-  const { count } = useSelector((state: RootState) => {
+  const { studentCities } = useSelector((state: RootState) => {
     return {
-      count: state.studentCities.count
+      studentCities: state.studentCities.studentCities
     };
   });
+  const count = studentCities.phase == "SUCCESS" ? studentCities.count ?? 0 : 0;
 
   const from = 0;
   const to = Math.ceil(count / OFFSET);

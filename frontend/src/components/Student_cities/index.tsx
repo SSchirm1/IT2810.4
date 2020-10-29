@@ -12,6 +12,8 @@ export default function Student_cities() {
     };
   });
 
+  const currentStudentCities = studentCities.phase == "SUCCESS" ? studentCities.data ?? [] : [];
+
   return (
     <Box
       width="full"
@@ -22,8 +24,8 @@ export default function Student_cities() {
       rounded="lg"
       bg={colorMode === "light" ? "gray.100" : "gray.700"}
     >
-      {studentCities.length ? (
-        studentCities.map(studentCity => {
+      {currentStudentCities.length ? (
+        currentStudentCities.map(studentCity => {
           return (
             <StudentCityCard key={studentCity.id} studentCity={studentCity} />
           );
