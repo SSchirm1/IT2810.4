@@ -127,9 +127,4 @@ Our REST-API is deployed on the virtual ubuntu machine using services. We made t
 ## Git and cooperation
 We used GitLab Issues to get an overview of what we knew was left to do in the project and what was already done. We created issues continuously as we relised they were needed. Each issue was solved in a seperate branch, and then merged into master. Before we merged into master, we checked that the last commit of the branch passed the pipeline. We had meetings (usually weekly) were we discussed what issues we should prioritize to get done by the next meeting. At the meetings we also assigned issues to ourself, and each student was responsible for finishing the issues they were assigned to. We activly used the 'To Do', 'Doing' and 'Closed' boards for issues to keep track of our current progress towards a finnished progress. Towards the end of the project it became clear that one of the group members was struggeling with both understanding our own codebase and the general consepts of the learning objectives of this assignment. This resulted in a very uneven distribution of issues amoung the groupmembers, and therefor an uneven level of contribution.
 
-## References
-- [React Redux](https://react-redux.js.org/using-react-redux/static-typing)
-- [Chakra](https://chakra-ui.com/getting-started)
-- [Cypress](https://docs.cypress.io/guides/component-testing/introduction.html#Getting-Started)
-- [cogo-toast](https://github.com/Cogoport/cogo-toast)
 
