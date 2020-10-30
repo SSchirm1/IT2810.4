@@ -1,6 +1,6 @@
 # Project 3
 
-[![pipeline status](https://gitlab.stud.idi.ntnu.no/tdt4140-2020/32/badges/dev/gigante/pipeline.svg)](https://https://gitlab.stud.idi.ntnu.no/it2810-h20/team-51/project-3/-/commits/master)
+[![pipeline status](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/badges/master/pipeline.svg)](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/commits/master)
 
 ## Description
 
