@@ -4,7 +4,8 @@ import { Studentby } from "../entity/studentby.entity";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { ORDER_MAP } from "./constants";
-import * as _ from 'lodash';
+import * as _ from "lodash";
+import { calculateAverage } from "./helpers";
 
 class StudentbyController {
   public path = "/studentbyer";
@@ -30,7 +31,9 @@ class StudentbyController {
   }
 
   private getAllStudentbyer = async (req: Request, res: Response) => {
-    const querystring = req.query.querystring ? String(req.query.querystring) : "";
+    const querystring = req.query.querystring
+      ? String(req.query.querystring)
+      : "";
     const sort = req.query.sort ? String(req.query.sort) : "";
     const byfilter = req.query.filter ? Number(req.query.filter) : undefined;
     if (req.query.skip && req.query.take) {
@@ -41,21 +44,40 @@ class StudentbyController {
       };
       let finalOptions: FindManyOptions<Studentby>;
       if (byfilter) {
-        finalOptions = {...options, where: { navn: Raw(alias => `${alias} ILIKE '%${querystring}%'`), by: byfilter }};
+        finalOptions = {
+          ...options,
+          where: {
+            navn: Raw((alias) => `${alias} ILIKE '%${querystring}%'`),
+            by: byfilter,
+          },
+        };
       } else {
-        finalOptions = {...options, where: { navn: Raw(alias => `${alias} ILIKE '%${querystring}%'`)}};
-      };
+        finalOptions = {
+          ...options,
+          where: { navn: Raw((alias) => `${alias} ILIKE '%${querystring}%'`) },
+        };
+      }
 
       if (sort) {
-        finalOptions = {...finalOptions, order: ORDER_MAP[sort]};
-      };
-      const [studentbyer, count] = await this.studentbyRepository.findAndCount(finalOptions);
+        finalOptions = { ...finalOptions, order: ORDER_MAP[sort] };
+      }
+      const [studentbyer, count] = await this.studentbyRepository.findAndCount(
+        finalOptions
+      );
       const studentbyerWithCount = studentbyer.map((studentby) => {
         const anmeldelserCount = studentby.anmeldelser.length;
-        const studentbyWithCount = { ...studentby, anmeldelserCount };
-        const studentbyWithoutAnmeldelser = _.omit(studentbyWithCount, "anmeldelser");
+        const vurderinger = calculateAverage(studentby.anmeldelser);
+        const studentbyWithCount = {
+          ...studentby,
+          anmeldelserCount,
+          vurderinger,
+        };
+        const studentbyWithoutAnmeldelser = _.omit(
+          studentbyWithCount,
+          "anmeldelser"
+        );
         return studentbyWithoutAnmeldelser;
-      })
+      });
 
       return res.json({ studentbyer: studentbyerWithCount, count });
     }

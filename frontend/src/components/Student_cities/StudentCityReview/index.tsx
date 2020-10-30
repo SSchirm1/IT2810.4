@@ -39,19 +39,20 @@ export default function StudentCityCard({
   const actions = useActions({ fetchStudentCities });
   const handleSend = () => {
     console.log(priceRating);
-    axios.post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
-      vurderingLokasjon: locationRating,
-      vurderingFellesAreal: commonAreaRating,
-      vurderingTilstand: surroundingsRating,
-      vurderingPris: priceRating,
-      studentby: studentCity.id,
-    });
+    axios
+      .post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
+        vurderingLokasjon: locationRating,
+        vurderingFellesAreal: commonAreaRating,
+        vurderingTilstand: surroundingsRating,
+        vurderingPris: priceRating,
+        studentby: studentCity.id,
+      })
+      .then(actions.fetchStudentCities());
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
     setCommonAreaRating(0);
     setSurroundingsRating(0);
-    actions.fetchStudentCities();
     toast({
       title: "Vurdering sendt.",
       description:
