@@ -1,3 +1,6 @@
+/**
+ * A list with all numbers in range (from, to)
+ */
 export const range = (...args: number[]) =>
   args.length > 1 && args[1] < args[0]
     ? []

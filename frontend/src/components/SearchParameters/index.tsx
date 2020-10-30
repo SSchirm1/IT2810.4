@@ -6,7 +6,11 @@ import { useSelector } from "react-redux";
 import { Sort } from "../../store/actions/interfaces";
 import { setFilter, fetchCities } from "../../store/actions/actions";
 
-function Search_parameters() {
+/*
+ * Searching component. Has input-field, select button with cities and select button for sorting.
+ * Each update of one field/select leads to a fetch of student cities from the database, using the setFilter action.
+ */
+const SearchParameters = () => {
   const { colorMode } = useColorMode();
   const { cities } = useSelector((state: RootState) => {
     return {
@@ -85,5 +89,5 @@ function Search_parameters() {
       </Select>
     </Box>
   );
-}
-export default Search_parameters;
+};
+export default SearchParameters;

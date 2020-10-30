@@ -10,7 +10,10 @@ import {
 
 import { BsMoon, BsSun } from "react-icons/bs";
 
-export default function Header() {
+/*
+ * Header component, has headline and button for toggling colormode.
+ */
+const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = { light: "gray.300", dark: "gray.700" };
   const textColor = { light: "gray.800", dark: "gray.100" };
@@ -41,4 +44,5 @@ export default function Header() {
       </Box>
     </Flex>
   );
-}
+};
+export default Header;

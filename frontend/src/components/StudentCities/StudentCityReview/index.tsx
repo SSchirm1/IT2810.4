@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalBody,
   useColorMode,
-  Box,
+  Box
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
@@ -25,11 +25,12 @@ type Props = {
   setShowModal: Function;
 };
 
-export default function StudentCityCard({
-  studentCity,
-  showModal,
-  setShowModal,
-}: Props) {
+/*
+ * Modal component for giving a student city (given as a prop) a review.
+ * Uses StarReview to let user click on stars to rate different asspects of the student city.
+ * Sends review to database when 'send'-button is clicked.
+ */
+const StudentCityReview = ({ studentCity, showModal, setShowModal }: Props) => {
   const [priceRating, setPriceRating] = useState(0);
   const [locationRating, setLocationRating] = useState(0);
   const [commonAreaRating, setCommonAreaRating] = useState(0);
@@ -37,6 +38,16 @@ export default function StudentCityCard({
   const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
   const actions = useActions({ fetchStudentCities });
+
+  const setRatingsToZero = () => {
+    setPriceRating(0);
+    setLocationRating(0);
+    setCommonAreaRating(0);
+    setSurroundingsRating(0);
+  };
+  /*
+   * sends review of studentCity to database and reloads page. Gives errormessage if no contact with the server is made.
+   */
   const handleSend = () => {
     axios
       .post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
@@ -44,17 +55,15 @@ export default function StudentCityCard({
         vurderingFellesAreal: commonAreaRating,
         vurderingTilstand: surroundingsRating,
         vurderingPris: priceRating,
-        studentby: studentCity.id,
+        studentby: studentCity.id
       })
-      .then(() => {
-        actions.fetchStudentCities();
-      });
+      .then(() => actions.fetchStudentCities())
+      .then(Response =>
+        cogoToast.success("Vurderingen din er sendt inn, takk for ditt bidrag!")
+      )
+      .catch(Error => cogoToast.error("Fikk ikke kontakt med serveren."));
     setShowModal(!showModal);
-    setPriceRating(0);
-    setLocationRating(0);
-    setCommonAreaRating(0);
-    setSurroundingsRating(0);
-    cogoToast.success("Vurderingen din er sendt inn, takk for ditt bidrag!");
+    setRatingsToZero();
   };
 
   return (
@@ -106,4 +115,6 @@ export default function StudentCityCard({
       </ModalContent>
     </Modal>
   );
-}
+};
+
+export default StudentCityReview;

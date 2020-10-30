@@ -7,7 +7,10 @@ type Props = {
   value: number;
 };
 
-export default function StarRating({ setValue, value }: Props) {
+/*
+ * Component for giving star rating. Clicking on a star updates the value.
+ */
+const StarRating = ({ setValue, value }: Props) => {
   const [hover, setHover] = useState(0);
   return (
     <Flex>
@@ -34,4 +37,5 @@ export default function StarRating({ setValue, value }: Props) {
       })}
     </Flex>
   );
-}
+};
+export default StarRating;

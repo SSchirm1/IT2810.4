@@ -8,18 +8,18 @@ type Props = {
   studentCity: StudentCity;
 };
 
-export default function StudentCityCard({ studentCity }: Props) {
+/*
+ * Component for showing data for one student city given as a prop.
+ * Uses StarRating-component to show ratings
+ * Shows StudentCityReview-component on 'send anmeldelse'-button click.
+ */
+const StudentCityCard = ({ studentCity }: Props) => {
   const { colorMode } = useColorMode();
 
   const [showDetails, setShowDetails] = React.useState(false);
-  const handleToggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
+  const handleToggleDetails = () => setShowDetails(!showDetails);
   const [showModal, setShowModal] = React.useState(false);
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
-  };
+  const handleToggleModal = () => setShowModal(!showModal);
   return (
     <Box
       transition="all 200ms linear 0s"
@@ -94,4 +94,5 @@ export default function StudentCityCard({ studentCity }: Props) {
       />
     </Box>
   );
-}
+};
+export default StudentCityCard;

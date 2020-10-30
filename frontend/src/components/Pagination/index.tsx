@@ -6,20 +6,11 @@ import { useSelector } from "react-redux";
 import { OFFSET } from "../../constants";
 import { setFilter } from "../../store/actions/actions";
 import { useActions } from "../../hooks/useActions";
+import { range } from "./helpers";
 
-export const range = (...args: number[]) =>
-  args.length > 1 && args[1] < args[0]
-    ? []
-    : Array(
-        args.length > 1
-          ? Math.round((args[1] - args[0]) / (args.length > 2 ? args[2] : 1))
-          : args[0]
-      )
-        .fill(null)
-        .map((_, i) =>
-          args.length > 1 ? args[0] + (args.length > 2 ? args[2] : 1) * i : i
-        );
-
+/**
+ * Commponent for pagination. Updates filter in store onClick.
+ */
 const Pagination = () => {
   const { studentCities, filter } = useSelector((state: RootState) => {
     return {
