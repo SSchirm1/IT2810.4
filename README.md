@@ -36,7 +36,7 @@ was that we could reuse stateful logic without changing the component hierarchy.
 | StudentCityCard   | Card for showing data for one student city given as a prop. Uses StarRating to show ratings. Shows StudentCityReview-component on 'send anmeldelse'-button click.                   |
 | StarRating        | Displayes a rating number as 5 stars, where the color of the stars indicates the rating                                                                                             |
 | StudentCityReview | Modal for giving a review of a studentcity. Uses StarReview to take input from user. Posts the data to the backend on 'Send'-button click                                           |
-| Star-Rating       | Input-component where the user can select a number of stars as rating                                                                                                               |
+| StarRating       | Input-component where the user can select a number of stars as rating.                                                                                                               |
 
 ### File Structure
 
