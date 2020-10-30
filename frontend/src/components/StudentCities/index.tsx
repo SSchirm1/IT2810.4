@@ -1,7 +1,7 @@
 import { Box, useColorMode, Flex, Spinner } from "@chakra-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/reducers";
+import { RootState } from "../../store/store";
 import StudentCityCard from "./StudentCityCard";
 import Pagination from "../Pagination";
 import cogoToast from "cogo-toast";
@@ -13,7 +13,7 @@ const StudentCities = () => {
   const { colorMode } = useColorMode();
   const { studentCities } = useSelector((state: RootState) => {
     return {
-      studentCities: state.studentCities.studentCities
+      studentCities: state.studentCitiesState.studentCities
     };
   });
 

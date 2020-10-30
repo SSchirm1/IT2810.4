@@ -4,6 +4,9 @@ export default interface Filter {
   city: string;
   page: number;
 }
+export interface FilterState {
+  filter: Filter;
+}
 
 export type Sort =
   | "alphabetical"

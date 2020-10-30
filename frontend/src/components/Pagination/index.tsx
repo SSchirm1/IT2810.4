@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, IconButton, Text, Button } from "@chakra-ui/core";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { RootState } from "../../store/reducers";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { OFFSET } from "../../constants";
-import { setFilter } from "../../store/actions/actions";
+import { setFilter } from "../../store/filter/actions";
 import { useActions } from "../../hooks/useActions";
 import { range } from "./helpers";
 
@@ -14,8 +14,8 @@ import { range } from "./helpers";
 const Pagination = () => {
   const { studentCities, filter } = useSelector((state: RootState) => {
     return {
-      studentCities: state.studentCities.studentCities,
-      filter: state.filter.filter,
+      studentCities: state.studentCitiesState.studentCities,
+      filter: state.filterState.filter
     };
   });
 
@@ -50,7 +50,7 @@ const Pagination = () => {
         padding={[0, 1]}
         isRound
       />
-      {pages.map((pageNum) => (
+      {pages.map(pageNum => (
         <Button
           colorScheme="teal"
           variant={pageNum === currentPage ? "solid" : "ghost"}

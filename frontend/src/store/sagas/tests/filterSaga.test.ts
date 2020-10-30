@@ -7,7 +7,7 @@ import {
   FAILURE_STUDENT_CITIES,
   FETCH_STUDENT_CITIES,
   SUCCESS_STUDENT_CITIES,
-} from "../../actions/actiontypes";
+} from "../../studentCities/actionTypes";
 import { API, OFFSET } from "../../../constants";
 import { select } from "redux-saga-test-plan/matchers";
 

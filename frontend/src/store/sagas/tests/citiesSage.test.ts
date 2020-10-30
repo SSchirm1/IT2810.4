@@ -8,7 +8,7 @@ import {
   FETCH_CITIES,
   PENDING_CITIES,
   SUCCESS_CITIES,
-} from "../../actions/actiontypes";
+} from "../../cities/actionTypes";
 import { API } from "../../../constants";
 
 describe("tests the citiesSage", () => {

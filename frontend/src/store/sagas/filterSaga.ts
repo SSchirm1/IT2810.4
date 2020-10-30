@@ -1,14 +1,14 @@
 import { API, OFFSET } from "../../constants";
 import axios from "axios";
 import { call, put, select } from "@redux-saga/core/effects";
-import { RootState } from "../reducers";
+import { RootState } from "../store";
 import {
   pendingStudentCities,
   successStudentCities,
   failureStudentCities
-} from "../actions/actions";
+} from "../studentCities/actions";
 
-export const getFilterSelector = (state: RootState) => state.filter.filter;
+export const getFilterSelector = (state: RootState) => state.filterState.filter;
 //axios.get(API + "/byer").then(res => {
 
 export function* listenToFilterChanges() {

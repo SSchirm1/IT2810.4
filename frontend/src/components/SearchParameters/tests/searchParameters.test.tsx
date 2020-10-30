@@ -11,7 +11,7 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Store, AnyAction } from "redux";
 import { RenderResult } from "@testing-library/react";
-import { setFilter } from "../../../store/actions/actions";
+import { setFilter } from "../../../store/filter/actions";
 
 const mockStore = configureStore([]); // mock the store
 describe("My Connected React-Redux Component", () => {
@@ -21,7 +21,7 @@ describe("My Connected React-Redux Component", () => {
   beforeEach(() => {
     // Setup the mocked store with some data
     store = mockStore({
-      cities: {
+      citiesState: {
         cities: {
           phase: "SUCCESS",
           data: [
@@ -37,7 +37,7 @@ describe("My Connected React-Redux Component", () => {
           count: null,
         },
       },
-      filter: {
+      filterState: {
         filter: {
           sort: "alphabetical",
           queryString: "",
