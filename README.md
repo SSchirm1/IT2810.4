@@ -22,7 +22,15 @@ the /store/ folder.
 **State and props**
 
 In order to handle state and state-changes within our components, we used useState and useEffect. Most of the components show usage of props. In order to handle global
-state, we used Redux. 
+state, we used Redux.
+
+**Functionality**
+- Search
+- Pagination
+- Sorting / filtering
+- Usergenerated data (reviews)
+- Design
+- Database
 
 **Testing**
 
