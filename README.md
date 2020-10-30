@@ -1,5 +1,7 @@
 # Project 3
 
+[![pipeline status](https://gitlab.stud.idi.ntnu.no/tdt4140-2020/32/badges/dev/gigante/pipeline.svg)](https://https://gitlab.stud.idi.ntnu.no/it2810-h20/team-51/project-3/-/commits/master)
+
 ## Description
 The application is a website where you can view average ratings of student cities, and add your own reveiws of student cities. As a user you can filter student cities by city, search for student cities and chose ordering parameters for changing what order the student cities should be displayed in. Rating is given in stars and can be between 1 and 5. The data about student cities is not based on real-world data.
 
