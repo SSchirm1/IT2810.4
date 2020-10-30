@@ -30,9 +30,9 @@ was that we could reuse stateful logic without changing the component hierarchy.
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Container         | Container for SearchParameters and StudentCities components |
 | Header            | The header of the page, contains headline and button for toggeling color mode                                                                                                       |
-| Pagination        | Component for choosing page. Updates page ????? value in redux                                                                                           |
-| SearchParameters  | Searching component. Has input-field, select button with cities and select button for sorting. Each update of one field/select leads to updating a corresponding value in Redux ??? |
-| StudentCities     | Component for displaying all studentCities from the studentCity value in Redux ???. Uses StudentCityCard.                                                                           |
+| Pagination        | Component for choosing page. Updates the page-value of filter in filterState in redux.                                                                                         |
+| SearchParameters  | Searching component. Has input-field, select button with cities and select button for sorting. Each update of one field/select leads to updating a corresponding value in Redux. |
+| StudentCities     | Component for displaying all studentCities from the studentCitiesState in redux. Uses StudentCityCard.                                                                           |
 | StudentCityCard   | Card for showing data for one student city given as a prop. Uses StarRating to show ratings. Shows StudentCityReview-component on 'send anmeldelse'-button click.                   |
 | StarRating        | Displayes a rating number as 5 stars, where the color of the stars indicates the rating                                                                                             |
 | StudentCityReview | Modal for giving a review of a studentcity. Uses StarReview to take input from user. Posts the data to the server on 'Send'-button click                                           |
@@ -61,7 +61,7 @@ The state and actions from the store can be used easily in our components using 
 
 ## Database and REST-API
 
-We chose to use [PostgreSQL](https://www.postgresql.org/) as our database, as this is a big opensource project which has support pretty much everywhere and we have worked with it before. Postgres also had support in the ORM we wanted to use.
+We chose to use [PostgreSQL](https://www.postgresql.org/) as our database, as this is a big open source project which has support pretty much everywhere and we have worked with it before. Postgres also had support in the ORM we wanted to use.
 
 For our REST-API we chose to use an [Express](https://expressjs.com/)-server as we can use TypeScript with it and it is pretty lightweight to setup and use. For easy use with database we chose to use [TypeORM](https://typeorm.io/#/) with the Express-server. TypeORM handles all the interaction with the PostgreSQL-database and makes it easy to make migrations, create entities and make queries.
 
