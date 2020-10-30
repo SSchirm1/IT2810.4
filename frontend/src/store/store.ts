@@ -5,7 +5,7 @@ import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { all, takeLatest } from "@redux-saga/core/effects";
 import { listenToFilterChanges } from "./saga/filterSaga";
-import { listenToFetchByer } from "./saga/byerSaga";
+import { listenToFetchCities } from "./saga/citiesSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 export default createStore(
@@ -17,7 +17,7 @@ function* sagas() {
   yield all([
     takeLatest("SET_FILTER", listenToFilterChanges),
     takeLatest("FETCH_STUDENT_CITIES", listenToFilterChanges),
-    takeLatest("FETCH_CITIES", listenToFetchByer)
+    takeLatest("FETCH_CITIES", listenToFetchCities)
   ]);
 }
 

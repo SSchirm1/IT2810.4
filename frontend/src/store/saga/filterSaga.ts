@@ -8,14 +8,14 @@ import {
   failureStudentCities
 } from "../actions/actions";
 
-const getFilter = (state: RootState) => state.filter.filter;
+export const getFilterSelector = (state: RootState) => state.filter.filter;
 //axios.get(API + "/byer").then(res => {
 
 export function* listenToFilterChanges() {
   yield put(pendingStudentCities());
 
   try {
-    const filter = yield select(getFilter);
+    const filter = yield select(getFilterSelector);
     const { data } = yield call(axios.get, `${API}/studentbyer`, {
       params: {
         take: OFFSET,

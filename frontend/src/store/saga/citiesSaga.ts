@@ -7,12 +7,11 @@ import {
   failureCities
 } from "../actions/actions";
 
-export function* listenToFetchByer() {
+export function* listenToFetchCities() {
   yield put(pendingCities());
 
   try {
     const { data } = yield call(axios.get, `${API}/byer`);
-
     yield put(successCities(data));
   } catch (error) {
     yield put(failureCities());

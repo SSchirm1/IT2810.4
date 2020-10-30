@@ -12,10 +12,14 @@ export default function StudentCityCard({ studentCity }: Props) {
   const { colorMode } = useColorMode();
 
   const [showDetails, setShowDetails] = React.useState(false);
-  const handleToggleDetails = () => setShowDetails(!showDetails);
+  const handleToggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   const [showModal, setShowModal] = React.useState(false);
-  const handleToggleModal = () => setShowModal(!showModal);
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <Box
       transition="all 200ms linear 0s"

@@ -9,17 +9,15 @@ import {
   ModalFooter,
   ModalBody,
   useColorMode,
-  Tooltip,
   Box
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
 import axios from "axios";
 import { API } from "../../../constants";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useActions } from "../../../hooks/useActions";
 import { fetchStudentCities } from "../../../store/actions/actions";
+import cogoToast from "cogo-toast";
 
 type Props = {
   studentCity: StudentCity;
@@ -39,23 +37,22 @@ export default function StudentCityCard({
   const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
   const actions = useActions({ fetchStudentCities });
-
   const handleSend = () => {
-    console.log(priceRating);
-    axios.post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
-      vurderingLokasjon: locationRating,
-      vurderingFellesAreal: commonAreaRating,
-      vurderingTilstand: surroundingsRating,
-      vurderingPris: priceRating,
-      studentby: studentCity.id
-    });
+    axios
+      .post(`${API}/studentbyer/${studentCity.id}/anmeldelser`, {
+        vurderingLokasjon: locationRating,
+        vurderingFellesAreal: commonAreaRating,
+        vurderingTilstand: surroundingsRating,
+        vurderingPris: priceRating,
+        studentby: studentCity.id
+      })
+      .then(actions.fetchStudentCities());
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
     setCommonAreaRating(0);
     setSurroundingsRating(0);
-    toast("Vurderingen din er sendt inn, takk for ditt bidrag!");
-    actions.fetchStudentCities();
+    cogoToast.success("Vurderingen din er sendt inn, takk for ditt bidrag!");
   };
 
   return (
@@ -95,10 +92,10 @@ export default function StudentCityCard({
             colorScheme="teal"
             onClick={handleSend}
             disabled={
-              priceRating == 0 ||
-              locationRating == 0 ||
-              commonAreaRating == 0 ||
-              surroundingsRating == 0
+              priceRating === 0 ||
+              locationRating === 0 ||
+              commonAreaRating === 0 ||
+              surroundingsRating === 0
             }
           >
             Send
