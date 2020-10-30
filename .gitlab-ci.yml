@@ -1,6 +1,7 @@
 stages:
   - test
 
+# enable postgres for all jobs
 services:
   - postgres:latest
 variables:
@@ -10,6 +11,7 @@ variables:
   POSTGRES_HOST_AUTH_METHOD: trust
   NODE_ENV: test
 
+# tests the endpoints in /api
 api-endpoints-test:
   image: node:14.3.0
   stage: test
@@ -20,15 +22,17 @@ api-endpoints-test:
     - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
 
+# tests the frontend using cypress (end-2-end)
 frontend-e2e-test:
   image: cypress/base:14
   stage: test
-  before_script:
+  before_script: # setup the api
       - cd /builds/it2810-h20/team-72/prosjekt-3/api
       - npm install
       - npm run schema:sync
       - npm run seed:run
-      - npx pm2 start npm -- start
+      - npx pm2 start npm -- start # starts the /api in background, this is done so we can test the whole stack in isolation from production
+      # this could also have been done using docker-compose
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
     - npm ci
@@ -36,15 +40,15 @@ frontend-e2e-test:
     - npx cypress cache path
     - npx cypress cache list
     - npm run cypress:verify
-    # Run tests
-    - export CYPRESS_API_SERVER="http://localhost:8000/api"
-    - export REACT_APP_API_SERVER="http://localhost:8000/api"
-    - npm test
+    - export CYPRESS_API_SERVER="http://localhost:8000/api" # sets the api cypress should use
+    - export REACT_APP_API_SERVER="http://localhost:8000/api" # sets the api the react app should use
+    - npm test  # run tests
 
+# runs all unit-tests for frontend (tests for redux and react components)
 frontend-unit-test:
   image: cypress/base:14
   stage: test
   script:
     - cd /builds/it2810-h20/team-72/prosjekt-3/frontend
     - npm ci
-    - npm run jest
+    - npm run jest # runs all unit tests using jest

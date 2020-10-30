@@ -4,8 +4,8 @@ import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { all, takeLatest } from "@redux-saga/core/effects";
-import { listenToFilterChanges } from "./saga/filterSaga";
-import { listenToFetchCities } from "./saga/citiesSaga";
+import { listenToFilterChanges } from "./sagas/filterSaga";
+import { listenToFetchCities } from "./sagas/citiesSaga";
 import {
   FETCH_CITIES,
   FETCH_STUDENT_CITIES,
