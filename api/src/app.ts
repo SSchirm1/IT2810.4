@@ -5,15 +5,14 @@ import Controller from "./interfaces/controller";
 
 var cors = require("cors");
 
+/* The Express Application with some useful methods */
 class App {
   public app: express.Application;
 
   constructor(controllers: Controller[]) {
     this.app = express();
-    this.connectToTheDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
-    this.initializeErrorHandling();
   }
 
   public listen() {
@@ -27,19 +26,15 @@ class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(bodyParser.json());
-    this.app.use(cors());
+    this.app.use(bodyParser.json()); // Add support for JSON
+    this.app.use(cors()); // Add support for CORS
   }
-
-  private initializeErrorHandling() {}
 
   private initializeControllers(controllers: Controller[]) {
     controllers.forEach((controller) => {
-      this.app.use("/api", controller.router);
+      this.app.use("/api", controller.router); // Sets the base path as /api
     });
   }
-
-  private connectToTheDatabase() {}
 }
 
 export default App;

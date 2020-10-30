@@ -59,17 +59,22 @@ The sagas can be found in [/store/sagas](https://gitlab.stud.iie.ntnu.no/it2810-
 
 The state and actions from the store can be used easily in our components using hooks. The state can be gotten using the [useSelector()-hook](https://react-redux.js.org/next/api/hooks#useselector) from React-Redux. To use actions we created a simple hook called [useActions()](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/blob/master/frontend/src/hooks/useActions/index.ts) for easily getting the actions as functions, this was more convenient than using the [useDispatch()-hook](https://react-redux.js.org/next/api/hooks#usedispatch) from React-Redux.
 
-## Database and API
-
-### Database
+## Database and REST-API
 
 We chose to use [PostgreSQL](https://www.postgresql.org/) as our database, as this is a big opensource project which has support pretty much everywhere and we have worked with it before. Postgres also had support in the ORM we wanted to use.
 
-### API
+For our REST-API we chose to use an [Express](https://expressjs.com/)-server as we can use TypeScript with it and it is pretty lightweight to setup and use. For easy use with database we chose to use [TypeORM](https://typeorm.io/#/) with the Express-server. TypeORM handles all the interaction with the PostgreSQL-database and makes it easy to make migrations, create entities and make queries.
 
-For our REST-API we chose to use an [Express](https://expressjs.com/)-server
+The main part of the Express-server is our Controllers which can be found in [/controllers](). These contains all the routes that are available for the server. All of the entities used in the database can be found in the [/entity]()-folder, these are "By", "Studentby" and "Anmeldelse" which should be pretty self-explanatory.
 
-SKRIV NOE OM UTVIKLING/OPPSETT ETC. HER
+All of our entities can be found in the [/entity]()-folder, migrations in [/migration]()
+
+## Using the database
+
+All of our migrations can be found in [/migration]()-folder. Whenever we make changes to the entities we have to generate a new migration. This can be done by running:
+`npm run migrate:generate -- {name of migration}`. The seeders should also potentially be changed. For seeding we use [TypeORM Seeding](https://github.com/w3tecch/typeorm-seeding), we use this to fill our database with sample data. After generating new migration run `./recrea_db.sh` to drop the database, sync the new schema and then seed the database.
+
+## Querying the REST-API
 
 These query parameters are available for the url `http://it2810-72.idi.ntnu.no:3000/api/studentbyer`:
 
@@ -85,11 +90,16 @@ Example of complete url: `http://it2810-72.idi.ntnu.no:3000/api/studentbyer?take
 
 ## Testing
 
-To run all the tests in the project, run `npm test` in the frontend folder.
+We have developed unit-tests of the REST-API, unit-tests of the frontend and end-2-end tests of the application as a whole. All of these are automatically tested in [CI](#CI). These tests gives us a variety in our tests with a combination of unit-tests and e2e-tests, and gives us in general a decent coverage of our code.
 
-### End-to-end
+### CI
+
+Automatic CI is implemented using [Gitlab CI](https://docs.gitlab.com/ee/ci/), the configuration can be found in [.gitlab-ci.yml](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/blob/master/.gitlab-ci.yml). This setup starts up an Docker-image as an service that are available for all the tests. The `api-endpoints-test`-job runs the unit-tests in `/api`. The `e2e-test`-job sets up the Express-server with the Postgres-image and then runs the Cypress-tests found in `/frontend`. The `frontend-unit-test`-job runs all the unit-tests in `/frontend` using the `jest`-command.
+
+### End-to-end tests
 
 We use Cypress for end-2-end testing.
+
 The test is located in the [/cypress/integration/studentbyer/]() folder in frontend and consists of 5 tests. The tests checks that they find the components on the website needed to do the tests, gives some input, checks the API-call, checks the API response and checks what is being displayed after the API has responded.
 The tests simulates these central use cases for the website:
 
@@ -98,11 +108,21 @@ The tests simulates these central use cases for the website:
 - Filtering by city
 - Changing what to sort by
 
-## Backend (API)
+### REST-API unit-tests
+
+We use [jest](https://jestjs.io/) as a testing framework together with [supertest](https://www.npmjs.com/package/supertest)(used for testing with HTTP) to test endpoints in our REST-API.
+
+### Frontend unit-tests
+
+The unit-tests in frontend are split between testing our Redux setup in isolation and the React components in isolation.
+
+To test our Redux setup and specifically redux-saga, we are using [redux-saga-test-plan](https://github.com/jfairbank/redux-saga-test-plan) which gives us the ability to mock calls using Providers. In our case we are using static providers. These unit-tests that can be found in [/store/sagas/tests](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/store/sagas/tests) tests both of our sagas in cases where we both get responses from the axios-calls or we get errors. These tests assert that the correct actions are dispatched in both cases.
+
+We also unit-test one of our most important React components: [SearchParameters](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/components/SearchParameters). The test can be found with the component in the [/tests](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/components/SearchParameters/tests)-folder. We are using [react-testing-library](https://testing-library.com/docs/react-testing-library/intro) which provides us with a DOM for working with React components. Since this component is tightly integrated with redux we have to mock the store if we are going to test it in isolation, we do this by using [redux-mock-store](https://github.com/reduxjs/redux-mock-store). We mock the dispatches using [jest.fn()](https://jestjs.io/docs/en/mock-functions.html). These tests checks that the component can use the store correctly and that changing for example the search-input or choosing an option in a `<select>` dispatches a `SET_FILTER`-action. It also generates a snapshot with the redux-state.
 
 ## Deploying the backend
 
-WRITE SUM HERE
+Our REST-API is deployed on the virtual ubuntu machine using services. We made these easy to use by having a `Makefile`. We didn't get to setup automatic deployment so we have to ssh into the virtual machine, fetch the latest changes from Gitlab and restart the server.
 
 ## Git and cooperation
 We used GitLab Issues to get an overview of what we knew was left to do in the project and what was already done. We created issues continuously as we relised they were needed. Each issue was solved in a seperate branch, and then merged into master. Before we merged into master, we checked that the last commit of the branch passed the pipeline. We had meetings (usually weekly) were we discussed what issues we should prioritize to get done by the next meeting. At the meetings we also assigned issues to ourself, and each student was responsible for finishing the issues they were assigned to. We activly used the 'To Do', 'Doing' and 'Closed' boards for issues to keep track of our current progress towards a finnished progress. Towards the end of the project it became clear that one of the group members was struggeling with both understanding our own codebase and the general consepts of the learning objectives of this assignment. This resulted in a very uneven distribution of issues amoung the groupmembers, and therefor an uneven level of contribution.

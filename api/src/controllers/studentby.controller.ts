@@ -6,6 +6,7 @@ import { By } from "../entity/by.entity";
 import { ORDER_MAP } from "./constants";
 import * as _ from "lodash";
 
+/* Controller used for endpoints related to /studentbyer */
 class StudentbyController {
   public path = "/studentbyer";
   public router = Router();
@@ -23,12 +24,13 @@ class StudentbyController {
     this.router.get(`${this.path}/:name([A-Za-z]+)`, this.getStudentbyByName);
     this.router.get(
       `${this.path}/:id([0-9]+)/anmeldelser`,
-      this.getStudentbyReviews
+      this.getStudentbyAnmeldelser
     );
     this.router.post(`${this.path}/:id([0-9]+)/anmeldelser`, this.createReview);
     this.router.post(this.path, this.createStudentby);
   }
 
+  /* Returns all studentbyer matching the given params, this is documented in the README */
   private getAllStudentbyer = async (req: Request, res: Response) => {
     const querystring = req.query.querystring
       ? String(req.query.querystring)
@@ -38,6 +40,7 @@ class StudentbyController {
     if (req.query.skip && req.query.take) {
       console.log("Starting SQL");
 
+      // Using QueryBuilder from TypeORM to build a query to get all matching studentbyer
       let studentbyerQuery = await this.studentbyRepository
         .createQueryBuilder("studentby")
         .leftJoin("studentby.anmeldelser", "anmeldelse")
@@ -94,6 +97,7 @@ class StudentbyController {
     return res.json({ studentbyer, count });
   };
 
+  /* Get studentby matching specific id with relation to by */
   private getStudentbyById = async (req: Request, res: Response) => {
     const results = await this.studentbyRepository.findOne(req.params.id, {
       relations: ["by"],
@@ -101,6 +105,7 @@ class StudentbyController {
     res.send(results);
   };
 
+  /* Get studentby matching name with relation to by */
   private getStudentbyByName = async (req: Request, res: Response) => {
     const name: string =
       req.params.name.charAt(0).toUpperCase() + req.params.name.slice(1);
@@ -111,7 +116,8 @@ class StudentbyController {
     return res.json(studentby);
   };
 
-  private getStudentbyReviews = async (req: Request, res: Response) => {
+  /* Get all anmeldelser for a corresponding studentby */
+  private getStudentbyAnmeldelser = async (req: Request, res: Response) => {
     const studentby = await this.studentbyRepository.findOne(req.params.id, {
       relations: ["anmeldelser"],
     });
@@ -133,6 +139,7 @@ class StudentbyController {
     return res.json(studentby.anmeldelser);
   };
 
+  /* Create new anmeldelse for a studentby */
   private createReview = async (req: Request, res: Response) => {
     try {
       const studentby = await this.studentbyRepository.findOne(req.params.id);
@@ -146,6 +153,7 @@ class StudentbyController {
     }
   };
 
+  /* Create new studentby */
   private createStudentby = async (req: Request, res: Response) => {
     try {
       const studentbyRepository = this.studentbyRepository;

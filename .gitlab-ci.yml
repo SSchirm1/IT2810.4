@@ -22,8 +22,8 @@ api-endpoints-test:
     - cd /builds/it2810-h20/team-72/prosjekt-3/api
     - npm test
 
-# tests the frontend using cypress (end-2-end)
-frontend-e2e-test:
+# tests the whole application using cypress (end-2-end)
+e2e-test:
   image: cypress/base:14
   stage: test
   before_script: # setup the api
