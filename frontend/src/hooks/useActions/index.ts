@@ -3,6 +3,8 @@ import { useStore } from "react-redux";
 import { ActionCreatorsMapObject } from "redux";
 import { useMemo } from "react";
 import { BoundActions } from "./interfaces";
+
+/* Returns the actions available from the store */
 export const useActions = <M extends ActionCreatorsMapObject>(actions: M) => {
   const { dispatch, getState } = useStore<RootState>();
   const returnKeys = () =>
@@ -14,7 +16,7 @@ export const useActions = <M extends ActionCreatorsMapObject>(actions: M) => {
           return typeof action === "function"
             ? action(dispatch, getState)
             : dispatch(action);
-        }
+        },
       }),
       {}
     ) as BoundActions<M>;
