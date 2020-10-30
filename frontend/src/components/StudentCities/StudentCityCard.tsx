@@ -32,7 +32,7 @@ const StudentCityCard = ({ studentCity }: Props) => {
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           <Badge rounded="full" px="2" colorScheme="teal">
-            {studentCity.by.navn}
+            {studentCity.byNavn}
           </Badge>
         </Box>
         <Box

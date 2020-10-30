@@ -1,14 +1,22 @@
-type Order = "ASC" | "DESC" | 1 | -1;
+type Order = "ASC" | "DESC";
 
 interface Sort {
-    navn: Order | null;
-    vurderingTotal: Order | null;
+  order: Order | null;
+  field: string;
 }
 
-export const ORDER_MAP: Record<string, Sort | undefined> =  {
-    "alphabetical":  { navn: "ASC", vurderingTotal: null },
-    "inverseAlphabetical":  { navn: "DESC", vurderingTotal: null },
-    "ratingHighToLow" : { vurderingTotal: "DESC", navn: null },
-    "ratingLowToHigh" : { vurderingTotal: "ASC", navn: null },
-    "": undefined,
+export const ORDER_MAP: Record<string, Sort | undefined> = {
+  alphabetical: { order: "ASC", field: "studentby.navn" },
+  inverseAlphabetical: { order: "DESC", field: "studentby.navn" },
+  ratingHighToLow: {
+    order: "DESC",
+    field:
+      "(AVG(anmeldelse.vurderingPris) + AVG(anmeldelse.vurderingLokasjon) + AVG(anmeldelse.vurderingFellesAreal) + AVG(anmeldelse.vurderingTilstand))/4",
+  },
+  ratingLowToHigh: {
+    order: "ASC",
+    field:
+      "(AVG(anmeldelse.vurderingPris) + AVG(anmeldelse.vurderingLokasjon) + AVG(anmeldelse.vurderingFellesAreal) + AVG(anmeldelse.vurderingTilstand))/4",
+  },
+  "": undefined,
 };

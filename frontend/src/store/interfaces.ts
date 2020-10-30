@@ -10,13 +10,13 @@ export interface StudentCity {
   id: number;
   navn: string;
   utleier: string;
+  byNavn: string;
+  anmeldelserCount: number | undefined;
   vurderingTotal: string;
   vurderingPris: string;
   vurderingLokasjon: string;
   vurderingFellesAreal: string;
   vurderingTilstand: string;
-  anmeldelserCount: number | undefined;
-  by: City;
 }
 
 export interface City {

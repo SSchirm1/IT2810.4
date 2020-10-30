@@ -19,21 +19,6 @@ export class Studentby {
   @Column({ nullable: true })
   utleier: string;
 
-  @Column({ type: "decimal", nullable: true })
-  vurderingTotal: number;
-
-  @Column({ type: "decimal", nullable: true })
-  vurderingPris: number;
-
-  @Column({ type: "decimal", nullable: true })
-  vurderingLokasjon: number;
-
-  @Column({ type: "decimal", nullable: true })
-  vurderingFellesAreal: number;
-
-  @Column({ type: "decimal", nullable: true })
-  vurderingTilstand: number;
-
   @ManyToOne((type) => By, (by) => by.studentbyer)
   by: By;
 

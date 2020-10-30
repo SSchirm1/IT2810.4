@@ -141,11 +141,6 @@ describe("Endpoint tests", () => {
         .send({
           navn: "Lerkendal",
           utleier: "random",
-          vurderingTotal: 3,
-          vurderingLokasjon: 3,
-          vurderingFellesAreal: 3,
-          vurderingTilstand: 3,
-          vurderingPris: 3,
           by: 2,
         })
         .set("Accept", "application/json")
