@@ -11,14 +11,15 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Store, AnyAction } from "redux";
 import { RenderResult } from "@testing-library/react";
-import { fetchCities, setFilter } from "../../../store/actions/actions";
+import { setFilter } from "../../../store/actions/actions";
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([]); // mock the store
 describe("My Connected React-Redux Component", () => {
-  let store: Store<any, AnyAction>;
-  let component: RenderResult<typeof import("@testing-library/dom/queries")>;
+  let store: Store<any, AnyAction>; // the mocked store
+  let component: RenderResult<typeof import("@testing-library/dom/queries")>; // component we want to test
 
   beforeEach(() => {
+    // Setup the mocked store with some data
     store = mockStore({
       cities: {
         cities: {
@@ -45,7 +46,8 @@ describe("My Connected React-Redux Component", () => {
         },
       },
     });
-    store.dispatch = jest.fn();
+    store.dispatch = jest.fn(); // mock all dispatches
+    // render component with store
     component = render(
       <Provider store={store}>
         <SearchInput />
