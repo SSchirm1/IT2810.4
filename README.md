@@ -82,7 +82,7 @@ These query parameters are available for the url `http://it2810-72.idi.ntnu.no:3
 | --------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | take            | number                                                              | the number of student cities to return (Must be used with skip)                                   |
 | skip            | number                                                              | the number of student cities to skip beforte taking (used for pagination, must be used with take) |
-| sort            | alphabetical, inverseAlphabetical, ratingHighToLow, ratingLowToHigh | choses what to order the student cities by                                                        |
+| sort            | alphabetical, inverseAlphabetical, ratingHighToLow, ratingLowToHigh | chooses what to order the student cities by                                                        |
 | filter          | number (that matches the id of a city)                              | returns only student cities that are locted in the city with the given number as id               |
 | querystring     | any                                                                 | returns only student cities with a name that contains the query string                            |
 
