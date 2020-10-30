@@ -2,7 +2,7 @@ import { call, put, take } from "redux-saga/effects";
 import { expectSaga } from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
-import { RootState } from "../../reducers";
+import { RootState } from "../../store";
 import { listenToFilterChanges, getFilterSelector } from "../filterSaga";
 import { listenToFetchCities } from "../citiesSaga";
 import axios from "axios";
@@ -10,8 +10,8 @@ import {
   FAILURE_STUDENT_CITIES,
   FETCH_STUDENT_CITIES,
   PENDING_STUDENT_CITIES,
-  SUCCESS_STUDENT_CITIES,
-} from "../../actions/actiontypes";
+  SUCCESS_STUDENT_CITIES
+} from "../../studentCities/actionTypes";
 import { API, OFFSET } from "../../../constants";
 import { select } from "redux-saga-test-plan/matchers";
 
@@ -19,7 +19,7 @@ const filter = {
   queryString: "",
   sort: "alphabetical",
   page: 0,
-  city: "",
+  city: ""
 };
 
 it("fetches the studentcities", () => {
@@ -38,12 +38,12 @@ it("fetches the studentcities", () => {
           anmeldelserCount: 0,
           by: {
             id: 1,
-            navn: "Trondheim",
-          },
-        },
+            navn: "Trondheim"
+          }
+        }
       ],
-      count: 1,
-    },
+      count: 1
+    }
   };
   return expectSaga(listenToFilterChanges)
     .provide([
@@ -54,17 +54,17 @@ it("fetches the studentcities", () => {
             skip: filter.page * OFFSET,
             sort: filter.sort,
             querystring: filter.queryString,
-            filter: filter.city,
-          },
+            filter: filter.city
+          }
         }),
-        fakeStudentCities,
+        fakeStudentCities
       ],
-      [select(getFilterSelector), filter],
+      [select(getFilterSelector), filter]
     ])
     .put({
       type: SUCCESS_STUDENT_CITIES,
       studentCities: fakeStudentCities.data.studentbyer,
-      count: fakeStudentCities.data.count,
+      count: fakeStudentCities.data.count
     })
     .dispatch({ type: FETCH_STUDENT_CITIES })
     .run();
@@ -80,11 +80,11 @@ it("fetch studentcities handles errors", () => {
             skip: filter.page * OFFSET,
             sort: filter.sort,
             querystring: filter.queryString,
-            filter: filter.city,
-          },
+            filter: filter.city
+          }
         }),
-        throwError(),
-      ],
+        throwError()
+      ]
     ])
     .put({ type: FAILURE_STUDENT_CITIES })
     .dispatch({ type: FETCH_STUDENT_CITIES })

@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Badge, useColorMode, Button, Collapse } from "@chakra-ui/core";
 import StarRating from "./StarRating";
 import Review from "./StudentCityReview";
-import { StudentCity } from "../../store/interfaces";
+import { StudentCity } from "../../store/studentCities/interfaces";
 
 type Props = {
   studentCity: StudentCity;
