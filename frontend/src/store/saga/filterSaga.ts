@@ -6,7 +6,7 @@ import {
   pendingStudentCities,
   successStudentCities,
   failureStudentCities
-} from "../actions/actions";
+} from "../studentCities/actions";
 
 export const getFilterSelector = (state: RootState) => state.filter.filter;
 //axios.get(API + "/byer").then(res => {

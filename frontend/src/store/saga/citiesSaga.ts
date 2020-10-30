@@ -1,11 +1,7 @@
 import { API } from "../../constants";
 import axios from "axios";
 import { call, put } from "@redux-saga/core/effects";
-import {
-  pendingCities,
-  successCities,
-  failureCities
-} from "../actions/actions";
+import { pendingCities, successCities, failureCities } from "../cities/actions";
 
 export function* listenToFetchCities() {
   yield put(pendingCities());
