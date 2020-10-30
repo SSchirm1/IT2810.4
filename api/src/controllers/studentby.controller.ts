@@ -66,10 +66,11 @@ class StudentbyController {
         .where("studentby.navn ILIKE :query", { query: `%${querystring}%` });
 
       if (byfilter) {
-        studentbyerQuery = studentbyerQuery.where("by.id = :byfilter", {
+        studentbyerQuery = studentbyerQuery.andWhere("by.id = :byfilter", {
           byfilter,
         });
-        countQuery = countQuery.where("by.id = :byfilter", {
+
+        countQuery = countQuery.andWhere("by.id = :byfilter", {
           byfilter,
         });
       }
