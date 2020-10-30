@@ -2,28 +2,27 @@ import { call, put, take } from "redux-saga/effects";
 import { expectSaga } from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
-import { RootState } from "../../reducers";
+import { RootState } from "../../store";
 import { listenToFilterChanges } from "../filterSaga";
 import { listenToFetchCities } from "../citiesSaga";
 import axios from "axios";
 import {
   FAILURE_CITIES,
-  FAILURE_STUDENT_CITIES,
   FETCH_CITIES,
   PENDING_CITIES,
-  SUCCESS_CITIES,
-} from "../../actions/actiontypes";
+  SUCCESS_CITIES
+} from "../../cities/actionTypes";
 import { API } from "../../../constants";
 
 it("fetches the cities", () => {
   const fakeCities = {
-    data: [{ id: "0", navn: "Oslo" }],
+    data: [{ id: "0", navn: "Oslo" }]
   };
   return expectSaga(listenToFetchCities)
     .provide([[call(axios.get, `${API}/byer`), fakeCities]])
     .put({
       type: SUCCESS_CITIES,
-      cities: fakeCities.data,
+      cities: fakeCities.data
     })
     .dispatch({ type: FETCH_CITIES })
     .dispatch({ type: PENDING_CITIES })

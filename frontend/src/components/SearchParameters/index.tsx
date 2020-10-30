@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, useColorMode, Select, Input } from "@chakra-ui/core";
 import { useActions } from "../../hooks/useActions";
-import { RootState } from "../../store/reducers";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { Sort } from "../../store/filter/interfaces";
 import { setFilter } from "../../store/filter/actions";
@@ -13,14 +13,14 @@ import { fetchCities } from "../../store/cities/actions";
  */
 const SearchParameters = () => {
   const { colorMode } = useColorMode();
-  const { cities } = useSelector((state: RootState) => {
+  const { cities, filter } = useSelector((state: RootState) => {
     return {
-      cities: state.cities.cities
+      cities: state.citiesState.cities,
+      filter: state.filterState.filter
     };
   });
 
   const actions = useActions({ setFilter, fetchCities });
-  const filter = useSelector((state: RootState) => state.filter.filter);
   const [value, setValue] = React.useState("");
 
   useEffect(() => {

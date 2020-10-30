@@ -11,7 +11,8 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { Store, AnyAction } from "redux";
 import { RenderResult } from "@testing-library/react";
-import { fetchCities, setFilter } from "../../../store/actions/actions";
+import { setFilter } from "../../../store/filter/actions";
+import { fetchCities } from "../../../store/cities/actions";
 
 const mockStore = configureStore([]);
 describe("My Connected React-Redux Component", () => {
@@ -20,30 +21,30 @@ describe("My Connected React-Redux Component", () => {
 
   beforeEach(() => {
     store = mockStore({
-      cities: {
+      citiesState: {
         cities: {
           phase: "SUCCESS",
           data: [
             {
               id: 1,
-              navn: "Oslo",
+              navn: "Oslo"
             },
             {
               id: 2,
-              navn: "Trondheim",
-            },
+              navn: "Trondheim"
+            }
           ],
-          count: null,
-        },
+          count: null
+        }
       },
-      filter: {
+      filterState: {
         filter: {
           sort: "alphabetical",
           queryString: "",
           page: 0,
-          city: "",
-        },
-      },
+          city: ""
+        }
+      }
     });
     store.dispatch = jest.fn();
     component = render(
@@ -86,28 +87,28 @@ describe("My Connected React-Redux Component", () => {
 
   it("dispatches action when selecting city", async () => {
     fireEvent.change(screen.getByTestId("select-cities"), {
-      target: { value: "1" },
+      target: { value: "1" }
     });
     expect(store.dispatch).toHaveBeenCalledWith(
       setFilter({
         sort: "alphabetical",
         queryString: "",
         page: 0,
-        city: "1",
+        city: "1"
       })
     );
   });
 
   it("dispatches action when selecting sort", async () => {
     fireEvent.change(screen.getByTestId("select-sort"), {
-      target: { value: "inverseAlphabetical" },
+      target: { value: "inverseAlphabetical" }
     });
     expect(store.dispatch).toHaveBeenCalledWith(
       setFilter({
         sort: "inverseAlphabetical",
         queryString: "",
         page: 0,
-        city: "",
+        city: ""
       })
     );
   });

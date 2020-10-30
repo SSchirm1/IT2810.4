@@ -14,9 +14,9 @@ import { studentCitiesReducer } from "./studentCities/reducers";
 import { filterReducer } from "./filter/reducers";
 
 const rootReducer = combineReducers({
-  cities: citiesReducer,
-  studentCities: studentCitiesReducer,
-  filter: filterReducer
+  citiesState: citiesReducer,
+  studentCitiesState: studentCitiesReducer,
+  filterState: filterReducer
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
