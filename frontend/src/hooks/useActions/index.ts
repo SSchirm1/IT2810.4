@@ -1,4 +1,4 @@
-import { RootState } from "../store/reducers";
+import { RootState } from "../../store/reducers";
 import { useStore } from "react-redux";
 import { ActionCreatorsMapObject } from "redux";
 import { useMemo } from "react";
@@ -14,7 +14,7 @@ export const useActions = <M extends ActionCreatorsMapObject>(actions: M) => {
           return typeof action === "function"
             ? action(dispatch, getState)
             : dispatch(action);
-        }
+        },
       }),
       {}
     ) as BoundActions<M>;

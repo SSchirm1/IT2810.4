@@ -15,7 +15,7 @@ const Pagination = () => {
   const { studentCities, filter } = useSelector((state: RootState) => {
     return {
       studentCities: state.studentCities.studentCities,
-      filter: state.filter.filter
+      filter: state.filter.filter,
     };
   });
 
@@ -50,7 +50,7 @@ const Pagination = () => {
         padding={[0, 1]}
         isRound
       />
-      {pages.map(pageNum => (
+      {pages.map((pageNum) => (
         <Button
           colorScheme="teal"
           variant={pageNum === currentPage ? "solid" : "ghost"}

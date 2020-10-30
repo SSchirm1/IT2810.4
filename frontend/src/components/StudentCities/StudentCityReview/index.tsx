@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalBody,
   useColorMode,
-  Box
+  Box,
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
@@ -55,13 +55,13 @@ const StudentCityReview = ({ studentCity, showModal, setShowModal }: Props) => {
         vurderingFellesAreal: commonAreaRating,
         vurderingTilstand: surroundingsRating,
         vurderingPris: priceRating,
-        studentby: studentCity.id
+        studentby: studentCity.id,
       })
       .then(() => actions.fetchStudentCities())
-      .then(Response =>
+      .then((Response) =>
         cogoToast.success("Vurderingen din er sendt inn, takk for ditt bidrag!")
       )
-      .catch(Error => cogoToast.error("Fikk ikke kontakt med serveren."));
+      .catch((Error) => cogoToast.error("Fikk ikke kontakt med serveren."));
     setShowModal(!showModal);
     setRatingsToZero();
   };
