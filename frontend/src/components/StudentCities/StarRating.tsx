@@ -6,8 +6,10 @@ type Props = {
   name: string;
   rating: string;
 };
-
-export default function StarRating({ name, rating }: Props) {
+/*
+ * Component with starRating, returns name and rating as as stars that are filled/unfilled based on rating number
+ */
+const StarRating = ({ name, rating }: Props) => {
   const ratingNumber = Math.round(+rating * 100) / 100;
   const { colorMode } = useColorMode();
   const textColor = { light: "black", dark: "gray.100" };
@@ -42,4 +44,5 @@ export default function StarRating({ name, rating }: Props) {
       </GridItem>
     </Grid>
   );
-}
+};
+export default StarRating;

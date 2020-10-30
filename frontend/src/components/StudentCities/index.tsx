@@ -4,8 +4,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
 import StudentCityCard from "./StudentCityCard";
 import Pagination from "../Pagination";
+import cogoToast from "cogo-toast";
 
-export default function Student_cities() {
+/*
+ * Component with studentCityCards and Pagination.
+ */
+const StudentCities = () => {
   const { colorMode } = useColorMode();
   const { studentCities } = useSelector((state: RootState) => {
     return {
@@ -43,6 +47,7 @@ export default function Student_cities() {
       );
 
     case "FAILURE":
+      cogoToast.error("Fikk ikke kontakt med serveren.");
       return (
         <Flex justify="center">
           <Box color={colorMode === "light" ? "gray.700" : "gray.100"}>
@@ -81,4 +86,5 @@ export default function Student_cities() {
         </Box>
       );
   }
-}
+};
+export default StudentCities;
