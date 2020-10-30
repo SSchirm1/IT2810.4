@@ -14,7 +14,7 @@ const SearchParameters = () => {
   const { colorMode } = useColorMode();
   const { cities } = useSelector((state: RootState) => {
     return {
-      cities: state.cities.cities
+      cities: state.cities.cities,
     };
   });
 
@@ -38,7 +38,7 @@ const SearchParameters = () => {
     actions.setFilter({
       ...filter,
       queryString: value,
-      page: 0
+      page: 0,
     });
     setValue(value);
   };
@@ -65,12 +65,13 @@ const SearchParameters = () => {
         bg={colorMode === "light" ? "white" : "gray.700"}
       />
       <Select
-        onChange={event => updateCity(event.currentTarget.value)}
+        onChange={(event) => updateCity(event.currentTarget.value)}
         marginBottom="5px"
         bg={colorMode === "light" ? "white" : "gray.700"}
+        data-testid="select-cities"
       >
         <option value="">Alle byer</option>
-        {currentCities.map(city => {
+        {currentCities.map((city) => {
           return (
             <option key={city.id} value={city.id}>
               {city.navn}
@@ -79,8 +80,9 @@ const SearchParameters = () => {
         })}
       </Select>
       <Select
-        onChange={event => updateSort(event.currentTarget.value as Sort)}
+        onChange={(event) => updateSort(event.currentTarget.value as Sort)}
         bg={colorMode === "light" ? "white" : "gray.700"}
+        data-testid="select-sort"
       >
         <option value="alphabetical">{"Alfabetisk A -> Å"}</option>
         <option value="inverseAlphabetical">{"Alfabetisk Å -> A"}</option>
