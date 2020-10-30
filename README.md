@@ -11,15 +11,15 @@ The application is a website where you can view avrage ratings of student cities
 
 ## Documentation
 
-**Components**
+## Components
 
 The components were mainly implemented as functional components. In comparison with class components, they have a shorter and simpler syntax, which makes the code more readable, 
 easier to understand and easier to test. By using hooks, the functional components achieves the same functionality as class components. An advantage with using hooks
 was that we could reuse stateful logic without changing the component hierarchy. 
 
-**API**
+## API
 
-**File Structure**
+## File Structure
     
 The components are located within the /src/ folder, where all of the UI components are stored
 in the /components/ subfolder. Within the /components/ folder, there are separate folders for different components, and each of these folders has an index.tsx file which stores
@@ -29,12 +29,12 @@ are subcomponents of the component in the index.tsx file.
 The self-made hooks are stored in the /hooks/ folder, and the shared state management files (store.ts, reducers.ts, actions.ts etc.) are stored within
 the /store/ folder. 
 
-**State and props**
+## State and props
 
 In order to handle state and state-changes within our components, we used useState and useEffect. Most of the components show usage of props. In order to handle global
 state, we used Redux.
 
-**Functionality**
+## Functionality
 - Search
 - Pagination
 - Sorting / filtering
@@ -42,7 +42,8 @@ state, we used Redux.
 - Design
 - Database
 
-**Testing**
+## Testing
 
 
-**References**
+
+## References
