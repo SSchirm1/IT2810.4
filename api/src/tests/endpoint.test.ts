@@ -15,6 +15,7 @@ import ReviewController from "../controllers/anmeldelse.controller";
 import { Studentby } from "../entity/studentby.entity";
 import { Anmeldelse } from "../entity/anmeldelse.entity";
 
+/* Tests a lot of the endpoints using supertest */
 describe("Endpoint tests", () => {
   let byController: ByController;
   let studentbyController: StudentbyController;

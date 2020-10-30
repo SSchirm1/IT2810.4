@@ -3,20 +3,19 @@ import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { Studentby } from "../entity/studentby.entity";
 
+/* This is a seeder, which generates semi-random data and populates the DB with it */
 export default class CreateByerWithAnmeldelser implements Seeder {
   public async run(factory: Factory): Promise<void> {
     const oslo = await factory(By)().create({ navn: "Oslo" });
     const trondheim = await factory(By)().create({ navn: "Trondheim" });
 
     for (const by of [oslo, trondheim]) {
-
       const studentbyer = await factory(Studentby)()
-      .map(async (studentby) => {
-        studentby.by = by;
-        return studentby;
-      })
-      .createMany(5);
-
+        .map(async (studentby) => {
+          studentby.by = by;
+          return studentby;
+        })
+        .createMany(5);
 
       for (const studentby of studentbyer) {
         await factory(Anmeldelse)()
@@ -27,6 +26,5 @@ export default class CreateByerWithAnmeldelser implements Seeder {
           .createMany(5);
       }
     }
-
   }
 }
