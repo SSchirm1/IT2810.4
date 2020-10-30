@@ -46,21 +46,24 @@ export default function StudentCityCard({ studentCity }: Props) {
           </Box>
           <StarRating
             name={"Total vurdering: "}
-            rating={studentCity.vurderingTotal}
+            rating={studentCity.vurdering.vurderingTotal}
           />
           <Collapse in={showDetails}>
             <StarRating
               name={"Fellesareal: "}
-              rating={studentCity.vurderingFellesAreal}
+              rating={studentCity.vurdering.vurderingFellesAreal}
             />
             <StarRating
               name={"Lokasjon: "}
-              rating={studentCity.vurderingLokasjon}
+              rating={studentCity.vurdering.vurderingLokasjon}
             />
-            <StarRating name={"Pris: "} rating={studentCity.vurderingPris} />
+            <StarRating
+              name={"Pris: "}
+              rating={studentCity.vurdering.vurderingPris}
+            />
             <StarRating
               name={"Tilstand: "}
-              rating={studentCity.vurderingTilstand}
+              rating={studentCity.vurdering.vurderingTilstand}
             />
             <Box as="span" color="gray.500" fontSize="sm">
               {`Vurderingene viser gjenomsnitt av ${studentCity.anmeldelserCount} anmeldelser`}

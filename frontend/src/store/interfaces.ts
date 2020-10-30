@@ -6,15 +6,19 @@ type RemoteDataT<D, E> =
   | { phase: "SUCCESS"; data: D; count: number | null }
   | { phase: "FAILURE"; error: E | null };
 
-export interface StudentCity {
-  id: number;
-  navn: string;
-  utleier: string;
+export interface Rating {
   vurderingTotal: string;
   vurderingPris: string;
   vurderingLokasjon: string;
   vurderingFellesAreal: string;
   vurderingTilstand: string;
+}
+
+export interface StudentCity {
+  id: number;
+  navn: string;
+  utleier: string;
+  vurdering: Rating;
   anmeldelserCount: number | undefined;
   by: City;
 }
