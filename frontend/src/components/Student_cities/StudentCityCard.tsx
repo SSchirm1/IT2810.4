@@ -29,7 +29,7 @@ export default function StudentCityCard({ studentCity }: Props) {
         <Box p="6">
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" colorScheme="teal">
-              {studentCity.by.navn}
+              {studentCity.byNavn}
             </Badge>
           </Box>
           <Box
@@ -46,24 +46,21 @@ export default function StudentCityCard({ studentCity }: Props) {
           </Box>
           <StarRating
             name={"Total vurdering: "}
-            rating={studentCity.vurdering.vurderingTotal}
+            rating={studentCity.vurderingTotal}
           />
           <Collapse in={showDetails}>
             <StarRating
               name={"Fellesareal: "}
-              rating={studentCity.vurdering.vurderingFellesAreal}
+              rating={studentCity.vurderingFellesAreal}
             />
             <StarRating
               name={"Lokasjon: "}
-              rating={studentCity.vurdering.vurderingLokasjon}
+              rating={studentCity.vurderingLokasjon}
             />
-            <StarRating
-              name={"Pris: "}
-              rating={studentCity.vurdering.vurderingPris}
-            />
+            <StarRating name={"Pris: "} rating={studentCity.vurderingPris} />
             <StarRating
               name={"Tilstand: "}
-              rating={studentCity.vurdering.vurderingTilstand}
+              rating={studentCity.vurderingTilstand}
             />
             <Box as="span" color="gray.500" fontSize="sm">
               {`Vurderingene viser gjenomsnitt av ${studentCity.anmeldelserCount} anmeldelser`}

@@ -37,49 +37,58 @@ class StudentbyController {
     const sort = req.query.sort ? String(req.query.sort) : "";
     const byfilter = req.query.filter ? Number(req.query.filter) : undefined;
     if (req.query.skip && req.query.take) {
-      const options: FindManyOptions<Studentby> = {
-        relations: ["by", "anmeldelser"],
-        take: Number(req.query.take),
-        skip: Number(req.query.skip),
-      };
-      let finalOptions: FindManyOptions<Studentby>;
+      console.log("Starting SQL");
+
+      let studentbyerQuery = await this.studentbyRepository
+        .createQueryBuilder("studentby")
+        .leftJoin("studentby.anmeldelser", "anmeldelse")
+        .select("studentby.id", "id")
+        .addSelect("studentby.navn", "navn")
+        .addSelect("studentby.utleier", "utleier")
+        .addSelect("AVG(anmeldelse.vurderingPris)", "vurderingPris")
+        .addSelect("AVG(anmeldelse.vurderingLokasjon)", "vurderingLokasjon")
+        .addSelect(
+          "AVG(anmeldelse.vurderingFellesAreal)",
+          "vurderingFellesAreal"
+        )
+        .addSelect("AVG(anmeldelse.vurderingTilstand)", "vurderingTilstand")
+        .addSelect(
+          "(AVG(anmeldelse.vurderingPris) + AVG(anmeldelse.vurderingLokasjon) + AVG(anmeldelse.vurderingFellesAreal) + AVG(anmeldelse.vurderingTilstand))/4",
+          "vurderingTotal"
+        )
+        .addSelect("COUNT(anmeldelse)", "anmeldelserCount")
+        .leftJoin("studentby.by", "by")
+        .addSelect("by.navn", "byNavn")
+        .where("studentby.navn ILIKE :query", { query: `%${querystring}%` });
+
+      let countQuery = this.studentbyRepository
+        .createQueryBuilder("studentby")
+        .leftJoin("studentby.by", "by")
+        .where("studentby.navn ILIKE :query", { query: `%${querystring}%` });
+
       if (byfilter) {
-        finalOptions = {
-          ...options,
-          where: {
-            navn: Raw((alias) => `${alias} ILIKE '%${querystring}%'`),
-            by: byfilter,
-          },
-        };
-      } else {
-        finalOptions = {
-          ...options,
-          where: { navn: Raw((alias) => `${alias} ILIKE '%${querystring}%'`) },
-        };
+        studentbyerQuery = studentbyerQuery.where("by.id = :byfilter", {
+          byfilter,
+        });
+        countQuery = countQuery.where("by.id = :byfilter", {
+          byfilter,
+        });
       }
 
       if (sort) {
-        finalOptions = { ...finalOptions, order: ORDER_MAP[sort] };
+        const s = ORDER_MAP[sort];
+        studentbyerQuery = studentbyerQuery.orderBy(s.field, s.order);
       }
-      const [studentbyer, count] = await this.studentbyRepository.findAndCount(
-        finalOptions
-      );
-      const studentbyerWithCount = studentbyer.map((studentby) => {
-        const anmeldelserCount = studentby.anmeldelser.length;
-        const vurderinger = calculateAverage(studentby.anmeldelser);
-        const studentbyWithCount = {
-          ...studentby,
-          anmeldelserCount,
-          vurderinger,
-        };
-        const studentbyWithoutAnmeldelser = _.omit(
-          studentbyWithCount,
-          "anmeldelser"
-        );
-        return studentbyWithoutAnmeldelser;
-      });
 
-      return res.json({ studentbyer: studentbyerWithCount, count });
+      const count = await countQuery.getCount();
+      const studentbyer = await studentbyerQuery
+        .groupBy("studentby.id")
+        .addGroupBy("by.navn")
+        .limit(Number(req.query.take))
+        .offset(Number(req.query.skip))
+        .getRawMany();
+
+      return res.json({ studentbyer, count });
     }
     const [studentbyer, count] = await this.studentbyRepository.findAndCount();
     return res.json({ studentbyer, count });

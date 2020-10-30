@@ -47,7 +47,9 @@ export default function StudentCityCard({
         vurderingPris: priceRating,
         studentby: studentCity.id,
       })
-      .then(actions.fetchStudentCities());
+      .then(() => {
+        actions.fetchStudentCities();
+      });
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
