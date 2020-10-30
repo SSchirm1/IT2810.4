@@ -11,13 +11,13 @@ was that we could reuse stateful logic without changing the component hierarchy.
 
 ## File Structure
     
-The components are located within the /src/ folder, where all of the UI components are stored
-in the /components/ subfolder. Within the /components/ folder, there are separate folders for different components, and each of these folders has an index.tsx file which stores
+The components are located within the [/src/](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src) folder, where all of the UI components are stored
+in the [/components/](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/components) subfolder. Within the /components/ folder, there are separate folders for different components, and each of these folders has an index.tsx file which stores
 a functional component whose name coincides with the folder name. Some of the component folders contain multiple components, where the ones not stored in the index.tsx files
 are subcomponents of the component in the index.tsx file.
 
-The self-made hooks are stored in the /hooks/ folder, and the shared state management files (store.ts, reducers.ts, actions.ts etc.) are stored within
-the /store/ folder. 
+The self-made hooks are stored in the [/hooks/](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/hooks) folder, and the shared state management files (store.ts, reducers.ts, actions.ts etc.) are stored within
+the [/store/](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/store) folder. 
 
 ## State and props
 
