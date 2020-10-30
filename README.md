@@ -18,7 +18,7 @@ The application is a website where you can view average ratings of student citie
 
 ### Design
 
-We used the [Chakra](https://next.chakra-ui.com/docs/getting-started) libary to easily create usable and pretty ui-components for the website. Some of the main chackra components we have used are: Box, Button, Modal, IconButton, Input, Select and StyledIcons. We also used Chakra's colorMode and toggleColorMode to enable changing between day- and nightmode on the website. The pagination component is created using multiple Buttons and IconButtons from Chakra. Chakras toast-component did not have the functionality we wanted, so we used the [cogo-toast](https://github.com/Cogoport/cogo-toast) libary to add pop-ups.
+We used the [Chakra](https://next.chakra-ui.com/docs/getting-started) libary with third part components to easily create usable and pretty ui-components for the website. Some of the main chackra components we have used are: Box, Button, Modal, IconButton, Input, Select and StyledIcons. We also used Chakra's colorMode and toggleColorMode to enable changing between day- and nightmode on the website. The pagination component is created using multiple Buttons and IconButtons from Chakra. Chakras toast-component did not have the functionality we wanted, so we used the [cogo-toast](https://github.com/Cogoport/cogo-toast) libary to add pop-ups.
 
 ### Components
 
@@ -28,14 +28,14 @@ was that we could reuse stateful logic without changing the component hierarchy.
 
 | Component name    | Description                                                                                                                                                                         |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Container         | Container fot SearchParameters and StudentCities                                                                                                                                    |
+| Container         | Container for SearchParameters and StudentCities components |
 | Header            | The header of the page, contains headline and button for toggeling color mode                                                                                                       |
-| Pagination        | Component for choosing page. Commponent for pagination. Updates page ????? value in redux                                                                                           |
+| Pagination        | Component for choosing page. Updates page ????? value in redux                                                                                           |
 | SearchParameters  | Searching component. Has input-field, select button with cities and select button for sorting. Each update of one field/select leads to updating a corresponding value in Redux ??? |
 | StudentCities     | Component for displaying all studentCities from the studentCity value in Redux ???. Uses StudentCityCard.                                                                           |
 | StudentCityCard   | Card for showing data for one student city given as a prop. Uses StarRating to show ratings. Shows StudentCityReview-component on 'send anmeldelse'-button click.                   |
 | StarRating        | Displayes a rating number as 5 stars, where the color of the stars indicates the rating                                                                                             |
-| StudentCityReview | Modal for giving a review of a studentcity. Uses StarReview to take input from user. Posts the data to the backend on 'Send'-button click                                           |
+| StudentCityReview | Modal for giving a review of a studentcity. Uses StarReview to take input from user. Posts the data to the server on 'Send'-button click                                           |
 | Star-Rating       | Input-component where the user can select a number of stars as rating                                                                                                               |
 
 ### File Structure
@@ -57,7 +57,7 @@ We are using [redux](https://redux.js.org/) for the global state in the app. Muc
 
 The sagas can be found in [/store/sagas](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/store/sagas). These are [generator functions](https://www.tutorialspoint.com/What-are-generator-functions-in-JavaScript) which listen to the latest actions. This can be seen in the generator function `sagas()` defined in [store.ts](https://gitlab.stud.iie.ntnu.no/it2810-h20/team-72/prosjekt-3/-/tree/master/frontend/src/store/store.ts). The `citiesSaga` listens to `FETCH_CITIES`-actions, then dispatches a `PENDING_CITIES`-action before it tries to fetch data, it then sends a `SUCCESS_CITIES` or `FAILURE_CITIES`-action depending on how the request resolves. `filterSaga`, works in pretty much the same way except that it listens to `FETCH_STUDENT_CITIES` or `SET_FILTER`-actions. This means that we can easily fetch studentcities again when changing the filter, this is the strength of redux-saga over for example [redux-thunk](https://github.com/reduxjs/redux-thunk).
 
-The state and actions from the store can be used easily in our components using hooks. The state can be gotten using the [useSelector()-hook](https://react-redux.js.org/next/api/hooks#useselector) from React-Redux. To use actions we created a simple hook called [useActions()](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/blob/master/frontend/src/hooks/useActions/index.ts) for easily getting the actions as functions, this was more convenient than using the [useDispatch()-hook](https://react-redux.js.org/next/api/hooks#usedispatch) from React-Redux.
+The state and actions from the store can be used easily in our components using hooks. The state can be gotten using the [useSelector()-hook](https://react-redux.js.org/next/api/hooks#useselector) from React-Redux. To use actions we created a hook called [useActions()](https://gitlab.stud.idi.ntnu.no/it2810-h20/team-72/prosjekt-3/-/blob/master/frontend/src/hooks/useActions/index.ts) for easily getting the actions as functions, this was more convenient than using the [useDispatch()-hook](https://react-redux.js.org/next/api/hooks#usedispatch) from React-Redux.
 
 ## Database and REST-API
 
