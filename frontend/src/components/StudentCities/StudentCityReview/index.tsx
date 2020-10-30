@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalBody,
   useColorMode,
-  Box
+  Box,
 } from "@chakra-ui/core";
 import StarReview from "./StarReview";
 import { StudentCity } from "../../../store/interfaces";
@@ -28,7 +28,7 @@ type Props = {
 export default function StudentCityCard({
   studentCity,
   showModal,
-  setShowModal
+  setShowModal,
 }: Props) {
   const [priceRating, setPriceRating] = useState(0);
   const [locationRating, setLocationRating] = useState(0);
@@ -44,9 +44,11 @@ export default function StudentCityCard({
         vurderingFellesAreal: commonAreaRating,
         vurderingTilstand: surroundingsRating,
         vurderingPris: priceRating,
-        studentby: studentCity.id
+        studentby: studentCity.id,
       })
-      .then(actions.fetchStudentCities());
+      .then(() => {
+        actions.fetchStudentCities();
+      });
     setShowModal(!showModal);
     setPriceRating(0);
     setLocationRating(0);
