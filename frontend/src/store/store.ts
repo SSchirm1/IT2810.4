@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { all, takeLatest } from "@redux-saga/core/effects";
@@ -16,21 +15,22 @@ import { filterReducer } from "./filter/reducers";
 const rootReducer = combineReducers({
   citiesState: citiesReducer,
   studentCitiesState: studentCitiesReducer,
-  filterState: filterReducer
+  filterState: filterReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
 const sagaMiddleware = createSagaMiddleware();
 export default createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
+/* Setup the root for all our sagas. We are using takeLatest because we only want the latest requests anyways */
 function* sagas() {
   yield all([
     takeLatest(SET_FILTER, listenToFilterChanges),
     takeLatest(FETCH_STUDENT_CITIES, listenToFilterChanges),
-    takeLatest(FETCH_CITIES, listenToFetchCities)
+    takeLatest(FETCH_CITIES, listenToFetchCities),
   ]);
 }
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { call, put } from "@redux-saga/core/effects";
 import { pendingCities, successCities, failureCities } from "../cities/actions";
 
+/* Listens to FETCH_CITIES actions, then fetches new cities */
 export function* listenToFetchCities() {
   yield put(pendingCities());
 
