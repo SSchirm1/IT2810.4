@@ -1,18 +1,11 @@
 import { API, OFFSET } from "../../constants";
 import axios from "axios";
-import {
-  all,
-  call,
-  put,
-  select,
-  takeEvery,
-  takeLatest,
-} from "@redux-saga/core/effects";
+import { call, put, select } from "@redux-saga/core/effects";
 import { RootState } from "../reducers";
 import {
   pendingStudentCities,
   successStudentCities,
-  failureStudentCities,
+  failureStudentCities
 } from "../actions/actions";
 
 export const getFilterSelector = (state: RootState) => state.filter.filter;
@@ -29,8 +22,8 @@ export function* listenToFilterChanges() {
         skip: filter.page * OFFSET,
         sort: filter.sort,
         querystring: filter.queryString,
-        filter: filter.city,
-      },
+        filter: filter.city
+      }
     });
     yield put(successStudentCities(data.studentbyer, data.count));
   } catch (error) {

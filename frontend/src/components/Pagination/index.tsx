@@ -32,17 +32,16 @@ const Pagination = () => {
   const currentPage = filter.page ?? 0;
 
   useEffect(() => {
-    const count = studentCities.phase == "SUCCESS" ? studentCities.count ?? 0 : 0;
+    const count =
+      studentCities.phase === "SUCCESS" ? studentCities.count ?? 0 : 0;
     count && setCount(count);
-  }, [count])
+  }, [studentCities.phase, count]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const actions = useActions({ setFilter });
 
   const changePage = (pageNum: number) => {
-    actions.setFilter({ ...filter, page: pageNum});
-  }
-
-
+    actions.setFilter({ ...filter, page: pageNum });
+  };
 
   const from = 0;
   const to = Math.ceil(count / OFFSET);
@@ -56,7 +55,6 @@ const Pagination = () => {
         bg="light"
         color="gray.400"
         disabled={currentPage === from ? true : false}
-        hover
         onClick={() => changePage(currentPage - 1)}
         padding={[0, 1]}
         isRound
@@ -65,7 +63,6 @@ const Pagination = () => {
         <Button
           colorScheme="teal"
           variant={pageNum === currentPage ? "solid" : "ghost"}
-          hover
           disabled={pageNum === currentPage ? true : false}
           onClick={() => changePage(pageNum)}
           padding={[0, 1]}
@@ -80,7 +77,6 @@ const Pagination = () => {
         icon={<ArrowForwardIcon />}
         aria-label="neste"
         bg="light"
-        hover
         disabled={currentPage === to - 1 ? true : false}
         color="gray.400"
         onClick={() => changePage(currentPage + 1)}
