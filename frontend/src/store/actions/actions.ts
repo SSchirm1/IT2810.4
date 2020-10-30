@@ -36,7 +36,6 @@ export function pendingCities(): CitiesAction {
   };
 }
 export function successCities(data: City[]): CitiesAction {
-  console.log("data success: ", data);
   return {
     type: SUCCESS_CITIES,
     cities: data
@@ -48,7 +47,6 @@ export function failureCities(): CitiesAction {
   };
 }
 
-
 export function fetchStudentCities(): StudentCitiesAction {
   return {
     type: FETCH_STUDENT_CITIES
@@ -59,8 +57,10 @@ export function pendingStudentCities(): StudentCitiesAction {
     type: PENDING_STUDENT_CITIES
   };
 }
-export function successStudentCities(data: StudentCity[], count: number): StudentCitiesAction {
-  console.log("data success: ", data);
+export function successStudentCities(
+  data: StudentCity[],
+  count: number
+): StudentCitiesAction {
   return {
     type: SUCCESS_STUDENT_CITIES,
     studentCities: data,

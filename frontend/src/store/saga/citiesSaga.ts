@@ -1,18 +1,10 @@
-import { API, OFFSET } from "../../constants";
+import { API } from "../../constants";
 import axios from "axios";
-import {
-  all,
-  call,
-  put,
-  select,
-  takeEvery,
-  takeLatest,
-} from "@redux-saga/core/effects";
-import { RootState } from "../reducers";
+import { call, put } from "@redux-saga/core/effects";
 import {
   pendingCities,
   successCities,
-  failureCities,
+  failureCities
 } from "../actions/actions";
 
 export function* listenToFetchCities() {

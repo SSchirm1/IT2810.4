@@ -1,4 +1,4 @@
-import { Box, useColorMode, Heading, Flex, Spinner } from "@chakra-ui/core";
+import { Box, useColorMode, Flex, Spinner } from "@chakra-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
@@ -9,12 +9,12 @@ export default function Student_cities() {
   const { colorMode } = useColorMode();
   const { studentCities } = useSelector((state: RootState) => {
     return {
-      studentCities: state.studentCities.studentCities,
+      studentCities: state.studentCities.studentCities
     };
   });
 
   const currentStudentCities =
-    studentCities.phase == "SUCCESS" ? studentCities.data ?? [] : [];
+    studentCities.phase === "SUCCESS" ? studentCities.data ?? [] : [];
 
   switch (studentCities.phase) {
     case "NOT_ASKED":
@@ -62,7 +62,7 @@ export default function Student_cities() {
           bg={colorMode === "light" ? "gray.100" : "gray.700"}
         >
           {currentStudentCities.length ? (
-            currentStudentCities.map((studentCity) => {
+            currentStudentCities.map(studentCity => {
               return (
                 <StudentCityCard
                   key={studentCity.id}
