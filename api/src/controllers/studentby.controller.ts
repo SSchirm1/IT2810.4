@@ -5,7 +5,6 @@ import { Anmeldelse } from "../entity/anmeldelse.entity";
 import { By } from "../entity/by.entity";
 import { ORDER_MAP } from "./constants";
 import * as _ from "lodash";
-import { calculateAverage } from "./helpers";
 
 class StudentbyController {
   public path = "/studentbyer";
