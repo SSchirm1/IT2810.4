@@ -1,7 +1,0 @@
-tasks:
-  - before: cd frontend
-    init: npm install && npm run build
-    command: npm run start
-
-image:
-  file: .gitpod.Dockerfile
